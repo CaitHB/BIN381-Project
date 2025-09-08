@@ -1,0 +1,2 @@
+Value_mean,Value_sd,Value_min,Value_max,DenominatorWeighted_mean,DenominatorWeighted_sd,DenominatorWeighted_min,DenominatorWeighted_max,DenominatorUnweighted_mean,DenominatorUnweighted_sd,DenominatorUnweighted_min,DenominatorUnweighted_max,CILow_mean,CILow_sd,CILow_min,CILow_max,CIHigh_mean,CIHigh_sd,CIHigh_min,CIHigh_max
+17881.520952380954,39766.960233562255,0.005,123738,92734.5,42379.030716853355,62768,122701,93630.5,32981.113800173574,63523,123738,193.66666666666666,102.6271568997862,77,270,580,312.21627119674594,223,802

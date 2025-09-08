@@ -1,0 +1,30 @@
+Column,DataType,Description
+ISO3,character,ISO3 country code
+DataId,character,Unique ID for the dataset row
+Indicator,character,Name of the health indicator
+Value,character,Numeric value of the indicator (currently character)
+Precision,character,Number of decimal places or precision
+DHS_CountryCode,character,Country code from DHS dataset
+CountryName,character,Full country name
+SurveyYear,character,Year survey was conducted
+SurveyId,character,Unique ID for the survey
+IndicatorId,character,DHS indicator code
+IndicatorOrder,numeric,Order of indicator in dataset
+IndicatorType,character,"Type of indicator (I,N,D,U,C)"
+CharacteristicId,numeric,ID for the population characteristic
+CharacteristicOrder,numeric,Order of the characteristic
+CharacteristicCategory,character,"Category of the population (e.g., Total 15-49)"
+CharacteristicLabel,character,Label describing the population characteristic
+ByVariableId,character,ID for any breakdown variable
+ByVariableLabel,character,Label for breakdown variable
+IsTotal,numeric,"1 if row represents a total, 0 otherwise"
+IsPreferred,numeric,"1 if this is the preferred row for this indicator, 0 otherwise"
+SDRID,character,DHS short code for the indicator
+RegionId,logical,Region identifier (mostly NA)
+SurveyYearLabel,numeric,Year label for survey (redundant with SurveyYear)
+SurveyType,character,"Type of survey (e.g., DHS)"
+DenominatorWeighted,numeric,Weighted denominator used to calculate indicator
+DenominatorUnweighted,numeric,Unweighted denominator used to calculate indicator
+CILow,numeric,Lower bound of the confidence interval
+CIHigh,numeric,Upper bound of the confidence interval
+LevelRank,logical,Level rank (mostly NA; optional hierarchy indicator)

@@ -1,0 +1,183 @@
+---
+title: "08_Maternal Mortality_eda"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load required packages
+library(tidyverse)
+library(skimr)
+library(ggplot2)
+library(readr)
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(summarytools)
+
+```
+
+
+```{r load-data, echo=TRUE, message=FALSE}
+#load dataset
+dataset <- read_csv("../raw_data/maternal-mortality_national_zaf.csv", show_col_types = FALSE)
+head(dataset)
+
+```
+
+#2. Data Overview
+
+##Glimpse and summary statistics
+```{r overview,echo=FALSE, message=FALSE}
+glimpse(dataset)
+
+summary(dataset)
+```
+
+#3. Data Quality 
+
+##Missing values per column
+```{r}
+missing_values <- colSums(is.na(dataset))
+missing_values
+```
+
+##Dupilcates
+```{r}
+duplicates <- sum(duplicated(dataset))
+duplicates
+```
+
+#4. Visualizations
+
+## Bar plot showing the distribution of fertility-related indicators
+```{r}
+fertility_data <- dataset %>%
+  filter(Indicator == "General fertility rate") %>%
+  mutate(Value = as.numeric(Value),
+         SurveyYear = as.factor(SurveyYear))
+
+ggplot(fertility_data, aes(x = SurveyYear, y = Value, fill = SurveyYear)) +
+  geom_bar(stat = "identity") +
+  labs(title = "General Fertility Rate Across Surveys",
+       x = "Survey Year",
+       y = "Fertility Rate (per 1000 women)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+ggsave("../outputs/visuals/fertility_rate_barplot.png", width = 6, height = 4)
+
+```
+
+## Point plot with error bars to visualize the Pregnancy-related mortality ratio along with its lower and upper bounds.
+```{r}
+prmr_data <- dataset %>%
+  filter(Indicator == "Pregnancy-related mortality ratio") %>%
+  mutate(Value = as.numeric(Value),
+         CILow = as.numeric(CILow),
+         CIHigh = as.numeric(CIHigh),
+         SurveyYear = as.factor(SurveyYear))
+
+ggplot(prmr_data, aes(x = SurveyYear, y = Value)) +
+  geom_point(size = 3, color = "red") +
+  geom_errorbar(aes(ymin = CILow, ymax = CIHigh), width = 0.2) +
+  labs(title = "Pregnancy-Related Mortality Ratio with 95% CI",
+       x = "Survey Year",
+       y = "Mortality Ratio") +
+  theme_minimal()
+ggsave("../outputs/visuals/prmr_pointplot.png", width = 6, height = 4)
+
+```
+
+#Summary Tables
+```{r}
+
+# 1. Remove first row if it's metadata/header
+dataset_clean <- dataset[-1, ]
+
+# 2. Convert relevant numeric columns to numeric
+numeric_cols <- c("Value", "DenominatorWeighted", "DenominatorUnweighted", "CILow", "CIHigh")
+
+dataset_clean <- dataset_clean %>%
+  mutate(across(all_of(numeric_cols), ~ as.numeric(.)))
+
+# 3. Create a tidy summary table
+summary_table <- dataset_clean %>%
+  summarise(across(all_of(numeric_cols),
+                   list(mean = ~mean(., na.rm = TRUE),
+                        sd   = ~sd(., na.rm = TRUE),
+                        min  = ~min(., na.rm = TRUE),
+                        max  = ~max(., na.rm = TRUE)))) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variable", "Statistic"),
+    names_sep = "_",
+    values_to = "Value"
+  ) %>%
+  arrange(Variable)
+
+write_csv(summary_table, "../outputs/summary tables/summary_dataset_tidy.csv")
+
+summary_table
+
+
+```
+
+#Data dictionary
+```{r}
+
+# Create a dictionary manually
+data_dictionary <- tibble(
+  Column = c("ISO3", "DataId", "Indicator", "Value", "Precision", "DHS_CountryCode",
+             "CountryName", "SurveyYear", "SurveyId", "IndicatorId", "IndicatorOrder",
+             "IndicatorType", "CharacteristicId", "CharacteristicOrder",
+             "CharacteristicCategory", "CharacteristicLabel", "ByVariableId",
+             "ByVariableLabel", "IsTotal", "IsPreferred", "SDRID", "RegionId",
+             "SurveyYearLabel", "SurveyType", "DenominatorWeighted", 
+             "DenominatorUnweighted", "CILow", "CIHigh", "LevelRank"),
+  DataType = c("character","character","character","character","character","character",
+               "character","character","character","character","numeric",
+               "character","numeric","numeric","character","character","character",
+               "character","numeric","numeric","character","logical","numeric",
+               "character","numeric","numeric","numeric","numeric","logical"),
+  Description = c(
+    "ISO3 country code",
+    "Unique ID for the dataset row",
+    "Name of the health indicator",
+    "Numeric value of the indicator (currently character)",
+    "Number of decimal places or precision",
+    "Country code from DHS dataset",
+    "Full country name",
+    "Year survey was conducted",
+    "Unique ID for the survey",
+    "DHS indicator code",
+    "Order of indicator in dataset",
+    "Type of indicator (I,N,D,U,C)",
+    "ID for the population characteristic",
+    "Order of the characteristic",
+    "Category of the population (e.g., Total 15-49)",
+    "Label describing the population characteristic",
+    "ID for any breakdown variable",
+    "Label for breakdown variable",
+    "1 if row represents a total, 0 otherwise",
+    "1 if this is the preferred row for this indicator, 0 otherwise",
+    "DHS short code for the indicator",
+    "Region identifier (mostly NA)",
+    "Year label for survey (redundant with SurveyYear)",
+    "Type of survey (e.g., DHS)",
+    "Weighted denominator used to calculate indicator",
+    "Unweighted denominator used to calculate indicator",
+    "Lower bound of the confidence interval",
+    "Upper bound of the confidence interval",
+    "Level rank (mostly NA; optional hierarchy indicator)"
+  )
+)
+
+kable(data_dictionary, caption = "Data Dictionary for the DHS Maternal Mortality Dataset")
+
+write_csv(data_dictionary, "../outputs/dictionary/maternal_mortality_dictionary.csv")
+
+```
