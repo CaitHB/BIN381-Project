@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 
 # Load required packages
 library(tidyverse)
@@ -20,39 +20,39 @@ library(tidyr)
 library(summarytools)
 
 ```
+# 1. Loading the dataset 
 
-
-```{r load-data, echo=TRUE, message=FALSE}
+```{r load-data, message=FALSE}
 #load dataset
 dataset <- read_csv("../raw_data/maternal-mortality_national_zaf.csv", show_col_types = FALSE)
 head(dataset)
 
 ```
 
-#2. Data Overview
+# 2. Data Overview
 
-##Glimpse and summary statistics
-```{r overview,echo=FALSE, message=FALSE}
+## Glimpse and summary statistics
+```{r overview, message=FALSE}
 glimpse(dataset)
 
 summary(dataset)
 ```
 
-#3. Data Quality 
+# 3. Data Quality 
 
-##Missing values per column
+## Missing values per column
 ```{r}
 missing_values <- colSums(is.na(dataset))
 missing_values
 ```
 
-##Dupilcates
+## Dupilcates
 ```{r}
 duplicates <- sum(duplicated(dataset))
 duplicates
 ```
 
-#4. Visualizations
+# 4. Visualizations
 
 ## Bar plot showing the distribution of fertility-related indicators
 ```{r}
@@ -92,7 +92,7 @@ ggsave("../outputs/visuals/prmr_pointplot.png", width = 6, height = 4)
 
 ```
 
-#Summary Tables
+# 5. Summary Tables
 ```{r}
 
 # 1. Remove first row if it's metadata/header
@@ -126,7 +126,7 @@ summary_table
 
 ```
 
-#Data dictionary
+# 6. Data dictionary
 ```{r}
 
 # Create a dictionary manually
