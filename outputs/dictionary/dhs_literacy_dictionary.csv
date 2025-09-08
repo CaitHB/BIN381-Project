@@ -1,0 +1,30 @@
+Column,DataType,Description
+ISO3,character,"ISO3 country code (e.g., ZAF for South Africa)"
+DataId,character,Unique metadata ID for the dataset row
+Indicator,character,"Name of the literacy indicator (e.g., Women who can read a whole sentence)"
+Value,numeric,Numeric value of the indicator (percentage or count)
+Precision,numeric,Number of decimal places / precision of the value
+DHS_CountryCode,character,"Two-letter DHS country code (e.g., ZA)"
+CountryName,character,Full country name
+SurveyYear,numeric,Year the DHS survey was conducted
+SurveyId,character,"Unique ID for the DHS survey (e.g., ZA2016DHS)"
+IndicatorId,character,"Unique indicator code from DHS (e.g., ED_LITR_W_SCH)"
+IndicatorOrder,numeric,Order of the indicator in the dataset
+IndicatorType,character,"Indicator type (I = indicator, D = denominator, U = unweighted denominator, T = total)"
+CharacteristicId,numeric,"ID for the population characteristic (e.g., age/sex group)"
+CharacteristicOrder,numeric,Order of the characteristic within the dataset
+CharacteristicCategory,character,"Category of the characteristic (e.g., Total 15-49)"
+CharacteristicLabel,character,"Label describing the population characteristic (e.g., Women 15–49)"
+ByVariableId,character,"ID for breakdown variables (if applicable, usually 0 for none)"
+ByVariableLabel,character,Label for breakdown variable (NA if not applicable)
+IsTotal,numeric,"1 if the row represents a total, 0 otherwise"
+IsPreferred,numeric,"1 if the row is the preferred record for this indicator, 0 otherwise"
+SDRID,character,Short DHS reference code for the indicator
+RegionId,character,Region identifier (NA for national surveys)
+SurveyYearLabel,numeric,Year label for the survey (redundant with SurveyYear)
+SurveyType,character,"Type of survey (e.g., DHS)"
+DenominatorWeighted,numeric,"Weighted denominator used to calculate the indicator (number of women/men surveyed, weighted)"
+DenominatorUnweighted,numeric,Unweighted denominator used (raw number of women/men surveyed)
+CILow,numeric,Lower bound of the confidence interval (if available)
+CIHigh,numeric,Upper bound of the confidence interval (if available)
+LevelRank,numeric,Level rank (optional; indicates hierarchy/order of indicators)

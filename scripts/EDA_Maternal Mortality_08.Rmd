@@ -119,7 +119,7 @@ summary_table <- dataset_clean %>%
   ) %>%
   arrange(Variable)
 
-write_csv(summary_table, "../outputs/summary tables/summary_dataset_tidy.csv")
+write_csv(summary_table, "../outputs/summary tables/summary_maternal_tidy.csv")
 
 summary_table
 
