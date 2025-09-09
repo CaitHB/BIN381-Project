@@ -1,0 +1,198 @@
+---
+title: "EDA_toilet_facilities_09"
+author: "Group K"
+date: "`r Sys.Date()`"
+output:   pdf_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+# Load required packages
+library(tidyverse)
+library(skimr)
+library(ggplot2)
+library(readr)
+library(knitr)
+library(dplyr)
+library(tidyr)
+library(summarytools)
+
+dir.create("../outputs/visuals", recursive = TRUE, showWarnings = FALSE)
+dir.create("../outputs/summary tables", recursive = TRUE, showWarnings = FALSE)
+dir.create("../outputs/dictionary", recursive = TRUE, showWarnings = FALSE)
+```
+# 1. Loading the dataset 
+
+```{r load-data, message=FALSE}
+#load dataset
+toilet_facilitiesDataset <- read_csv("...\raw_data\toilet-facilities_national_zaf.csv", show_col_types = FALSE)
+head(toilet_facilitiesDataset)
+
+```
+# 2. Data Overview
+
+## Glimpse and summary statistics
+```{r overview, message=FALSE}
+glimpse(toilet_facilitiesDataset)
+
+summary(toilet_facilitiesDataset)
+```
+
+# 3. Data Quality 
+
+## Missing values per column
+```{r}
+missing_values <- colSums(is.na(toilet_facilitiesDataset))
+print(missing_values)
+```
+
+## Dupilcates
+```{r}
+duplicates <- sum(duplicated(toilet_facilitiesDataset))
+if (duplicates > 0) {
+  message(paste("Warning: Found", duplicates, "duplicate rows in the dataset."))
+}
+```
+# 4. Visualizations
+
+```{r}
+library(ggplot2)
+
+lit_dist <- toilet_facilitiesDataset %>%
+  filter(Indicator %in% c(
+    "Women who can use the Toilet Facilities",
+    "Women who may need the Toilet Facilities",
+    "Women who will not need the Toilet Facilities",
+    "Men who  can use the Toilet Facilities",
+    "Men who may need the Toilet Facilities",
+    "Men who will not need the Toilet Facilities"
+  )) %>%
+  mutate(Value = as.numeric(Value),
+         Gender = ifelse(grepl("^Women", Indicator), "Women", "Men"),
+         Category = gsub("Women who |Men who ", "", Indicator))
+
+ggplot(lit_dist, aes(x = "", y = Value, fill = Category)) +
+  geom_col(width = 1) +
+  coord_polar("y") +
+  facet_wrap(~Gender) +
+  labs(title = "Toilet Facilities Status Distribution by Gender in South Africa (2016)") +
+  theme_void()
+ggsave("../outputs/visuals/toilet_facilitiesByGender.png", width = 6, height = 4)
+
+```
+```{r}
+# Keep only % indicators (exclude totals and counts)
+lit_data <- toilet_facilitiesDataset %>%
+  filter(IndicatorType == "I") %>%
+  mutate(Value = as.numeric(Value),
+         Gender = ifelse(grepl("^Women", Indicator), "Women", "Men"))
+
+ggplot(lit_data, aes(x = Indicator, y = Value, fill = Gender)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  labs(
+    title = "Toilet Facilities Indicators in South Africa (2016)",
+    x = "Indicator",
+    y = "Percentage"
+  ) +
+  theme_minimal()
+ggsave("../outputs/visuals/toilet_facilitiesbarPLot.png", width = 6, height = 4)
+
+
+```
+
+# 5. Summary Tables
+
+```{r}
+# 1. Remove first row if it's metadata/header
+toilet_facilities_clean <- toilet_facilitiesDataset[-1, ]  
+
+# 2. Convert relevant numeric columns to numeric
+numeric_cols <- c("Value", "DenominatorWeighted", "DenominatorUnweighted", "CILow", "CIHigh")
+
+toilet_facilities_clean <- toilet_facilities_clean %>%
+  mutate(across(all_of(numeric_cols), ~ as.numeric(as.character(.))))
+
+# 3. Create a tidy summary table
+summary_table <- toilet_facilities_clean %>%
+  summarise(across(all_of(numeric_cols),
+                   list(mean = ~mean(., na.rm = TRUE),
+                        sd   = ~sd(., na.rm = TRUE),
+                        min  = ~min(., na.rm = TRUE),
+                        max  = ~max(., na.rm = TRUE)))) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variable", "Statistic"),
+    names_sep = "_",
+    values_to = "Value"
+  ) %>%
+  arrange(Variable)
+
+# Save summary table
+write_csv(summary_table, "../outputs/summary tables/summary_toilet_facilities.csv")
+
+# Display
+kable(summary_table, caption = "Summary Statistics for Key Numeric Variables in the toilet_facilities Dataset")
+```
+
+# 6. Data dictionary
+```{r}
+# Literacy dataset dictionary
+data_dictionary <- tibble(
+  Column = c(
+    "ISO3", "DataId", "Indicator", "Value", "Precision", "DHS_CountryCode",
+    "CountryName", "SurveyYear", "SurveyId", "IndicatorId", "IndicatorOrder",
+    "IndicatorType", "CharacteristicId", "CharacteristicOrder",
+    "CharacteristicCategory", "CharacteristicLabel", "ByVariableId",
+    "ByVariableLabel", "IsTotal", "IsPreferred", "SDRID", "RegionId",
+    "SurveyYearLabel", "SurveyType", "DenominatorWeighted",
+    "DenominatorUnweighted", "CILow", "CIHigh", "LevelRank"
+  ),
+  DataType = c(
+    "character", "character", "character", "numeric", "numeric", "character",
+    "character", "numeric", "character", "character", "numeric",
+    "character", "numeric", "numeric", "character", "character", "character",
+    "character", "numeric", "numeric", "character", "character",
+    "numeric", "character", "numeric", "numeric", "numeric", "numeric", "numeric"
+  ),
+  Description = c(
+    "ISO3 country code (e.g., ZAF for South Africa)",
+    "Unique metadata ID for the dataset row",
+    "Name of the literacy indicator (e.g., Women who can read a whole sentence)",
+    "Numeric value of the indicator (percentage or count)",
+    "Number of decimal places / precision of the value",
+    "Two-letter DHS country code (e.g., ZA)",
+    "Full country name",
+    "Year the DHS survey was conducted",
+    "Unique ID for the DHS survey (e.g., ZA2016DHS)",
+    "Unique indicator code from DHS (e.g., ED_LITR_W_SCH)",
+    "Order of the indicator in the dataset",
+    "Indicator type (I = indicator, D = denominator, U = unweighted denominator, T = total)",
+    "ID for the population characteristic (e.g., age/sex group)",
+    "Order of the characteristic within the dataset",
+    "Category of the characteristic (e.g., Total 15-49)",
+    "Label describing the population characteristic (e.g., Women 15–49)",
+    "ID for breakdown variables (if applicable, usually 0 for none)",
+    "Label for breakdown variable (NA if not applicable)",
+    "1 if the row represents a total, 0 otherwise",
+    "1 if the row is the preferred record for this indicator, 0 otherwise",
+    "Short DHS reference code for the indicator",
+    "Region identifier (NA for national surveys)",
+    "Year label for the survey (redundant with SurveyYear)",
+    "Type of survey (e.g., DHS)",
+    "Weighted denominator used to calculate the indicator (number of women/men surveyed, weighted)",
+    "Unweighted denominator used (raw number of women/men surveyed)",
+    "Lower bound of the confidence interval (if available)",
+    "Upper bound of the confidence interval (if available)",
+    "Level rank (optional; indicates hierarchy/order of indicators)"
+  )
+)
+
+
+kable(data_dictionary, caption = "Data Dictionary for the DHS toilet_facilities Dataset")
+
+# Save dictionary
+write_csv(data_dictionary, "../outputs/dictionary/dhs_toilet_facilities_dictionary.csv")
+
+```
