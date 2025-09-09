@@ -4,40 +4,62 @@ author: "Group K"
 date: "`r Sys.Date()`"
 output: pdf_document
 ---
-```{r setup, echo=TRUE, warning=FALSE, message=FALSE}
+```{r setup, include=FALSE}
 library(readr)
 library(ggplot2)
 library(dplyr)
 library(here)
+library(tidyr)
+library(knitr)
+library(skimr)
+library(tidyverse)
+library(summarytools)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 
-getwd()
-list.files("data/raw_data")
 ```
 
-# Load data and show the structure 
+# 1. Loading the dataset 
 ```{r}
 cmr_df <- read_csv(here("raw_data", "child-mortality-rates_national_zaf.csv"))
 ```
-#Dislay the first and last 10 rows
+## Dislay the first 5 rows
 ```{r}
-head(cmr_df, 50)
+kable(
+  head(cmr_df[-1, c("ISO3", "DataId", "Indicator", "Value", "CountryName", "SurveyYear")], 5),
+  caption = "First 5 rows of the Access to Health Care Dataset (excluding first row)"
+)
 
-#tail(cmr_df, 10)
+```
+# 2. Data Overview
+
+## Summary statistics
+```{r}
+summary_table <- cmr_df %>%
+  summarise(across(where(is.numeric),
+                   list(mean = ~mean(., na.rm = TRUE),
+                        sd   = ~sd(., na.rm = TRUE),
+                        min  = ~min(., na.rm = TRUE),
+                        max  = ~max(., na.rm = TRUE)))) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variable", "Statistic"),
+    names_sep = "_",
+    values_to = "Value"
+  ) %>%
+  arrange(Variable)
+
+# Save and display
+write_csv(summary_table, "../outputs/summary tables/summary_childM.csv")
+kable(summary_table, caption = "Summary Statistics for Numeric Variables in the Dataset")
+
+
 ```
 
-#Dimenison of the data
-```{r}
-dim(cmr_df)
-```
-#Provide a summary of the datset
-```{r}
-summary(cmr_df)
-```
-#Convert Value to a numeric
+# 3. Data Quality 
 ```{r}
 cmr_df$Value <- as.numeric(cmr_df$Value)
 ```
-#Find duplicated values 
+## Find duplicated values 
 ```{r}
 sum(duplicated(cmr_df))
 ```
@@ -47,31 +69,13 @@ colSums(is.na(cmr_df))
 round(colMeans(is.na(cmr_df)) * 100, 2)
 ```
 
-# Check for unique values
+## Check for unique values
 ```{r}
 sapply(cmr_df, function(x) length(unique(x)))
 
 ```
-#Plots
-```{r}
-
-cmr_df$Value <- as.numeric(cmr_df$Value)
-cmr_df$SurveyYear <- as.numeric(cmr_df$SurveyYear)
-
-# Example: Bar plot of mortality indicators for a specific year
-ggplot(cmr_df[cmr_df$SurveyYear == 1998, ], aes(x = Indicator, y = Value, fill = Indicator)) +
-  geom_bar(stat = "identity") +
-  theme_minimal() +
-  labs(title = "Child Mortality Indicators(1998)",
-       x = "Indicator",
-       y = "Rate per 1000 births") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-ggsave("../outputs/visuals/cmr_bargraph.png", width = 6, height = 4)
-
-#Outliers
-boxplot(cmr_df$Value, main = "Outlier check for Values")
-
-```
+# 4. Visualizations
+## Bar plot of mortality indicators for a specific year
 
 ```{r}
 
@@ -81,13 +85,16 @@ cmr_df$SurveyYear <- as.numeric(cmr_df$SurveyYear)
 ggplot(cmr_df, aes(x = factor(SurveyYear), y = Value, fill = Indicator)) +
   geom_bar(stat = "identity", position = "dodge") +
   theme_minimal() +
-  labs(title = "Child Mortality Indicators (TS)",
+  labs(
        x = "Survey Year",
        y = "Rate per 1000 births",
        fill = "Indicator") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.title.x = element_text(margin = margin(t = 15)),  # move x-axis label up
+    axis.title.y = element_text(margin = margin(r = 15))   # move y-axis label right
+  )
 
 ggsave("../outputs/visuals/cmr_timeseriesplot.png", width = 6, height = 4)
-
 ```
 

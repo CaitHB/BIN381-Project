@@ -6,35 +6,67 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-
-# Load required packages
-library(tidyverse)
-library(skimr)
-library(ggplot2)
 library(readr)
-library(knitr)
 library(ggplot2)
 library(dplyr)
-library(tidyr)
-library(summarytools)
 library(here)
+library(tidyr)
+library(knitr)
+library(skimr)
+library(tidyverse)
+library(summarytools)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 
 ```
 # 1. Loading the dataset 
 
 ```{r load-data, message=FALSE}
-#load dataset
 dataset <- read_csv(here("raw_data", "iycf_national_zaf.csv"))
-head(dataset)
+```
+
+## Dislay the first 5 rows
+```{r}
+kable(
+  head(dataset[-1, c("ISO3", "DataId", "Indicator", "Value", "CountryName", "SurveyYear")], 5),
+  caption = "First 5 rows of the dataset"
+)
 
 ```
+
 
 # 2. Data Overview
 
 ## Summary statistics
-```{r overview, message=FALSE}
-summary(dataset)
+```{r}
+# 1. Remove first row if it's metadata/header
+datasetc <- dataset[-1, ]  
+
+# 2. Convert relevant numeric columns to numeric
+numeric_cols <- c("Value", "DenominatorWeighted", "DenominatorUnweighted", "CILow", "CIHigh")
+
+datasetc <- datasetc %>%
+  mutate(across(all_of(numeric_cols), ~ as.numeric(.)))
+
+# 3. Create a tidy summary table
+summary_table <- datasetc %>%
+  summarise(across(all_of(numeric_cols),
+                   list(mean = ~mean(., na.rm = TRUE),
+                        sd   = ~sd(., na.rm = TRUE),
+                        min  = ~min(., na.rm = TRUE),
+                        max  = ~max(., na.rm = TRUE)))) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variable", "Statistic"),
+    names_sep = "_",
+    values_to = "Value"
+  ) %>%
+  arrange(Variable)
+
+# Save summary table
+write_csv(summary_table, "../outputs/summary tables/summary_artho.csv")
+
+# Display
+kable(summary_table, caption = "Summary Statistics for Key Numeric Variables in the Dataset")
 ```
 
 # 3. Data Quality 
@@ -85,43 +117,8 @@ ggsave("IYCFbarPlot.png", width = 6, height = 4)
 
 ```
 
-# 5. Summary Tables
-```{r}
 
-# 1. Remove first row if it's metadata/header
-dataset_clean <- dataset[-1, ]
-
-# 2. Convert relevant numeric columns to numeric
-numeric_cols <- c("Value", "DenominatorWeighted", "DenominatorUnweighted", "CILow", "CIHigh")
-
-dataset_clean <- dataset_clean %>%
-  mutate(across(all_of(numeric_cols), ~ as.numeric(.)))
-
-# 3. Create a tidy summary table
-summary_table <- dataset_clean %>%
-  summarise(across(all_of(numeric_cols),
-                   list(mean = ~mean(., na.rm = TRUE),
-                        sd   = ~sd(., na.rm = TRUE),
-                        min  = ~min(., na.rm = TRUE),
-                        max  = ~max(., na.rm = TRUE)))) %>%
-  pivot_longer(
-    cols = everything(),
-    names_to = c("Variable", "Statistic"),
-    names_sep = "_",
-    values_to = "Value"
-  ) %>%
-  arrange(Variable)
-
-setwd("~/GitHub/BIN381-Project/outputs/summary tables")
-write_csv(summary_table,"summary_IYCF.csv")
-
-
-summary_table
-
-
-```
-
-# 6. Data dictionary
+# 6. Data dictionary of all Datasets
 ```{r}
 
 # Create a dictionary manually

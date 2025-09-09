@@ -4,39 +4,61 @@ author: "Group K"
 date: "`r Sys.Date()`"
 output: pdf_document
 ---
-```{r setup, echo=TRUE, warning=FALSE, message=FALSE}
+```{r setup, include=FALSE}
 library(readr)
 library(ggplot2)
 library(dplyr)
 library(here)
+library(tidyr)
+library(knitr)
+library(skimr)
+library(tidyverse)
+library(summarytools)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 
-getwd()
-list.files("data/raw_data")
 ```
-
-# Load data and show the structure 
+# 1. Loading the dataset 
 ```{r}
 cop_df <- read_csv(here("raw_data", "covid-19-prevention_national_zaf.csv"))
 ```
-#Dislay the first and last 10 rows
+## Dislay the first 5 rows
 ```{r}
-head(cop_df, 5)
+kable(
+  head(cop_df[-1, c("ISO3", "DataId", "Indicator", "Value", "CountryName", "SurveyYear")], 5),
+  caption = "First 5 rows of the Access to Health Care Dataset (excluding first row)"
+)
 
 ```
 
-#Dimenison of the data
+# 2. Data Overview
+
+## Summary statistics
 ```{r}
-dim(cop_df)
+summary_table <- cop_df %>%
+  summarise(across(where(is.numeric),
+                   list(mean = ~mean(., na.rm = TRUE),
+                        sd   = ~sd(., na.rm = TRUE),
+                        min  = ~min(., na.rm = TRUE),
+                        max  = ~max(., na.rm = TRUE)))) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variable", "Statistic"),
+    names_sep = "_",
+    values_to = "Value"
+  ) %>%
+  arrange(Variable)
+
+# Save and display
+write_csv(summary_table, "../outputs/summary tables/summary_access-to-healthcare.csv")
+kable(summary_table, caption = "Summary Statistics for Numeric Variables in the Dataset")
+
 ```
-#Provide a summary of the datset
-```{r}
-summary(cop_df)
-```
-#Convert Value to a numeric
+
 ```{r}
 cop_df$Value <- as.numeric(cop_df$Value)
 ```
-#Find duplicated values 
+# 3. Data Quality 
+## Find duplicated values 
 ```{r}
 sum(duplicated(cop_df))
 ```
@@ -51,7 +73,8 @@ round(colMeans(is.na(cop_df)) * 100, 2)
 sapply(cop_df, function(x) length(unique(x)))
 
 ```
-#Plots
+# 4. Visualizations
+
 ```{r}
 #Histogram of Values
 
