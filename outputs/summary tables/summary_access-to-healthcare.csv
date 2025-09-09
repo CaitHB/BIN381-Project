@@ -1,0 +1,13 @@
+Variable,Statistic,Value
+CIHigh,mean,NA
+CIHigh,sd,NA
+CIHigh,min,Inf
+CIHigh,max,-Inf
+CILow,mean,NA
+CILow,sd,NA
+CILow,min,Inf
+CILow,max,-Inf
+Value,mean,NA
+Value,sd,NA
+Value,min,Inf
+Value,max,-Inf
