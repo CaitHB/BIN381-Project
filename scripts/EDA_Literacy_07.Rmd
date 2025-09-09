@@ -29,10 +29,8 @@ head(literacyDataset,5)
 ```
 # 2. Data Overview
 
-## Glimpse and summary statistics
+## Summary statistics
 ```{r overview, message=FALSE}
-glimpse(literacyDataset)
-
 summary(literacyDataset)
 ```
 

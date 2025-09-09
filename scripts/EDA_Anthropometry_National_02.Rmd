@@ -4,7 +4,7 @@ author: "Group K"
 date: "`r Sys.Date()`"
 output: pdf_document
 ---
-```{r setup, echo=TRUE, warning=FALSE, message=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(readr)
 library(ggplot2)
 library(dplyr)
@@ -66,8 +66,6 @@ geom_histogram(bins = 30, fill = "skyblue", color = "black") +
 
 ggsave("../outputs/visuals/IndicatorValuesDistribution_histo.png", width = 6, height = 4)
 
-#Outliers
-boxplot(anz_df$Value, main = "Outlier check for Values")
 ```
 
 

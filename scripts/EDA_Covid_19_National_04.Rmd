@@ -20,9 +20,8 @@ cop_df <- read_csv(here("raw_data", "covid-19-prevention_national_zaf.csv"))
 ```
 #Dislay the first and last 10 rows
 ```{r}
-head(cop_df, 10)
+head(cop_df, 5)
 
-tail(cop_df, 10)
 ```
 
 #Dimenison of the data
