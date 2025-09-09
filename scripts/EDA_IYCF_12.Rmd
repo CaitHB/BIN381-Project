@@ -1,0 +1,178 @@
+---
+title: "EDA_IYCF_12"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Load required packages
+library(tidyverse)
+library(skimr)
+library(ggplot2)
+library(readr)
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(summarytools)
+library(here)
+
+```
+# 1. Loading the dataset 
+
+```{r load-data, message=FALSE}
+#load dataset
+dataset <- read_csv(here("raw_data", "iycf_national_zaf.csv"))
+head(dataset)
+
+```
+
+# 2. Data Overview
+
+## Summary statistics
+```{r overview, message=FALSE}
+summary(dataset)
+```
+
+# 3. Data Quality 
+
+## Missing values per column
+```{r}
+missing_values <- colSums(is.na(dataset))
+missing_values
+```
+
+## Dupilcates
+```{r}
+duplicates <- sum(duplicated(dataset))
+duplicates
+```
+
+# 4. Visualizations
+
+## Plot showing which columns have missing values across the 23 rows
+```{r}
+library(naniar)
+
+
+# Visualize missingness as a heatmap
+gg_miss_var(dataset) +
+  labs(title = "Missing Values by Variable",
+       x = "Variables",
+       y = "Number of Missing Values")
+setwd("~/GitHub/BIN381-Project/outputs/visuals")
+ggsave("IYCFmissingValuePlot.png", width = 6, height = 4)
+```
+
+## Bar Plot to  compare overall survey size between 1998 and 2016.
+```{r}
+dataset %>%
+  group_by(SurveyYear) %>%
+  summarise(mean_weight = mean(DenominatorWeighted, na.rm = TRUE)) %>%
+  ggplot(aes(x = factor(SurveyYear), y = mean_weight, fill = factor(SurveyYear))) +
+  geom_col(alpha = 0.8) +
+  geom_text(aes(label = round(mean_weight, 1)), vjust = -0.5) +
+  labs(title = "Average Denominator Weighted by Survey Year",
+       x = "Survey Year",
+       y = "Mean Denominator Weighted") +
+  theme_minimal() +
+  theme(legend.position = "none")
+setwd("~/GitHub/BIN381-Project/outputs/visuals")
+ggsave("IYCFbarPlot.png", width = 6, height = 4)
+
+```
+
+# 5. Summary Tables
+```{r}
+
+# 1. Remove first row if it's metadata/header
+dataset_clean <- dataset[-1, ]
+
+# 2. Convert relevant numeric columns to numeric
+numeric_cols <- c("Value", "DenominatorWeighted", "DenominatorUnweighted", "CILow", "CIHigh")
+
+dataset_clean <- dataset_clean %>%
+  mutate(across(all_of(numeric_cols), ~ as.numeric(.)))
+
+# 3. Create a tidy summary table
+summary_table <- dataset_clean %>%
+  summarise(across(all_of(numeric_cols),
+                   list(mean = ~mean(., na.rm = TRUE),
+                        sd   = ~sd(., na.rm = TRUE),
+                        min  = ~min(., na.rm = TRUE),
+                        max  = ~max(., na.rm = TRUE)))) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variable", "Statistic"),
+    names_sep = "_",
+    values_to = "Value"
+  ) %>%
+  arrange(Variable)
+
+setwd("~/GitHub/BIN381-Project/outputs/summary tables")
+write_csv(summary_table,"summary_IYCF.csv")
+
+
+summary_table
+
+
+```
+
+# 6. Data dictionary
+```{r}
+
+# Create a dictionary manually
+data_dictionary <- tibble(
+  Column = c("ISO3", "DataId", "Indicator", "Value", "Precision", "DHS_CountryCode",
+             "CountryName", "SurveyYear", "SurveyId", "IndicatorId", "IndicatorOrder",
+             "IndicatorType", "CharacteristicId", "CharacteristicOrder",
+             "CharacteristicCategory", "CharacteristicLabel", "ByVariableId",
+             "ByVariableLabel", "IsTotal", "IsPreferred", "SDRID", "RegionId",
+             "SurveyYearLabel", "SurveyType", "DenominatorWeighted", 
+             "DenominatorUnweighted", "CILow", "CIHigh", "LevelRank"),
+  DataType = c("character","character","character","character","character","character",
+               "character","character","character","character","numeric",
+               "character","numeric","numeric","character","character","character",
+               "character","numeric","numeric","character","logical","numeric",
+               "character","numeric","numeric","numeric","numeric","logical"),
+  Description = c(
+    "ISO3 country code",
+    "Unique ID for the dataset row",
+    "Name of the health indicator",
+    "Numeric value of the indicator (currently character)",
+    "Number of decimal places or precision",
+    "Country code from DHS dataset",
+    "Full country name",
+    "Year survey was conducted",
+    "Unique ID for the survey",
+    "DHS indicator code",
+    "Order of indicator in dataset",
+    "Type of indicator (I,N,D,U,C)",
+    "ID for the population characteristic",
+    "Order of the characteristic",
+    "Category of the population (e.g., Total 15-49)",
+    "Label describing the population characteristic",
+    "ID for any breakdown variable",
+    "Label for breakdown variable",
+    "1 if row represents a total, 0 otherwise",
+    "1 if this is the preferred row for this indicator, 0 otherwise",
+    "DHS short code for the indicator",
+    "Region identifier (mostly NA)",
+    "Year label for survey (redundant with SurveyYear)",
+    "Type of survey (e.g., DHS)",
+    "Weighted denominator used to calculate indicator",
+    "Unweighted denominator used to calculate indicator",
+    "Lower bound of the confidence interval",
+    "Upper bound of the confidence interval",
+    "Level rank (mostly NA; optional hierarchy indicator)"
+  )
+)
+
+kable(data_dictionary, caption = "Data Dictionary for the DHS Maternal Mortality Dataset")
+setwd("~/GitHub/BIN381-Project/outputs/dictionary")
+write_csv(data_dictionary, "IYCF_dictionary.csv")
+
+```
