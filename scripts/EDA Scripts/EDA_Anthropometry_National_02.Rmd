@@ -24,7 +24,7 @@ head(anz_df, 10)
 
 #tail(anz_df, 10)
 ```
-
+#remove the first row
 ```{r}
 
 anz_df[-1,]

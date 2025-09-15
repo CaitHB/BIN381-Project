@@ -1,0 +1,175 @@
+---
+title: "CL_Child_Mortality_Rates_02"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Loading Libraries
+```{r}
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(readr)
+library(here)
+library(ggplot2)
+library(purrr)
+
+getwd()
+list.files("data/raw_data")
+```
+#Load Dataset 
+```{r}
+cmr_df <- read_csv(here("raw_data", "child-mortality-rates_national_zaf.csv"))
+```
+
+#Disdplay Dataset content
+```{r}
+head(cmr_df)
+```
+
+#Remove the first row(meta data)
+```{r}
+cmr_df <- cmr_df[-1, ]
+```
+#dimensions 
+```{r}
+dim(cmr_df)
+```
+
+#Inspect Duplicated rows
+```{r}
+dup_check <- cmr_df %>%
+  group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
+  filter(n() > 1)
+
+dup_check
+
+```
+#Removed newer duplicated row
+```{r}
+cmr_df <- cmr_df %>% filter(DataId != "799142")
+```
+
+#Perc misisng data
+```{r}
+
+data.frame(
+  Column = names(cmr_df),
+  Missing_Percentage = paste0(round(colMeans(is.na(cmr_df)) * 100, 2), "%")
+  )
+
+```
+
+```{r}
+data.frame(
+  Column = names(cmr_df),
+  Missing_Data = paste0(colSums(is.na(cmr_df)))
+  )
+```
+
+#check data types
+```{r}
+data.frame(
+  Column = names(cmr_df),
+  paste0(sapply(cmr_df, typeof))
+)
+
+```
+#Check The structure of the dataset 
+```{r}
+str(cmr_df)
+
+```
+
+#Convert Data Types
+```{r}
+cmr_df <- cmr_df %>%
+  mutate(
+        Value = as.numeric(Value),
+    Precision = as.numeric(Precision),
+    SurveyYear = as.integer(SurveyYear),
+    IndicatorOrder = as.integer(IndicatorOrder),
+    CharacteristicId = as.integer(CharacteristicId),
+    CharacteristicOrder = as.integer(CharacteristicOrder),
+    IsTotal = as.logical(as.integer(IsTotal)),
+    IsPreferred = as.logical(as.integer(IsPreferred)),
+    SurveyYearLabel = as.integer(SurveyYearLabel),
+    DenominatorWeighted = as.numeric(DenominatorWeighted),
+    DenominatorUnweighted = as.numeric(DenominatorUnweighted),
+  )
+```
+
+# Summary table: column name, number of unique values, sample of unique values
+```{r}
+library(dplyr)
+library(purrr)
+
+n_sample <- 3
+
+summary_tbl <- cmr_df %>%
+  map_df(~ tibble(
+    n_unique = n_distinct(.),
+    sample_values = paste(head(unique(.), n_sample), collapse = ", ")
+  ), .id = "column")
+
+
+summary_tbl
+```
+
+# Summary table: column name, number of unique values, sample of unique values
+```{r}
+
+n_sample <- 3
+
+summary_tbl <- cmr_df %>%
+  map_df(~ tibble(
+    n_unique = n_distinct(.),
+    sample_values = paste(head(unique(.), n_sample), collapse = ", ")
+  ), .id = "column")
+
+summary_tbl
+
+```
+
+
+#Drop the countries only one unqiue value: reason, there is no useful information - country is also always za
+```{r}
+
+cmr_df <- cmr_df %>%
+  select(
+    -ISO3, 
+    -Precision,
+    -DHS_CountryCode, 
+    -CountryName, 
+    -SurveyId,
+    -IsTotal,
+    -RegionId, 
+    -SurveyYearLabel, 
+    -SurveyType,
+    -DenominatorWeighted,
+    -DenominatorUnweighted
+  )
+```
+
+```{r}
+str(cmr_df)
+```
+```{r}
+ggplot(cmr_df, aes(x = CILow, y = CIHigh)) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  labs(title = "Scatterplot for Outlier Detection",
+       x = "Denominator Weighted",
+       y = "Denominator Unweighted") +
+  theme_minimal()
+
+```
+
+#save cleaned data
+```{r}
+write_csv(cmr_df, here("cleaned_data", "child-mortality-rate_cleaned.csv"))
+```

@@ -1,0 +1,155 @@
+---
+title: "CL_Maternal Mortality_04"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Loading Libraries
+```{r}
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(readr)
+library(here)
+library(purrr)
+
+getwd()
+list.files("data/raw_data")
+```
+#Load Dataset 
+```{r}
+mam_df <- read_csv(here("raw_data", "maternal-mortality_national_zaf.csv"))
+```
+
+#Disdplay Dataset content
+```{r}
+head(mam_df)
+```
+
+#Remove the first row(meta data)
+```{r}
+mam_df <- mam_df[-1, ]
+```
+#dimensions 
+```{r}
+dim(mam_df)
+```
+
+#Inspect Duplicated rows
+```{r}
+dup_check <- mam_df %>%
+  group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
+  filter(n() > 1)
+
+dup_check
+
+```
+
+#perc mising values
+```{r}
+
+data.frame(
+  Column = names(mam_df),
+  Missing_Percentage = paste0(round(colMeans(is.na(mam_df)) * 100, 2), "%")
+  )
+
+```
+
+```{r}
+data.frame(
+  Column = names(mam_df),
+  Missing_Data = paste0(colSums(is.na(mam_df)))
+  )
+```
+
+#check data types
+```{r}
+data.frame(
+  Column = names(mam_df),
+  paste0(sapply(mam_df, typeof))
+)
+
+```
+#Check The structure of the dataset 
+```{r}
+str(mam_df)
+
+```
+
+#Convert Data Types
+```{r}
+mam_df <- mam_df %>%
+  mutate(
+        Value = as.numeric(Value),
+    Precision = as.numeric(Precision),
+    SurveyYear = as.integer(SurveyYear),
+    IndicatorOrder = as.integer(IndicatorOrder),
+    CharacteristicId = as.integer(CharacteristicId),
+    CharacteristicOrder = as.integer(CharacteristicOrder),
+    IsTotal = as.logical(as.integer(IsTotal)),
+    IsPreferred = as.logical(as.integer(IsPreferred)),
+    SurveyYearLabel = as.integer(SurveyYearLabel),
+    DenominatorWeighted = as.numeric(DenominatorWeighted),
+    DenominatorUnweighted = as.numeric(DenominatorUnweighted),
+  )
+```
+# Summary table: column name, number of unique values, sample of unique values
+```{r}
+
+n_sample <- 3
+
+summary_tbl <- mam_df %>%
+  map_df(~ tibble(
+    n_unique = n_distinct(.),
+    sample_values = paste(head(unique(.), n_sample), collapse = ", ")
+  ), .id = "column")
+
+summary_tbl
+```
+  
+
+#Drop the countries only one unqiue value: reason, there is no useful information - county is also always za
+```{r}
+mam_df <- mam_df %>%
+  select(
+    -ISO3, 
+    -DHS_CountryCode, 
+    -CountryName, 
+    -SurveyId,
+    -ByVariableId, 
+    -ByVariableLabel, 
+    -IsTotal,
+    -IsPreferred, 
+    -RegionId, 
+    -SurveyYearLabel, 
+    -SurveyType
+  )
+```
+
+```{r}
+ggplot(mam_df, aes(x = Value, y = Value)) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  labs(title = "Scatterplot for Outlier Detection",
+       x = "Denominator Weighted",
+       y = "Denominator Unweighted") +
+  theme_minimal()
+
+
+ggplot(mam_df, aes(y = Value)) +
+  geom_boxplot(fill = "lightblue", outlier.color = "red", outlier.shape = 16) +
+  labs(title = "Boxplot of Value",
+       y = "Denominator Weighted") +
+  theme_minimal()
+
+
+```
+
+#save cleaned data
+```{r}
+write_csv(acc_df, here("cleaned_data", "maternal-mortality_cleaned.csv"))
+```
