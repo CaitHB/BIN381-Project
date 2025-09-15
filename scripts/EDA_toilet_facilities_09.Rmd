@@ -27,55 +27,19 @@ dir.create("../outputs/dictionary", recursive = TRUE, showWarnings = FALSE)
 ```{r load-data, message=FALSE}
 #load dataset
 toilet_facilitiesDataset <- read_csv("../raw_data/toilet-facilities_national_zaf.csv", show_col_types = FALSE)
-head(toilet_facilitiesDataset,5)
+```
+## Dislay the first 5 rows
+```{r}
+kable(
+  head(toilet_facilitiesDataset[-1, c("ISO3", "DataId", "Indicator", "Value", "CountryName", "SurveyYear")], 5),
+  caption = "First 5 rows of the Dataset (excluding first row)"
+)
 
 ```
+
 # 2. Data Overview
 
-## Glimpse and summary statistics
-```{r overview, message=FALSE}
-summary(toilet_facilitiesDataset)
-```
-
-# 3. Data Quality 
-
-## Missing values per column
-```{r}
-missing_values <- colSums(is.na(toilet_facilitiesDataset))
-print(missing_values)
-```
-
-## Dupilcates
-```{r}
-duplicates <- sum(duplicated(toilet_facilitiesDataset))
-if (duplicates > 0) {
-  message(paste("Warning: Found", duplicates, "duplicate rows in the dataset."))
-}
-```
-# 4. Visualizations
-
-```{r}
-# Keep only % indicators (exclude totals and counts)
-lit_data <- toilet_facilitiesDataset %>%
-  filter(IndicatorType == "I") %>%
-  mutate(Value = as.numeric(Value),
-         Gender = ifelse(grepl("^Women", Indicator), "Women", "Men"))
-
-ggplot(lit_data, aes(x = Indicator, y = Value, fill = Gender)) +
-  geom_col(position = "dodge") +
-  coord_flip() +
-  labs(
-    title = "Toilet Facilities Indicators in South Africa (2016)",
-    x = "Indicator",
-    y = "Percentage"
-  ) +
-  theme_minimal()
-ggsave("../outputs/visuals/toilet_facilitiesbarPLot.png", width = 6, height = 4)
-
-
-```
-
-# 5. Summary Tables
+## Summary statistics
 
 ```{r}
 # 1. Remove first row if it's metadata/header
@@ -108,4 +72,43 @@ write_csv(summary_table, "../outputs/summary tables/summary_toilet_facilities.cs
 # Display
 kable(summary_table, caption = "Summary Statistics for Key Numeric Variables in the toilet_facilities Dataset")
 ```
+
+# 3. Data Quality 
+
+## Missing values per column
+```{r}
+missing_values <- colSums(is.na(toilet_facilitiesDataset))
+print(missing_values)
+```
+
+## Dupilcates
+```{r}
+duplicates <- sum(duplicated(toilet_facilitiesDataset))
+if (duplicates > 0) {
+  message(paste("Warning: Found", duplicates, "duplicate rows in the dataset."))
+}
+```
+# 4. Visualization
+## Toilet Facilities Indicators in South Africa (2016)
+```{r}
+# Keep only % indicators (exclude totals and counts)
+lit_data <- toilet_facilitiesDataset %>%
+  filter(IndicatorType == "I") %>%
+  mutate(Value = as.numeric(Value),
+         Gender = ifelse(grepl("^Women", Indicator), "Women", "Men"))
+
+ggplot(lit_data, aes(x = Indicator, y = Value, fill = Gender)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  labs(
+   
+    x = "Indicator",
+    y = "Percentage"
+  ) +
+  theme_minimal()
+ggsave("../outputs/visuals/toilet_facilitiesbarPLot.png", width = 6, height = 4)
+
+```
+
+
 

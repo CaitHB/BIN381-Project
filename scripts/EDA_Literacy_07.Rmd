@@ -24,14 +24,50 @@ library(summarytools)
 ```{r load-data, message=FALSE}
 #load dataset
 literacyDataset <- read_csv("../raw_data/literacy_national_zaf.csv", show_col_types = FALSE)
-head(literacyDataset,5)
+```
+
+## Dislay the first 5 rows
+```{r}
+kable(
+  head(literacyDataset[-1, c("ISO3", "DataId", "Indicator", "Value", "CountryName", "SurveyYear")], 5),
+  caption = "First 5 rows of the Access to Health Care Dataset (excluding first row)"
+)
 
 ```
 # 2. Data Overview
 
 ## Summary statistics
-```{r overview, message=FALSE}
-summary(literacyDataset)
+
+```{r}
+# 1. Remove first row if it's metadata/header
+literacy_clean <- literacyDataset[-1, ]  
+
+# 2. Convert relevant numeric columns to numeric
+numeric_cols <- c("Value", "DenominatorWeighted", "DenominatorUnweighted", "CILow", "CIHigh")
+
+literacy_clean <- literacy_clean %>%
+  mutate(across(all_of(numeric_cols), ~ as.numeric(.)))
+
+# 3. Create a tidy summary table
+summary_table <- literacy_clean %>%
+  summarise(across(all_of(numeric_cols),
+                   list(mean = ~mean(., na.rm = TRUE),
+                        sd   = ~sd(., na.rm = TRUE),
+                        min  = ~min(., na.rm = TRUE),
+                        max  = ~max(., na.rm = TRUE)))) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variable", "Statistic"),
+    names_sep = "_",
+    values_to = "Value"
+  ) %>%
+  arrange(Variable)
+
+# Save summary table
+write_csv(summary_table, "../outputs/summary tables/summary_literacy.csv")
+
+# Display
+kable(summary_table, caption = "Summary Statistics for Key Numeric Variables in the Literacy Dataset")
 ```
 
 # 3. Data Quality 
@@ -96,37 +132,6 @@ ggsave("../outputs/visuals/literacyEducationBarPLot.png", width = 6, height = 4)
 
 ```
 
-# 5. Summary Tables
 
-```{r}
-# 1. Remove first row if it's metadata/header
-literacy_clean <- literacyDataset[-1, ]  
 
-# 2. Convert relevant numeric columns to numeric
-numeric_cols <- c("Value", "DenominatorWeighted", "DenominatorUnweighted", "CILow", "CIHigh")
-
-literacy_clean <- literacy_clean %>%
-  mutate(across(all_of(numeric_cols), ~ as.numeric(.)))
-
-# 3. Create a tidy summary table
-summary_table <- literacy_clean %>%
-  summarise(across(all_of(numeric_cols),
-                   list(mean = ~mean(., na.rm = TRUE),
-                        sd   = ~sd(., na.rm = TRUE),
-                        min  = ~min(., na.rm = TRUE),
-                        max  = ~max(., na.rm = TRUE)))) %>%
-  pivot_longer(
-    cols = everything(),
-    names_to = c("Variable", "Statistic"),
-    names_sep = "_",
-    values_to = "Value"
-  ) %>%
-  arrange(Variable)
-
-# Save summary table
-write_csv(summary_table, "../outputs/summary tables/summary_literacy.csv")
-
-# Display
-kable(summary_table, caption = "Summary Statistics for Key Numeric Variables in the Literacy Dataset")
-```
 

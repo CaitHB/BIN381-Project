@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: pdf_document
 ---
 
-```{r setup, echo=TRUE, warning=FALSE, message=FALSE}
+```{r setup, include=FALSE}
 library(readr)
 library(ggplot2)
 library(dplyr)
@@ -15,68 +15,29 @@ library(knitr)
 library(skimr)
 library(tidyverse)
 library(summarytools)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 
-getwd()
-list.files("data/raw_data")
 ```
 
-# Load data and show the structure 
+# 1. Loading the dataset 
 ```{r}
 acc_df <- read_csv(here("raw_data", "access-to-health-care_national_zaf.csv"))
 ```
-#Dislay the first and last 10 rows
+## Dislay the first 5 rows
 ```{r}
-head(acc_df, 50)
-
-#tail(acc_df, 10)
-```
-#remove first row
-```{r}
-acc_df[-1,]
-```
-
-```{r}
-acc_df <- acc_df %>%
-  mutate(Value = as.numeric(Value))
-```
-#Dimenison of the data
-```{r}
-dim(acc_df)
-```
-#Provide a summary of the datset
-```{r}
-summary(acc_df)
-```
-#Find duplicated values 
-```{r}
-sum(duplicated(acc_df))
-```
-#Inspect columns for missing/empty data as values and pecentages respectively
-```{r}
-colSums(is.na(acc_df))
-round(colMeans(is.na(acc_df)) * 100, 2)
-```
-
-# Check for unique values
-```{r}
-sapply(acc_df, function(x) length(unique(x)))
+kable(
+  head(acc_df[-1, c("ISO3", "DataId", "Indicator", "Value", "CountryName", "SurveyYear")], 5),
+  caption = "First 5 rows of the Access to Health Care Dataset (excluding first row)"
+)
 
 ```
 
-```{r}
-acc_df <- acc_df %>%
-  filter(Indicator == "Access To Health Care ratio") %>%
-  mutate(SurveyYear = as.factor(SurveyYear))
+# 2. Data Overview
 
-```
-#Plots
-```{r}
-
-```
-#Summary Table
+## Summary statistics
 ```{r}
 summary_table <- acc_df %>%
-  summarise(across(all_of(numeric_cols),
+  summarise(across(where(is.numeric),
                    list(mean = ~mean(., na.rm = TRUE),
                         sd   = ~sd(., na.rm = TRUE),
                         min  = ~min(., na.rm = TRUE),
@@ -88,7 +49,58 @@ summary_table <- acc_df %>%
     values_to = "Value"
   ) %>%
   arrange(Variable)
+
+# Save and display
 write_csv(summary_table, "../outputs/summary tables/summary_access-to-healthcare.csv")
+kable(summary_table, caption = "Summary Statistics for Numeric Variables in the Dataset")
 
 ```
+# 3. Data Quality 
+
+## Find duplicated values 
 ```{r}
+sum(duplicated(acc_df))
+```
+## Inspect columns for missing/empty data as values and pecentages respectively
+```{r}
+colSums(is.na(acc_df))
+round(colMeans(is.na(acc_df)) * 100, 2)
+```
+
+## Check for unique values
+```{r}
+sapply(acc_df, function(x) length(unique(x)))
+
+```
+# 4. Visualizations
+## Plot: Distribution of Values by Survey Year
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Convert Value to numeric and remove NAs
+acc_df_clean <- acc_df %>%
+  mutate(Value = as.numeric(Value),
+         SurveyYear = as.factor(SurveyYear)) %>%
+  filter(!is.na(Value))
+
+# Check the first few rows to make sure there is data
+head(acc_df_clean)
+
+# Plot: Distribution of Values by Survey Year
+ggplot(acc_df_clean, aes(x = SurveyYear, y = Value)) +
+  geom_boxplot(fill = "lightblue") +
+  geom_jitter(width = 0.2, color = "darkred", alpha = 0.6) +
+  labs(
+    title = "Distribution of Values by Survey Year",
+    x = "Survey Year",
+    y = "Value"
+  ) +
+  theme_minimal()
+ggsave("../outputs/visuals/access.png", width = 6, height = 4)
+
+```
+
+
+
+
