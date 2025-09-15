@@ -1,14 +1,13 @@
 ---
-littitle: "CL_Literacy_03"
+title: "CL_Access_To_Healthcare_01"
 author: "Group K"
 date: "`r Sys.Date()`"
-output: pdf_document
+output: word_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
 #Loading Libraries
 ```{r}
 library(dplyr)
@@ -16,33 +15,32 @@ library(tidyr)
 library(stringr)
 library(readr)
 library(here)
-library(purrr)
+library(ggplot2)
 
 getwd()
 list.files("data/raw_data")
 ```
 #Load Dataset 
 ```{r}
-lit_df <- read_csv(here("raw_data", "literacy_national_zaf.csv"))
+acc_df <- read_csv(here("raw_data", "access-to-health-care_national_zaf.csv"))
 ```
 
-#Disdplay Dataset content
+#Display Dataset content
 ```{r}
-head(lit_df)
+head(acc_df)
 ```
 
 #Remove the first row(meta data)
 ```{r}
-lit_df <- lit_df[-1, ]
+acc_df <- acc_df[-1, ]
 ```
 #dimensions 
 ```{r}
-dim(lit_df)
+dim(acc_df)
 ```
-
 #Inspect Duplicated rows
 ```{r}
-dup_check <- lit_df %>%
+dup_check <- acc_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
   filter(n() > 1)
 
@@ -50,40 +48,44 @@ dup_check
 
 ```
 
-#perc na values
+```{r}
+acc_df <- acc_df %>%
+  distinct(Indicator, SurveyYear, CharacteristicId, Value, .keep_all = TRUE)
+
+```
+#Percentage Missing Values
 ```{r}
 
 data.frame(
-  Column = names(lit_df),
-  Missing_Percentage = paste0(round(colMeans(is.na(lit_df)) * 100, 2), "%")
+  Column = names(acc_df),
+  Missing_Percentage = paste0(round(colMeans(is.na(acc_df)) * 100, 2), "%")
   )
 
 ```
 
 ```{r}
 data.frame(
-  Column = names(lit_df),
-  Missing_Data = paste0(colSums(is.na(lit_df)))
+  Column = names(acc_df),
+  Missing_Data = paste0(colSums(is.na(acc_df)))
   )
 ```
 
 #check data types
 ```{r}
 data.frame(
-  Column = names(lit_df),
-  paste0(sapply(lit_df, typeof))
+  Column = names(acc_df),
+  paste0(sapply(acc_df, typeof))
 )
 
 ```
 #Check The structure of the dataset 
 ```{r}
-str(lit_df)
+str(acc_df)
 
 ```
-
 #Convert Data Types
 ```{r}
-lit_df <- lit_df %>%
+acc_df <- acc_df %>%
   mutate(
         Value = as.numeric(Value),
     Precision = as.numeric(Precision),
@@ -98,12 +100,15 @@ lit_df <- lit_df %>%
     DenominatorUnweighted = as.numeric(DenominatorUnweighted),
   )
 ```
-# Summary table: column name, number of unique values, sample of unique values
+#check for unique values
 ```{r}
+library(dplyr)
 library(purrr)
+
+# Summary table: column name, number of unique values, sample of unique values
 n_sample <- 3
 
-summary_tbl <- lit_df %>%
+summary_tbl <- acc_df %>%
   map_df(~ tibble(
     n_unique = n_distinct(.),
     sample_values = paste(head(unique(.), n_sample), collapse = ", ")
@@ -111,57 +116,68 @@ summary_tbl <- lit_df %>%
 
 
 summary_tbl
-```
 
+
+```
 
 #Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
 ```{r}
-lit_df <- lit_df %>%
+acc_df <- acc_df %>%
   select(
     -ISO3, 
     -DHS_CountryCode, 
     -CountryName, 
     -SurveyId,
-    -CharacteristicOrder,
-    -CharacteristicLabel,
     -ByVariableId, 
     -ByVariableLabel, 
     -IsTotal,
-    -IsPreferred, 
     -RegionId, 
     -SurveyYearLabel, 
-    -SurveyType
+    -SurveyType,
+    -CharacteristicOrder
+    
   )
 ```
-#Another pattern found
+
+#Assumed pattern, the missing values can be filled with the previous non missing value in the opposite attribute
 ```{r}
 
 
-lit_df <- lit_df %>%
-  fill(DenominatorWeighted, DenominatorUnweighted, .direction = "downup")
+library(dplyr)
+library(tidyr)
 
-lit_df[
+acc_df <- acc_df %>%
+  fill(DenominatorWeighted, DenominatorUnweighted, .direction = "down")
+
+acc_df[
        c("DenominatorWeighted", "DenominatorUnweighted")]
 
 ```
 
 ```{r}
-ggplot(acc_df, aes(x = Value, y = Value)) +
+ggplot(acc_df, aes(x = DenominatorWeighted, y = DenominatorUnweighted)) +
   geom_point(alpha = 0.6, color = "steelblue") +
   labs(title = "Scatterplot for Outlier Detection",
        x = "Denominator Weighted",
        y = "Denominator Unweighted") +
   theme_minimal()
 
-ggplot(acc_df, aes(y = Value)) +
+
+ggplot(acc_df, aes(y = DenominatorWeighted)) +
   geom_boxplot(fill = "lightblue", outlier.color = "red", outlier.shape = 16) +
   labs(title = "Boxplot of Denominator Weighted",
        y = "Denominator Weighted") +
   theme_minimal()
 
-```
 
+
+
+```
 #save cleaned data
+
 ```{r}
-write_csv(lit_df, here("cleaned_data", "literacy_cleaned.csv"))
+dim(acc_df)
+```
+```{r}
+write_csv(acc_df, here("cleaned_data", "access-to-healthcare_cleaned.csv"))
 ```

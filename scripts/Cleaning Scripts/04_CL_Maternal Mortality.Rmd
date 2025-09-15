@@ -1,5 +1,5 @@
 ---
-title: "CL_Child_Mortality_Rates_02"
+title: "CL_Maternal Mortality_04"
 author: "Group K"
 date: "`r Sys.Date()`"
 output: pdf_document
@@ -16,7 +16,6 @@ library(tidyr)
 library(stringr)
 library(readr)
 library(here)
-library(ggplot2)
 library(purrr)
 
 getwd()
@@ -24,71 +23,67 @@ list.files("data/raw_data")
 ```
 #Load Dataset 
 ```{r}
-cmr_df <- read_csv(here("raw_data", "child-mortality-rates_national_zaf.csv"))
+mam_df <- read_csv(here("raw_data", "maternal-mortality_national_zaf.csv"))
 ```
 
 #Disdplay Dataset content
 ```{r}
-head(cmr_df)
+head(mam_df)
 ```
 
 #Remove the first row(meta data)
 ```{r}
-cmr_df <- cmr_df[-1, ]
+mam_df <- mam_df[-1, ]
 ```
 #dimensions 
 ```{r}
-dim(cmr_df)
+dim(mam_df)
 ```
 
 #Inspect Duplicated rows
 ```{r}
-dup_check <- cmr_df %>%
+dup_check <- mam_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
   filter(n() > 1)
 
 dup_check
 
 ```
-#Removed newer duplicated row
-```{r}
-cmr_df <- cmr_df %>% filter(DataId != "799142")
-```
 
-#Perc misisng data
+#perc mising values
 ```{r}
 
 data.frame(
-  Column = names(cmr_df),
-  Missing_Percentage = paste0(round(colMeans(is.na(cmr_df)) * 100, 2), "%")
+  Column = names(mam_df),
+  Missing_Percentage = paste0(round(colMeans(is.na(mam_df)) * 100, 2), "%")
   )
 
 ```
 
 ```{r}
 data.frame(
-  Column = names(cmr_df),
-  Missing_Data = paste0(colSums(is.na(cmr_df)))
+  Column = names(mam_df),
+  Missing_Data = paste0(colSums(is.na(mam_df)))
   )
 ```
 
 #check data types
 ```{r}
 data.frame(
-  Column = names(cmr_df),
-  paste0(sapply(cmr_df, typeof))
+  Column = names(mam_df),
+  paste0(sapply(mam_df, typeof))
 )
 
 ```
 #Check The structure of the dataset 
 ```{r}
-str(cmr_df)
+str(mam_df)
 
 ```
 
 #Convert Data Types
 ```{r}
-cmr_df <- cmr_df %>%
+mam_df <- mam_df %>%
   mutate(
         Value = as.numeric(Value),
     Precision = as.numeric(Precision),
@@ -103,73 +98,61 @@ cmr_df <- cmr_df %>%
     DenominatorUnweighted = as.numeric(DenominatorUnweighted),
   )
 ```
-
-# Summary table: column name, number of unique values, sample of unique values
-```{r}
-library(dplyr)
-library(purrr)
-
-n_sample <- 3
-
-summary_tbl <- cmr_df %>%
-  map_df(~ tibble(
-    n_unique = n_distinct(.),
-    sample_values = paste(head(unique(.), n_sample), collapse = ", ")
-  ), .id = "column")
-
-
-summary_tbl
-```
-
 # Summary table: column name, number of unique values, sample of unique values
 ```{r}
 
 n_sample <- 3
 
-summary_tbl <- cmr_df %>%
+summary_tbl <- mam_df %>%
   map_df(~ tibble(
     n_unique = n_distinct(.),
     sample_values = paste(head(unique(.), n_sample), collapse = ", ")
   ), .id = "column")
 
 summary_tbl
-
 ```
+  
 
-
-#Drop the countries only one unqiue value: reason, there is no useful information - country is also always za
+#Drop the countries only one unqiue value: reason, there is no useful information - county is also always za
 ```{r}
-
-cmr_df <- cmr_df %>%
+mam_df <- mam_df %>%
   select(
     -ISO3, 
-    -Precision,
     -DHS_CountryCode, 
     -CountryName, 
     -SurveyId,
+    -ByVariableId, 
+    -ByVariableLabel, 
     -IsTotal,
+    -IsPreferred, 
     -RegionId, 
     -SurveyYearLabel, 
-    -SurveyType,
-    -DenominatorWeighted,
-    -DenominatorUnweighted
+    -SurveyType
   )
 ```
 
 ```{r}
-str(cmr_df)
-```
-```{r}
-ggplot(cmr_df, aes(x = CILow, y = CIHigh)) +
+ggplot(mam_df, aes(x = Value, y = Value)) +
   geom_point(alpha = 0.6, color = "steelblue") +
   labs(title = "Scatterplot for Outlier Detection",
        x = "Denominator Weighted",
        y = "Denominator Unweighted") +
   theme_minimal()
 
+
+ggplot(mam_df, aes(y = Value)) +
+  geom_boxplot(fill = "lightblue", outlier.color = "red", outlier.shape = 16) +
+  labs(title = "Boxplot of Value",
+       y = "Denominator Weighted") +
+  theme_minimal()
+
+
+```
+```{r}
+dim(mam_df)
 ```
 
 #save cleaned data
 ```{r}
-write_csv(cmr_df, here("cleaned_data", "child-mortality-rate_cleaned.csv"))
+write_csv(acc_df, here("cleaned_data", "maternal-mortality_cleaned.csv"))
 ```

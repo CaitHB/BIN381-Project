@@ -1,0 +1,177 @@
+---
+title: "CL_Anthropometry_05"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Loading Libraries
+```{r}
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(readr)
+library(here)
+library(ggplot2)
+
+getwd()
+list.files("data/raw_data")
+```
+#Load Dataset 
+```{r}
+ant_df <- read_csv(here("raw_data", "anthropometry_national_zaf.csv"))
+```
+
+#Display Dataset content
+```{r}
+head(ant_df)
+```
+
+#Remove the first row(meta data)
+```{r}
+ant_df <- ant_df[-1, ]
+```
+#dimensions 
+```{r}
+dim(ant_df)
+```
+#Inspect Duplicated rows
+```{r}
+dup_check <- ant_df %>%
+  group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
+  filter(n() > 1)
+
+dup_check
+
+```
+
+#Percentage Missing Values
+```{r}
+
+data.frame(
+  Column = names(ant_df),
+  Missing_Percentage = paste0(round(colMeans(is.na(ant_df)) * 100, 2), "%")
+  )
+
+```
+
+```{r}
+data.frame(
+  Column = names(ant_df),
+  Missing_Data = paste0(colSums(is.na(ant_df)))
+  )
+```
+
+#check data types
+```{r}
+data.frame(
+  Column = names(ant_df),
+  paste0(sapply(ant_df, typeof))
+)
+
+```
+#Check The structure of the dataset 
+```{r}
+str(ant_df)
+
+```
+#Convert Data Types
+```{r}
+ant_df <- ant_df %>%
+  mutate(
+        Value = as.numeric(Value),
+    Precision = as.numeric(Precision),
+    SurveyYear = as.integer(SurveyYear),
+    IndicatorOrder = as.integer(IndicatorOrder),
+    CharacteristicId = as.integer(CharacteristicId),
+    CharacteristicOrder = as.integer(CharacteristicOrder),
+    IsTotal = as.logical(as.integer(IsTotal)),
+    IsPreferred = as.logical(as.integer(IsPreferred)),
+    SurveyYearLabel = as.integer(SurveyYearLabel),
+    DenominatorWeighted = as.numeric(DenominatorWeighted),
+    DenominatorUnweighted = as.numeric(DenominatorUnweighted),
+  )
+```
+#check for unique values
+```{r}
+library(dplyr)
+library(purrr)
+
+# Summary table: column name, number of unique values, sample of unique values
+n_sample <- 3
+
+summary_tbl <- ant_df %>%
+  map_df(~ tibble(
+    n_unique = n_distinct(.),
+    sample_values = paste(head(unique(.), n_sample), collapse = ", ")
+  ), .id = "column")
+
+
+summary_tbl
+
+
+```
+
+#Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
+```{r}
+ant_df <- ant_df %>%
+  select(
+    -ISO3, 
+    -DHS_CountryCode, 
+    -CountryName, 
+    -SurveyId,
+    -ByVariableId, 
+    -ByVariableLabel, 
+    -IsTotal,
+    -RegionId, 
+    -SurveyYearLabel, 
+    -SurveyType,
+    -CharacteristicOrder
+  )
+```
+
+#Assumed pattern, the missing values can be filled with the previous non missing value in the opposite attribute
+```{r}
+
+
+library(dplyr)
+library(tidyr)
+
+ant_df <- ant_df %>%
+  fill(DenominatorWeighted, DenominatorUnweighted, .direction = "down")
+
+ant_df[
+       c("DenominatorWeighted", "DenominatorUnweighted")]
+
+```
+
+```{r}
+ggplot(ant_df, aes(x = DenominatorWeighted, y = DenominatorUnweighted)) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  labs(title = "Scatterplot for Outlier Detection",
+       x = "Denominator Weighted",
+       y = "Denominator Unweighted") +
+  theme_minimal()
+
+
+ggplot(ant_df, aes(y = DenominatorWeighted)) +
+  geom_boxplot(fill = "lightblue", outlier.color = "red", outlier.shape = 16) +
+  labs(title = "Boxplot of Denominator Weighted",
+       y = "Denominator Weighted") +
+  theme_minimal()
+
+
+
+
+```
+
+```{r}
+dim(ant_df)
+```
+#save cleaned data
+```{r}
+write_csv(ant_df, here("cleaned_data", "anthropometry_cleaned.csv"))
+```

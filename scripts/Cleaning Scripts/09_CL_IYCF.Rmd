@@ -1,8 +1,8 @@
 ---
-title: "CL_Access_To_Healthcare_01"
+title: "CL_IYCF_09"
 author: "Group K"
 date: "`r Sys.Date()`"
-output: word_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -22,25 +22,25 @@ list.files("data/raw_data")
 ```
 #Load Dataset 
 ```{r}
-acc_df <- read_csv(here("raw_data", "access-to-health-care_national_zaf.csv"))
+icy_df <- read_csv(here("raw_data", "iycf_national_zaf.csv"))
 ```
 
 #Display Dataset content
 ```{r}
-head(acc_df)
+head(icy_df)
 ```
 
 #Remove the first row(meta data)
 ```{r}
-acc_df <- acc_df[-1, ]
+icy_df <- icy_df[-1, ]
 ```
 #dimensions 
 ```{r}
-dim(acc_df)
+dim(icy_df)
 ```
 #Inspect Duplicated rows
 ```{r}
-dup_check <- acc_df %>%
+dup_check <- icy_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
   filter(n() > 1)
 
@@ -49,7 +49,7 @@ dup_check
 ```
 
 ```{r}
-acc_df <- acc_df %>%
+icy_df <- icy_df %>%
   distinct(Indicator, SurveyYear, CharacteristicId, Value, .keep_all = TRUE)
 
 ```
@@ -57,35 +57,35 @@ acc_df <- acc_df %>%
 ```{r}
 
 data.frame(
-  Column = names(acc_df),
-  Missing_Percentage = paste0(round(colMeans(is.na(acc_df)) * 100, 2), "%")
+  Column = names(icy_df),
+  Missing_Percentage = paste0(round(colMeans(is.na(icy_df)) * 100, 2), "%")
   )
 
 ```
 
 ```{r}
 data.frame(
-  Column = names(acc_df),
-  Missing_Data = paste0(colSums(is.na(acc_df)))
+  Column = names(icy_df),
+  Missing_Data = paste0(colSums(is.na(icy_df)))
   )
 ```
 
 #check data types
 ```{r}
 data.frame(
-  Column = names(acc_df),
-  paste0(sapply(acc_df, typeof))
+  Column = names(icy_df),
+  paste0(sapply(icy_df, typeof))
 )
 
 ```
 #Check The structure of the dataset 
 ```{r}
-str(acc_df)
+str(icy_df)
 
 ```
 #Convert Data Types
 ```{r}
-acc_df <- acc_df %>%
+icy_df <- icy_df %>%
   mutate(
         Value = as.numeric(Value),
     Precision = as.numeric(Precision),
@@ -108,7 +108,7 @@ library(purrr)
 # Summary table: column name, number of unique values, sample of unique values
 n_sample <- 3
 
-summary_tbl <- acc_df %>%
+summary_tbl <- icy_df %>%
   map_df(~ tibble(
     n_unique = n_distinct(.),
     sample_values = paste(head(unique(.), n_sample), collapse = ", ")
@@ -122,7 +122,7 @@ summary_tbl
 
 #Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
 ```{r}
-acc_df <- acc_df %>%
+icy_df <- icy_df %>%
   select(
     -ISO3, 
     -DHS_CountryCode, 
@@ -134,8 +134,7 @@ acc_df <- acc_df %>%
     -RegionId, 
     -SurveyYearLabel, 
     -SurveyType,
-    -CharacteristicOrder,
-    -CharacteristicLabel,
+    -CharacteristicOrder
     
   )
 ```
@@ -147,16 +146,16 @@ acc_df <- acc_df %>%
 library(dplyr)
 library(tidyr)
 
-acc_df <- acc_df %>%
-  fill(DenominatorWeighted, DenominatorUnweighted, .direction = "down")
+icy_df <- icy_df %>%
+  fill(DenominatorWeighted, DenominatorUnweighted, .direction = "up")
 
-acc_df[
-       c("DenominatorWeighted", "DenominatorUnweighted")]
+icy_df[
+       c("DataId","DenominatorWeighted", "DenominatorUnweighted")]
 
 ```
 
 ```{r}
-ggplot(acc_df, aes(x = DenominatorWeighted, y = DenominatorUnweighted)) +
+ggplot(icy_df, aes(x = DenominatorWeighted, y = DenominatorUnweighted)) +
   geom_point(alpha = 0.6, color = "steelblue") +
   labs(title = "Scatterplot for Outlier Detection",
        x = "Denominator Weighted",
@@ -164,17 +163,41 @@ ggplot(acc_df, aes(x = DenominatorWeighted, y = DenominatorUnweighted)) +
   theme_minimal()
 
 
-ggplot(acc_df, aes(y = DenominatorWeighted)) +
+ggplot(icy_df, aes(y = DenominatorWeighted)) +
   geom_boxplot(fill = "lightblue", outlier.color = "red", outlier.shape = 16) +
   labs(title = "Boxplot of Denominator Weighted",
        y = "Denominator Weighted") +
   theme_minimal()
+```
 
+```{r}
+dim(icy_df)
+```
+#Outlier Handling
+```{r}
+# Calculate IQR boundaries
+Q1_w <- quantile(icy_df$DenominatorWeighted, 0.25, na.rm = TRUE)
+Q3_w <- quantile(icy_df$DenominatorWeighted, 0.75, na.rm = TRUE)
+IQR_w <- Q3_w - Q1_w
+lower_w <- Q1_w - 1.5 * IQR_w
+upper_w <- Q3_w + 1.5 * IQR_w
 
+Q1_uw <- quantile(icy_df$DenominatorUnweighted, 0.25, na.rm = TRUE)
+Q3_uw <- quantile(icy_df$DenominatorUnweighted, 0.75, na.rm = TRUE)
+IQR_uw <- Q3_uw - Q1_uw
+lower_uw <- Q1_uw - 1.5 * IQR_uw
+upper_uw <- Q3_uw + 1.5 * IQR_uw
+
+# Cap values to the IQR limits
+icy_df <- icy_df %>%
+  mutate(
+    DenominatorWeighted = pmin(pmax(DenominatorWeighted, lower_w), upper_w),
+    DenominatorUnweighted = pmin(pmax(DenominatorUnweighted, lower_uw), upper_uw)
+  )
 
 
 ```
 #save cleaned data
 ```{r}
-write_csv(acc_df, here("cleaned_data", "access-to-healthcare_cleaned.csv"))
+write_csv(icy_df, here("cleaned_data", "iycf_cleaned.csv"))
 ```

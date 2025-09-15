@@ -1,0 +1,23 @@
+DataId,Indicator,Value,Precision,SurveyYear,IndicatorId,IndicatorOrder,IndicatorType,CharacteristicId,CharacteristicCategory,CharacteristicLabel,IsPreferred,SDRID,DenominatorWeighted,DenominatorUnweighted,CILow,CIHigh,LevelRank
+795971,Children ever breastfed,87.4,1,1998,CN_BRFI_C_EVR,104266010,I,1000,Total,Total,TRUE,CNBRFICEVR,1623,1613.5,NA,NA,NA
+795973,Children who started breastfeeding within 1 hour of birth,38.9,1,1998,CN_BRFI_C_1HR,104266020,I,1000,Total,Total,TRUE,CNBRFIC1HR,1623,1613.5,NA,NA,NA
+621666,Children exclusively breastfed,6.9,1,1998,CN_BRFS_C_EXB,104306020,I,295001,Age in months (other groupings),0-5,TRUE,CNBRFSCEXB,499,505,NA,NA,NA
+621667,Children breastfeeding and consuming plain water only,6.3,1,1998,CN_BRFS_C_WAT,104306030,I,295001,Age in months (other groupings),0-5,TRUE,CNBRFSCWAT,499,505,NA,NA,NA
+621670,Children breastfeeding and consuming complementary foods,40.9,1,1998,CN_BRFS_C_CMP,104306060,I,295001,Age in months (other groupings),0-5,TRUE,CNBRFSCCMP,499,505,NA,NA,NA
+621664,Children currently breastfeeding,83.4,1,1998,CN_BRFS_C_BRF,104306080,I,295001,Age in months (other groupings),0-5,TRUE,CNBRFSCBRF,499,505,NA,NA,NA
+621143,Children using a bottle with a nipple,59.4,1,1998,CN_BRFS_C_BNP,104306110,I,295001,Age in months (other groupings),0-5,TRUE,CNBRFSCBNP,505,514,NA,NA,NA
+796663,Median duration of any breastfeeding,16,1,1998,CN_BFDR_C_MDA,104336010,I,1000,Total,Total,TRUE,CNBFDRCMDA,1386,1376,NA,NA,NA
+719834,Children ever breastfed,84,1,2016,CN_BRFI_C_EVR,104266010,I,1000,Total,Total,TRUE,CNBRFICEVR,1386,1376,NA,NA,NA
+719833,Children who started breastfeeding within 1 hour of birth,67.3,1,2016,CN_BRFI_C_1HR,104266020,I,1000,Total,Total,TRUE,CNBRFIC1HR,1386,1376,NA,NA,NA
+376864,Children exclusively breastfed,31.6,1,2016,CN_BRFS_C_EXB,104306020,I,295001,Age in months (other groupings),0-5,TRUE,CNBRFSCEXB,345,346,NA,NA,NA
+376865,Children breastfeeding and consuming plain water only,13.6,1,2016,CN_BRFS_C_WAT,104306030,I,295001,Age in months (other groupings),0-5,TRUE,CNBRFSCWAT,345,346,NA,NA,NA
+376871,Children breastfeeding and consuming complementary foods,17.6,1,2016,CN_BRFS_C_CMP,104306060,I,295001,Age in months (other groupings),0-5,TRUE,CNBRFSCCMP,345,346,NA,NA,NA
+376867,Children currently breastfeeding,74.8,1,2016,CN_BRFS_C_BRF,104306080,I,295001,Age in months (other groupings),0-5,TRUE,CNBRFSCBRF,345,346,NA,NA,NA
+574102,Children using a bottle with a nipple,44.7,1,2016,CN_BRFS_C_BNP,104306110,I,295001,Age in months (other groupings),0-5,TRUE,CNBRFSCBNP,363,363,NA,NA,NA
+198727,Median duration of any breastfeeding,10.7,1,2016,CN_BFDR_C_MDA,104336010,I,1000,Total,Total,TRUE,CNBFDRCMDA,363,386,NA,NA,NA
+198806,Breastfed children 6-23 months fed both 4+ food groups and the minimum meal frequency,11.2,1,2016,CN_IYCF_C_BTB,104436030,I,1000,Total,Total,TRUE,CNIYCFCBTB,363,386,NA,NA,NA
+710116,Non-breastfed children 6-23 months fed milk or milk products,68.4,1,2016,CN_IYCF_C_MKN,104436060,I,1000,Total,Total,TRUE,CNIYCFCMKN,504,491,NA,NA,NA
+710119,Non-breastfed children 6-23 months with 3 IYCF practices,30.6,1,2016,CN_IYCF_C_3PN,104436090,I,1000,Total,Total,TRUE,CNIYCFC3PN,504,491,NA,NA,NA
+198845,Children 6-23 months fed 5+ food groups,39.9,1,2016,CN_IYCF_C_4FA,104436130,I,1000,Total,Total,TRUE,CNIYCFC4FA,867,877,NA,NA,NA
+198846,Children 6-23 months fed the minimum meal frequency,50.2,1,2016,CN_IYCF_C_MNA,104436140,I,1000,Total,Total,TRUE,CNIYCFCMNA,867,877,NA,NA,NA
+198847,Children 6-23 months with 3 IYCF practices,22.5,1,2016,CN_IYCF_C_3PA,104436150,I,1000,Total,Total,TRUE,CNIYCFC3PA,867,877,NA,NA,NA
