@@ -4,70 +4,101 @@ author: "Group K"
 date: "`r Sys.Date()`"
 output: pdf_document
 ---
-```{r setup, echo=TRUE, warning=FALSE, message=FALSE}
+```{r setup, include=FALSE}
 library(readr)
 library(ggplot2)
 library(dplyr)
 library(here)
+library(tidyr)
+library(knitr)
+library(skimr)
+library(tidyverse)
+library(summarytools)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 
-getwd()
-list.files("data/raw_data")
 ```
 
-# Load data and show the structure 
+# 1. Loading the dataset  
 ```{r}
 anz_df <- read_csv(here("raw_data", "anthropometry_national_zaf.csv"))
 ```
-#Dislay the first and last 10 rows
+## Dislay the first 5 rows
 ```{r}
-head(anz_df, 10)
+kable(
+  head(anz_df[-1, c("ISO3", "DataId", "Indicator", "Value", "CountryName", "SurveyYear")], 5),
+  caption = "First 5 rows of the dataset"
+)
 
-#tail(anz_df, 10)
 ```
+# 2. Data Overview
+
+## Summary statistics
 #remove the first row
 ```{r}
+# 1. Remove first row if it's metadata/header
+anz_dfc <- anz_df[-1, ]  
 
-anz_df[-1,]
+# 2. Convert relevant numeric columns to numeric
+numeric_cols <- c("Value", "DenominatorWeighted", "DenominatorUnweighted", "CILow", "CIHigh")
+
+anz_dfc <- anz_dfc %>%
+  mutate(across(all_of(numeric_cols), ~ as.numeric(.)))
+
+# 3. Create a tidy summary table
+summary_table <- anz_dfc %>%
+  summarise(across(all_of(numeric_cols),
+                   list(mean = ~mean(., na.rm = TRUE),
+                        sd   = ~sd(., na.rm = TRUE),
+                        min  = ~min(., na.rm = TRUE),
+                        max  = ~max(., na.rm = TRUE)))) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = c("Variable", "Statistic"),
+    names_sep = "_",
+    values_to = "Value"
+  ) %>%
+  arrange(Variable)
+
+# Save summary table
+write_csv(summary_table, "../outputs/summary tables/summary_artho.csv")
+
+# Display
+kable(summary_table, caption = "Summary Statistics for Key Numeric Variables in the Dataset")
 ```
-#Dimenison of the data
-```{r}
-dim(anz_df)
-```
-#Provide a summary of the datset
-```{r}
-summary(anz_df)
-```
-#Convert Value to a numeric
-```{r}
-anz_df$Value <- as.numeric(anz_df$Value)
-```
-#Find duplicated values 
+
+# 3. Data Quality 
+## Find duplicated values 
 ```{r}
 sum(duplicated(anz_df))
 ```
-#Inspect columns for missing/empty data as values and pecentages respectively
+## Inspect columns for missing/empty data as values and pecentages respectively
 ```{r}
 colSums(is.na(anz_df))
 round(colMeans(is.na(anz_df)) * 100, 2)
 ```
 
-# Check for unique values
+## Check for unique values
 ```{r}
 sapply(anz_df, function(x) length(unique(x)))
 
 ```
-#Plots
+# 4. Visualizations
 ```{r}
-#Histogram of Values
+# Convert Value to numeric safely (suppress NAs where conversion fails)
+anz_df <- anz_df %>%
+  mutate(Value = as.numeric(Value))
 
+# Histogram of Values
 ggplot(anz_df, aes(x = Value)) +
-geom_histogram(bins = 30, fill = "skyblue", color = "black") +
-  labs(title = "Distribution of Indicator Values")
+  geom_histogram(bins = 30, fill = "skyblue", color = "black") +
+  labs(
+    title = "Distribution of Indicator Values",
+    x = "Value",
+    y = "Frequency"
+  ) +
+  theme_minimal()
 
 ggsave("../outputs/visuals/IndicatorValuesDistribution_histo.png", width = 6, height = 4)
-
-#Outliers
-boxplot(anz_df$Value, main = "Outlier check for Values")
 ```
 
 
