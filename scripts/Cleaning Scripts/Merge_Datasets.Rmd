@@ -1,0 +1,73 @@
+---
+title: "Merge"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(readr)
+library(here)
+```
+
+```{r}
+file_paths <- c(
+  "Access_To_Healthcare_01" = here("cleaned_data", "access-to-healthcare_cleaned.csv"),
+  "Child_Mortality_02"      = here("cleaned_data", "child-mortality-rate_cleaned.csv"),
+  "HIV_Behaviour_03"        = here("cleaned_data", "hiv-behavior_cleaned.csv"),
+  "Immunization_04"         = here("cleaned_data", "immunization_cleaned.csv"),
+  "Toilet_05"               = here("cleaned_data", "toilet_cleaned.csv"),
+  "Maternal_mortality_08"   = here("cleaned_data", "maternal-mortality_cleaned.csv"),
+  "Literacy_09"             = here("cleaned_data", "literacy_cleaned.csv"),
+  "ARI_10"                  = here("cleaned_data", "symptoms-of-acute-respiratory-infection-ari_cleaned.csv"),
+  "Anthro_11"               = here("cleaned_data", "anthropometry_cleaned.csv"),
+  "IYCF_12"                 = here("cleaned_data", "iycf_cleaned.csv")
+)
+
+
+keep_cols <- c(
+  "SurveyYear", "CharacteristicId", "CharacteristicCategory",
+  "CharacteristicLabel", "IndicatorId", "IndicatorType",
+  "Value", "DenominatorWeighted", "DenominatorUnweighted"
+)
+
+master_df <- map2(file_paths, names(file_paths), ~ {
+  read_csv(.x, show_col_types = FALSE) %>%
+    select(any_of(keep_cols)) %>%       # <-- use any_of() here
+    mutate(Dataset = .y)                # track which dataset it came from
+})
+```
+
+```{r}
+#Pivot each dataset wide
+##too many NAs
+
+
+
+```
+
+```{r}
+# Bind all datasets together row-wise
+merged_df <- bind_rows(master_df)
+
+dim(merged_df)
+colnames(merged_df)
+head(merged_df[,1:10])
+
+
+```
+
+```{r}
+
+write_csv(merged_df, here("cleaned_data", "master_ds.csv"))
+```
+
+```{r}
+
+```

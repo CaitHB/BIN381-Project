@@ -117,19 +117,19 @@ summary_tbl
 #Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 lit_df <- lit_df %>%
-  select(
-    -ISO3, 
+  
+ select(
+     -ISO3, 
     -DHS_CountryCode, 
     -CountryName, 
     -SurveyId,
-    -CharacteristicOrder,
     -ByVariableId, 
     -ByVariableLabel, 
     -IsTotal,
-    -IsPreferred, 
     -RegionId, 
     -SurveyYearLabel, 
-    -SurveyType
+    -SurveyType,
+    -CharacteristicOrder
   )
 ```
 #Missing Value Handling

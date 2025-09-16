@@ -116,18 +116,19 @@ summary_tbl
 #Drop the countries only one unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 mam_df <- mam_df %>%
-  select(
-    -ISO3, 
+
+ select(
+     -ISO3, 
     -DHS_CountryCode, 
     -CountryName, 
     -SurveyId,
     -ByVariableId, 
     -ByVariableLabel, 
     -IsTotal,
-    -IsPreferred, 
     -RegionId, 
     -SurveyYearLabel, 
-    -SurveyType
+    -SurveyType,
+    -CharacteristicOrder
   )
 ```
 

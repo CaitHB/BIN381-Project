@@ -141,19 +141,21 @@ summary_tbl
 ```{r}
 
 cmr_df <- cmr_df %>%
-  select(
-    -ISO3, 
-    -Precision,
+
+ select(
+     -ISO3, 
     -DHS_CountryCode, 
     -CountryName, 
     -SurveyId,
+    -ByVariableId, 
+    -ByVariableLabel, 
     -IsTotal,
     -RegionId, 
     -SurveyYearLabel, 
     -SurveyType,
-    -DenominatorWeighted,
-    -DenominatorUnweighted
+    -CharacteristicOrder
   )
+```
 ```
 
 ```{r}

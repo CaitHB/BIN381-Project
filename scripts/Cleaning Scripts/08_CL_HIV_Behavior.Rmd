@@ -123,8 +123,9 @@ summary_tbl
 #Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 hiv_df <- hiv_df %>%
-  select(
-    -ISO3, 
+
+ select(
+     -ISO3, 
     -DHS_CountryCode, 
     -CountryName, 
     -SurveyId,
@@ -135,7 +136,6 @@ hiv_df <- hiv_df %>%
     -SurveyYearLabel, 
     -SurveyType,
     -CharacteristicOrder
-    
   )
 ```
 

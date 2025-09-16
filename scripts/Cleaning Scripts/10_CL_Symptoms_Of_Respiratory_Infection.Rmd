@@ -117,8 +117,9 @@ summary_tbl
 #Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 ari_df <- ari_df %>%
-  select(
-    -ISO3, 
+
+ select(
+     -ISO3, 
     -DHS_CountryCode, 
     -CountryName, 
     -SurveyId,
@@ -129,7 +130,6 @@ ari_df <- ari_df %>%
     -SurveyYearLabel, 
     -SurveyType,
     -CharacteristicOrder
-    
   )
 ```
 
