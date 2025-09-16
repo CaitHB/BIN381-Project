@@ -1,0 +1,97 @@
+DataId,Indicator,Value,Precision,SurveyYear,IndicatorId,IndicatorOrder,IndicatorType,CharacteristicId,CharacteristicCategory,CharacteristicLabel,IsPreferred,SDRID,DenominatorWeighted,DenominatorUnweighted,CILow,CIHigh,LevelRank
+795195,Households using an improved water source,86.3,1,1998,WS_SRCE_H_IMP,250161010,I,1000,Total,Total,TRUE,WSSRCEHIMP,12247,12247,NA,NA,NA
+795196,Households using water piped into dwelling,38.9,1,1998,WS_SRCE_H_PIP,250161020,I,1000,Total,Total,TRUE,WSSRCEHPIP,12247,12247,NA,NA,NA
+795198,Households using a public tap/standpipe,19.5,1,1998,WS_SRCE_H_TAP,250161030,I,1000,Total,Total,TRUE,WSSRCEHTAP,12247,12247,NA,NA,NA
+795199,Households using a tubewell/borehole,3,1,1998,WS_SRCE_H_TUB,250161040,I,1000,Total,Total,TRUE,WSSRCEHTUB,12247,12247,NA,NA,NA
+795212,Households using rainwater,0.7,1,1998,WS_SRCE_H_RNW,250161070,I,1000,Total,Total,TRUE,WSSRCEHRNW,12247,12247,NA,NA,NA
+795201,Households using tanker truck,1,1,1998,WS_SRCE_H_TNK,250161074,I,1000,Total,Total,TRUE,WSSRCEHTNK,12247,12247,NA,NA,NA
+795207,Households using bottled water,0.1,1,1998,WS_SRCE_H_BOT,250161080,I,1000,Total,Total,TRUE,WSSRCEHBOT,12247,12247,NA,NA,NA
+795211,Households using an unimproved water source,13.2,1,1998,WS_SRCE_H_NIM,250161090,I,1000,Total,Total,TRUE,WSSRCEHNIM,12247,12247,NA,NA,NA
+795200,Households using surface water,11.8,1,1998,WS_SRCE_H_SRF,250161130,I,1000,Total,Total,TRUE,WSSRCEHSRF,12247,12247,NA,NA,NA
+795202,Households using other water source,1.4,1,1998,WS_SRCE_H_OTH,250161140,I,1000,Total,Total,TRUE,WSSRCEHOTH,12247,12247,NA,NA,NA
+795208,Households with don't know or missing information on water source,0.5,1,1998,WS_SRCE_H_DKM,250161150,S,1000,Total,Total,TRUE,WSSRCEHDKM,12247,12247,NA,NA,NA
+795213,Households: Total,100,1,1998,WS_SRCE_H_TOT,250161160,T,1000,Total,Total,TRUE,WSSRCEHTOT,12247,12247,NA,NA,NA
+795844,Population using an improved water source,83.5,1,1998,WS_SRCE_P_IMP,250162010,I,1000,Total,Total,TRUE,WSSRCEPIMP,52007,52465,NA,NA,NA
+795750,Population using water piped into dwelling,36,1,1998,WS_SRCE_P_PIP,250162020,I,1000,Total,Total,TRUE,WSSRCEPPIP,52007,52465,NA,NA,NA
+795740,Population using a public tap/standpipe,19.3,1,1998,WS_SRCE_P_TAP,250162030,I,1000,Total,Total,TRUE,WSSRCEPTAP,52007,52465,NA,NA,NA
+795756,Population using a tubewell/borehole,3.4,1,1998,WS_SRCE_P_TUB,250162040,I,1000,Total,Total,TRUE,WSSRCEPTUB,52007,52465,NA,NA,NA
+795757,Population using rainwater,0.7,1,1998,WS_SRCE_P_RNW,250162070,I,1000,Total,Total,TRUE,WSSRCEPRNW,52007,52465,NA,NA,NA
+795746,Population using tanker truck,0.9,1,1998,WS_SRCE_P_TNK,250162074,I,1000,Total,Total,TRUE,WSSRCEPTNK,52007,52465,NA,NA,NA
+795741,Population using bottled water/demi john,0.1,1,1998,WS_SRCE_P_BOT,250162080,I,1000,Total,Total,TRUE,WSSRCEPBOT,52007,52465,NA,NA,NA
+795751,Population using an unimproved water source,15.9,1,1998,WS_SRCE_P_NIM,250162090,I,1000,Total,Total,TRUE,WSSRCEPNIM,52007,52465,NA,NA,NA
+795745,Population using surface water,14.4,1,1998,WS_SRCE_P_SRF,250162130,I,1000,Total,Total,TRUE,WSSRCEPSRF,52007,52465,NA,NA,NA
+795747,Population using other water source,1.5,1,1998,WS_SRCE_P_OTH,250162140,I,1000,Total,Total,TRUE,WSSRCEPOTH,52007,52465,NA,NA,NA
+795748,Population with don't know or missing information on water source,0.7,1,1998,WS_SRCE_P_DKM,250162150,S,1000,Total,Total,TRUE,WSSRCEPDKM,52007,52465,NA,NA,NA
+795752,Population: Total,100,1,1998,WS_SRCE_P_TOT,250162160,T,1000,Total,Total,TRUE,WSSRCEPTOT,52007,52465,NA,NA,NA
+795209,Households with water on the premises,63.2,1,1998,WS_TIME_H_ONP,250201010,I,1000,Total,Total,TRUE,WSTIMEHONP,12247,12247,NA,NA,NA
+795214,Households with water 30 minutes or less away round trip,28.5,1,1998,WS_TIME_H_L30,250201020,I,1000,Total,Total,TRUE,WSTIMEHL30,12247,12247,NA,NA,NA
+795203,Households with water more than 30 minutes away round trip,6.7,1,1998,WS_TIME_H_M30,250201030,I,1000,Total,Total,TRUE,WSTIMEHM30,12247,12247,NA,NA,NA
+795204,Household with unknown or missing information on round trip time to water,1.6,1,1998,WS_TIME_H_DKM,250201040,S,1000,Total,Total,TRUE,WSTIMEHDKM,12247,12247,NA,NA,NA
+795742,Population with water on the premises,60.4,1,1998,WS_TIME_P_ONP,250202010,I,1000,Total,Total,TRUE,WSTIMEPONP,52007,52465,NA,NA,NA
+795753,Population with water 30 minutes or less away round trip,29.5,1,1998,WS_TIME_P_L30,250202020,I,1000,Total,Total,TRUE,WSTIMEPL30,52007,52465,NA,NA,NA
+795743,Population with water more than 30 minutes away round trip,8.4,1,1998,WS_TIME_P_M30,250202030,I,1000,Total,Total,TRUE,WSTIMEPM30,52007,52465,NA,NA,NA
+795758,Population with unknown or missing information on round trip time to water,1.7,1,1998,WS_TIME_P_DKM,250202040,S,1000,Total,Total,TRUE,WSTIMEPDKM,52007,52465,NA,NA,NA
+795232,Number of households,12247,0,1998,WS_WTRT_H_NUM,250231100,D,1000,Total,Total,TRUE,WSWTRTHNUM,52007,12247,NA,NA,NA
+796539,Number of households (unweighted),12247,0,1998,WS_WTRT_H_UNW,250231110,U,1000,Total,Total,TRUE,WSWTRTHUNW,12247,12247,NA,NA,NA
+795270,Number of persons,52007,0,1998,WS_WTRT_P_NUM,250232100,D,1000,Total,Total,TRUE,WSWTRTPNUM,12247,12247,NA,NA,NA
+796596,Number of persons (unweighted),52465,0,1998,WS_WTRT_P_UNW,250232110,U,1000,Total,Total,TRUE,WSWTRTPUNW,52007,52465,NA,NA,NA
+295311,Households using an improved water source,95.3,1,2016,WS_SRCE_H_IMP,250161010,I,1000,Total,Total,TRUE,WSSRCEHIMP,11083,11083,NA,NA,NA
+295317,Households using water piped into dwelling,45.1,1,2016,WS_SRCE_H_PIP,250161020,I,1000,Total,Total,TRUE,WSSRCEHPIP,11083,11083,NA,NA,NA
+295319,Households using a public tap/standpipe,14.1,1,2016,WS_SRCE_H_TAP,250161030,I,1000,Total,Total,TRUE,WSSRCEHTAP,11083,11083,NA,NA,NA
+295321,Households using a tubewell/borehole,2.8,1,2016,WS_SRCE_H_TUB,250161040,I,1000,Total,Total,TRUE,WSSRCEHTUB,11083,11083,NA,NA,NA
+295322,Households using a protected well,0.2,1,2016,WS_SRCE_H_PWL,250161050,I,1000,Total,Total,TRUE,WSSRCEHPWL,11083,11083,NA,NA,NA
+295313,Households using a protected spring,0.3,1,2016,WS_SRCE_H_PSG,250161060,I,1000,Total,Total,TRUE,WSSRCEHPSG,11083,11083,NA,NA,NA
+295329,Households using rainwater,0.5,1,2016,WS_SRCE_H_RNW,250161070,I,1000,Total,Total,TRUE,WSSRCEHRNW,11083,11083,NA,NA,NA
+295308,Households using tanker truck,2.1,1,2016,WS_SRCE_H_TNK,250161074,I,1000,Total,Total,TRUE,WSSRCEHTNK,11083,11083,NA,NA,NA
+295314,Households using bottled water,0.9,1,2016,WS_SRCE_H_BOT,250161080,I,1000,Total,Total,TRUE,WSSRCEHBOT,11083,11083,NA,NA,NA
+295328,Households using an unimproved water source,4.7,1,2016,WS_SRCE_H_NIM,250161090,I,1000,Total,Total,TRUE,WSSRCEHNIM,11083,11083,NA,NA,NA
+295312,Households using an unprotected well water,1.3,1,2016,WS_SRCE_H_UWL,250161100,I,1000,Total,Total,TRUE,WSSRCEHUWL,11083,11083,NA,NA,NA
+295306,Households using an unprotected spring,0.9,1,2016,WS_SRCE_H_USG,250161110,I,1000,Total,Total,TRUE,WSSRCEHUSG,11083,11083,NA,NA,NA
+295307,Households using surface water,2.3,1,2016,WS_SRCE_H_SRF,250161130,I,1000,Total,Total,TRUE,WSSRCEHSRF,11083,11083,NA,NA,NA
+295310,Households using other water source,0.3,1,2016,WS_SRCE_H_OTH,250161140,I,1000,Total,Total,TRUE,WSSRCEHOTH,11083,11083,NA,NA,NA
+295330,Households: Total,100,1,2016,WS_SRCE_H_TOT,250161160,T,1000,Total,Total,TRUE,WSSRCEHTOT,11083,11083,NA,NA,NA
+414151,Population using an improved water source,93.4,1,2016,WS_SRCE_P_IMP,250162010,I,1000,Total,Total,TRUE,WSSRCEPIMP,37205,37925,NA,NA,NA
+414148,Population using water piped into dwelling,45.5,1,2016,WS_SRCE_P_PIP,250162020,I,1000,Total,Total,TRUE,WSSRCEPPIP,37205,37925,NA,NA,NA
+414152,Population using a public tap/standpipe,13.6,1,2016,WS_SRCE_P_TAP,250162030,I,1000,Total,Total,TRUE,WSSRCEPTAP,37205,37925,NA,NA,NA
+414161,Population using a tubewell/borehole,2.8,1,2016,WS_SRCE_P_TUB,250162040,I,1000,Total,Total,TRUE,WSSRCEPTUB,37205,37925,NA,NA,NA
+414162,Population using a protected well,0.2,1,2016,WS_SRCE_P_PWL,250162050,I,1000,Total,Total,TRUE,WSSRCEPPWL,37205,37925,NA,NA,NA
+414163,Population using a protected spring,0.4,1,2016,WS_SRCE_P_PSG,250162060,I,1000,Total,Total,TRUE,WSSRCEPPSG,37205,37925,NA,NA,NA
+414164,Population using rainwater,0.5,1,2016,WS_SRCE_P_RNW,250162070,I,1000,Total,Total,TRUE,WSSRCEPRNW,37205,37925,NA,NA,NA
+414172,Population using tanker truck,2,1,2016,WS_SRCE_P_TNK,250162074,I,1000,Total,Total,TRUE,WSSRCEPTNK,37205,37925,NA,NA,NA
+414177,Population using bottled water/demi john,0.7,1,2016,WS_SRCE_P_BOT,250162080,I,1000,Total,Total,TRUE,WSSRCEPBOT,37205,37925,NA,NA,NA
+414150,Population using an unimproved water source,6.6,1,2016,WS_SRCE_P_NIM,250162090,I,1000,Total,Total,TRUE,WSSRCEPNIM,37205,37925,NA,NA,NA
+414153,Population using an unprotected well water,1.8,1,2016,WS_SRCE_P_UWL,250162100,I,1000,Total,Total,TRUE,WSSRCEPUWL,37205,37925,NA,NA,NA
+414149,Population using an unprotected spring,1.2,1,2016,WS_SRCE_P_USG,250162110,I,1000,Total,Total,TRUE,WSSRCEPUSG,37205,37925,NA,NA,NA
+414171,Population using surface water,3.4,1,2016,WS_SRCE_P_SRF,250162130,I,1000,Total,Total,TRUE,WSSRCEPSRF,37205,37925,NA,NA,NA
+414173,Population using other water source,0.2,1,2016,WS_SRCE_P_OTH,250162140,I,1000,Total,Total,TRUE,WSSRCEPOTH,37205,37925,NA,NA,NA
+414154,Population: Total,100,1,2016,WS_SRCE_P_TOT,250162160,T,1000,Total,Total,TRUE,WSSRCEPTOT,37205,37925,NA,NA,NA
+295315,Households with water on the premises,78.5,1,2016,WS_TIME_H_ONP,250201010,I,1000,Total,Total,TRUE,WSTIMEHONP,11083,11083,NA,NA,NA
+295331,Households with water 30 minutes or less away round trip,16.4,1,2016,WS_TIME_H_L30,250201020,I,1000,Total,Total,TRUE,WSTIMEHL30,11083,11083,NA,NA,NA
+295323,Households with water more than 30 minutes away round trip,4.5,1,2016,WS_TIME_H_M30,250201030,I,1000,Total,Total,TRUE,WSTIMEHM30,11083,11083,NA,NA,NA
+295324,Household with unknown or missing information on round trip time to water,0.6,1,2016,WS_TIME_H_DKM,250201040,S,1000,Total,Total,TRUE,WSTIMEHDKM,11083,11083,NA,NA,NA
+414178,Population with water on the premises,76.7,1,2016,WS_TIME_P_ONP,250202010,I,1000,Total,Total,TRUE,WSTIMEPONP,37205,37925,NA,NA,NA
+414155,Population with water 30 minutes or less away round trip,16.9,1,2016,WS_TIME_P_L30,250202020,I,1000,Total,Total,TRUE,WSTIMEPL30,37205,37925,NA,NA,NA
+414179,Population with water more than 30 minutes away round trip,5.8,1,2016,WS_TIME_P_M30,250202030,I,1000,Total,Total,TRUE,WSTIMEPM30,37205,37925,NA,NA,NA
+414166,Population with unknown or missing information on round trip time to water,0.6,1,2016,WS_TIME_P_DKM,250202040,S,1000,Total,Total,TRUE,WSTIMEPDKM,37205,37925,NA,NA,NA
+295327,Households treating water by boiling,4.8,1,2016,WS_WTRT_H_BOL,250231010,I,1000,Total,Total,TRUE,WSWTRTHBOL,11083,11083,NA,NA,NA
+295333,Households treating water by adding bleach/chlorine,1.2,1,2016,WS_WTRT_H_BLC,250231020,I,1000,Total,Total,TRUE,WSWTRTHBLC,11083,11083,NA,NA,NA
+295335,Households treating water by straining through a cloth,0.1,1,2016,WS_WTRT_H_STN,250231030,I,1000,Total,Total,TRUE,WSWTRTHSTN,11083,11083,NA,NA,NA
+295334,"Households treating water using a ceramic, sand or other filter",1.4,1,2016,WS_WTRT_H_CER,250231040,I,1000,Total,Total,TRUE,WSWTRTHCER,11083,11083,NA,NA,NA
+295340,Households treating water using solar disinfection,0,1,2016,WS_WTRT_H_SOL,250231050,I,1000,Total,Total,TRUE,WSWTRTHSOL,11083,11083,NA,NA,NA
+295341,Households treating water using other methods,0.7,1,2016,WS_WTRT_H_OTH,250231060,I,1000,Total,Total,TRUE,WSWTRTHOTH,11083,11083,NA,NA,NA
+295342,Households not treating water,91.9,1,2016,WS_WTRT_H_NTR,250231070,I,1000,Total,Total,TRUE,WSWTRTHNTR,11083,11083,NA,NA,NA
+295343,Households with missing information on treatment of water,0,1,2016,WS_WTRT_H_DKM,250231080,S,1000,Total,Total,TRUE,WSWTRTHDKM,11083,11083,NA,NA,NA
+295344,Households using an appropriate treatment method,7.3,1,2016,WS_WTRT_H_APP,250231090,I,1000,Total,Total,TRUE,WSWTRTHAPP,11083,11083,NA,NA,NA
+197783,Number of households,11083,0,2016,WS_WTRT_H_NUM,250231100,D,1000,Total,Total,TRUE,WSWTRTHNUM,11083,11083,NA,NA,NA
+295339,Number of households (unweighted),11083,0,2016,WS_WTRT_H_UNW,250231110,U,1000,Total,Total,TRUE,WSWTRTHUNW,11083,11083,NA,NA,NA
+414168,Population treating water by boiling,4.6,1,2016,WS_WTRT_P_BOL,250232010,I,1000,Total,Total,TRUE,WSWTRTPBOL,37205,37925,NA,NA,NA
+414169,Population treating water by adding bleach/chlorine,1.3,1,2016,WS_WTRT_P_BLC,250232020,I,1000,Total,Total,TRUE,WSWTRTPBLC,37205,37925,NA,NA,NA
+414181,Population treating water by straining through a cloth,0,1,2016,WS_WTRT_P_STN,250232030,I,1000,Total,Total,TRUE,WSWTRTPSTN,37205,37925,NA,NA,NA
+414157,"Population treating water using a ceramic, sand or other filter",1.2,1,2016,WS_WTRT_P_CER,250232040,I,1000,Total,Total,TRUE,WSWTRTPCER,37205,37925,NA,NA,NA
+414182,Population treating water using solar disinfection,0,1,2016,WS_WTRT_P_SOL,250232050,I,1000,Total,Total,TRUE,WSWTRTPSOL,37205,37925,NA,NA,NA
+414159,Population treating water using other methods,0.8,1,2016,WS_WTRT_P_OTH,250232060,I,1000,Total,Total,TRUE,WSWTRTPOTH,37205,37925,NA,NA,NA
+414183,Population not treating water,92.2,1,2016,WS_WTRT_P_NTR,250232070,I,1000,Total,Total,TRUE,WSWTRTPNTR,37205,37925,NA,NA,NA
+414175,Population with missing information on treatment of water,0,1,2016,WS_WTRT_P_DKM,250232080,S,1000,Total,Total,TRUE,WSWTRTPDKM,37205,37925,NA,NA,NA
+414176,Population using an appropriate treatment method,6.9,1,2016,WS_WTRT_P_APP,250232090,I,1000,Total,Total,TRUE,WSWTRTPAPP,37205,37925,NA,NA,NA
+197784,Number of persons,37205,0,2016,WS_WTRT_P_NUM,250232100,D,1000,Total,Total,TRUE,WSWTRTPNUM,37205,37925,NA,NA,NA
+414186,Number of persons (unweighted),37925,0,2016,WS_WTRT_P_UNW,250232110,U,1000,Total,Total,TRUE,WSWTRTPUNW,37205,37925,NA,NA,NA

@@ -1,0 +1,47 @@
+DataId,Indicator,Value,Precision,SurveyYear,IndicatorId,IndicatorOrder,IndicatorType,CharacteristicId,CharacteristicCategory,CharacteristicLabel,IsPreferred,SDRID,DenominatorWeighted,DenominatorUnweighted,CILow,CIHigh,LevelRank
+795762,Households with an improved sanitation facility,50.1,1,1998,WS_TLET_H_IMP,250261010,I,1000,Total,Total,TRUE,WSTLETHIMP,12247,12247,NA,NA,NA
+795768,Households with an unimproved sanitation facility,38.3,1,1998,WS_TLET_H_NIM,250261150,I,1000,Total,Total,TRUE,WSTLETHNIM,12247,12247,NA,NA,NA
+795760,Households with a pit latrine without a slab or an open pit,31.2,1,1998,WS_TLET_H_NPT,250261180,I,1000,Total,Total,TRUE,WSTLETHNPT,12247,12247,NA,NA,NA
+795764,Households with a bucket toilet,6,1,1998,WS_TLET_H_NBK,250261190,I,1000,Total,Total,TRUE,WSTLETHNBK,12247,12247,NA,NA,NA
+795765,Households using open defecation,11.6,1,1998,WS_TLET_H_NFC,250261210,I,1000,Total,Total,TRUE,WSTLETHNFC,12247,12247,NA,NA,NA
+795766,Households with don't know or missing information on toilet facility,0.7,1,1998,WS_TLET_H_DKM,250261220,S,1000,Total,Total,TRUE,WSTLETHDKM,12247,12247,NA,NA,NA
+795767,Households total,100,1,1998,WS_TLET_H_TOT,250261230,T,1000,Total,Total,TRUE,WSTLETHTOT,12247,12247,NA,NA,NA
+795272,Number of households,12247,0,1998,WS_TLET_H_NUM,250261240,D,1000,Total,Total,TRUE,WSTLETHNUM,NA,12247,NA,NA,NA
+796598,Number of households (unweighted),12247,0,1998,WS_TLET_H_UNW,250261250,U,1000,Total,Total,TRUE,WSTLETHUNW,12247,NA,NA,NA,NA
+795102,Population with an improved sanitation facility,46.4,1,1998,WS_TLET_P_IMP,250262010,I,1000,Total,Total,TRUE,WSTLETPIMP,52007,52465,NA,NA,NA
+795108,Population with an unimproved sanitation facility,40.8,1,1998,WS_TLET_P_NIM,250262150,I,1000,Total,Total,TRUE,WSTLETPNIM,52007,52465,NA,NA,NA
+795103,Population with a pit latrine without a slab or an open pit,34.1,1,1998,WS_TLET_P_NPT,250262180,I,1000,Total,Total,TRUE,WSTLETPNPT,52007,52465,NA,NA,NA
+795104,Population with a bucket toilet,5.7,1,1998,WS_TLET_P_NBK,250262190,I,1000,Total,Total,TRUE,WSTLETPNBK,52007,52465,NA,NA,NA
+795106,Population using open defecation,12.8,1,1998,WS_TLET_P_NFC,250262210,I,1000,Total,Total,TRUE,WSTLETPNFC,52007,52465,NA,NA,NA
+795101,Population with don't know or missing information on toilet facility,0.7,1,1998,WS_TLET_P_DKM,250262220,S,1000,Total,Total,TRUE,WSTLETPDKM,52007,52465,NA,NA,NA
+795107,Population total,100,1,1998,WS_TLET_P_TOT,250262230,T,1000,Total,Total,TRUE,WSTLETPTOT,52007,52465,NA,NA,NA
+795109,Number of persons,52007,0,1998,WS_TLET_P_NUM,250262240,D,1000,Total,Total,TRUE,WSTLETPNUM,NA,52465,NA,NA,NA
+796597,Number of persons (unweighted),52465,0,1998,WS_TLET_P_UNW,250262250,U,1000,Total,Total,TRUE,WSTLETPUNW,52007,NA,NA,NA,NA
+1862,Households with an improved sanitation facility,95.6,1,2016,WS_TLET_H_IMP,250261010,I,1000,Total,Total,TRUE,WSTLETHIMP,11083,11083,NA,NA,NA
+1859,Households with a flush or pour flush toilet to a piped sewer system,56.8,1,2016,WS_TLET_H_FSW,250261020,I,1000,Total,Total,TRUE,WSTLETHFSW,11083,11083,NA,NA,NA
+1863,Households with a flush or pour flush toilet to a septic tank,1.7,1,2016,WS_TLET_H_FSP,250261030,I,1000,Total,Total,TRUE,WSTLETHFSP,11083,11083,NA,NA,NA
+1860,Households with a flush or pour flush toilet to a pit latrine,1.3,1,2016,WS_TLET_H_FPT,250261040,I,1000,Total,Total,TRUE,WSTLETHFPT,11083,11083,NA,NA,NA
+1873,Households with a ventilated improved pit latrine (VIP),26,1,2016,WS_TLET_H_VIP,250261050,I,1000,Total,Total,TRUE,WSTLETHVIP,11083,11083,NA,NA,NA
+1874,Households with a pit latrine with a slab,8,1,2016,WS_TLET_H_PSL,250261060,I,1000,Total,Total,TRUE,WSTLETHPSL,11083,11083,NA,NA,NA
+1875,Households with a composting toilet,1.1,1,2016,WS_TLET_H_COM,250261070,I,1000,Total,Total,TRUE,WSTLETHCOM,11083,11083,NA,NA,NA
+1857,Households with an unimproved sanitation facility,2,1,2016,WS_TLET_H_NIM,250261150,I,1000,Total,Total,TRUE,WSTLETHNIM,11083,11083,NA,NA,NA
+1858,"Households with a flush or pour flush toilet not to a sewer, septic tank or pit latrine",0.4,1,2016,WS_TLET_H_NFL,250261170,I,1000,Total,Total,TRUE,WSTLETHNFL,11083,11083,NA,NA,NA
+1867,Households with a bucket toilet,1.6,1,2016,WS_TLET_H_NBK,250261190,I,1000,Total,Total,TRUE,WSTLETHNBK,11083,11083,NA,NA,NA
+1868,Households using open defecation,2.4,1,2016,WS_TLET_H_NFC,250261210,I,1000,Total,Total,TRUE,WSTLETHNFC,11083,11083,NA,NA,NA
+1876,Households total,100,1,2016,WS_TLET_H_TOT,250261230,T,1000,Total,Total,TRUE,WSTLETHTOT,11083,11083,NA,NA,NA
+1877,Number of households,11083,0,2016,WS_TLET_H_NUM,250261240,D,1000,Total,Total,TRUE,WSTLETHNUM,NA,11083,NA,NA,NA
+197792,Number of households (unweighted),11083,0,2016,WS_TLET_H_UNW,250261250,U,1000,Total,Total,TRUE,WSTLETHUNW,11083,NA,NA,NA,NA
+456199,Population with an improved sanitation facility,96,1,2016,WS_TLET_P_IMP,250262010,I,1000,Total,Total,TRUE,WSTLETPIMP,37205,37925,NA,NA,NA
+456201,Population with a flush or pour flush toilet to a piped sewer system,54.3,1,2016,WS_TLET_P_FSW,250262020,I,1000,Total,Total,TRUE,WSTLETPFSW,37205,37925,NA,NA,NA
+456200,Population with a flush or pour flush toilet to a septic tank,1.4,1,2016,WS_TLET_P_FSP,250262030,I,1000,Total,Total,TRUE,WSTLETPFSP,37205,37925,NA,NA,NA
+456202,Population with a flush or pour flush toilet to a pit latrine,0.9,1,2016,WS_TLET_P_FPT,250262040,I,1000,Total,Total,TRUE,WSTLETPFPT,37205,37925,NA,NA,NA
+456196,Population with a ventilated improved pit latrine (VIP),28.1,1,2016,WS_TLET_P_VIP,250262050,I,1000,Total,Total,TRUE,WSTLETPVIP,37205,37925,NA,NA,NA
+456197,Population with a pit latrine with a slab,9.9,1,2016,WS_TLET_P_PSL,250262060,I,1000,Total,Total,TRUE,WSTLETPPSL,37205,37925,NA,NA,NA
+456198,Population with a composting toilet,1,1,2016,WS_TLET_P_COM,250262070,I,1000,Total,Total,TRUE,WSTLETPCOM,37205,37925,NA,NA,NA
+456204,Population with an unimproved sanitation facility,1.7,1,2016,WS_TLET_P_NIM,250262150,I,1000,Total,Total,TRUE,WSTLETPNIM,37205,37925,NA,NA,NA
+456206,"Population with a flush or pour flush toilet not to a sewer, septic tank or pit latrine",0.4,1,2016,WS_TLET_P_NFL,250262170,I,1000,Total,Total,TRUE,WSTLETPNFL,37205,37925,NA,NA,NA
+456208,Population with a bucket toilet,1.4,1,2016,WS_TLET_P_NBK,250262190,I,1000,Total,Total,TRUE,WSTLETPNBK,37205,37925,NA,NA,NA
+456210,Population using open defecation,2.2,1,2016,WS_TLET_P_NFC,250262210,I,1000,Total,Total,TRUE,WSTLETPNFC,37205,37925,NA,NA,NA
+456205,Population total,100,1,2016,WS_TLET_P_TOT,250262230,T,1000,Total,Total,TRUE,WSTLETPTOT,37205,37925,NA,NA,NA
+456207,Number of persons,37205,0,2016,WS_TLET_P_NUM,250262240,D,1000,Total,Total,TRUE,WSTLETPNUM,NA,37925,NA,NA,NA
+197793,Number of persons (unweighted),37925,0,2016,WS_TLET_P_UNW,250262250,U,1000,Total,Total,TRUE,WSTLETPUNW,37205,NA,NA,NA,NA

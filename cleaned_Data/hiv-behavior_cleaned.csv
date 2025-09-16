@@ -1,0 +1,107 @@
+DataId,Indicator,Value,Precision,SurveyYear,IndicatorId,IndicatorOrder,IndicatorType,CharacteristicId,CharacteristicCategory,CharacteristicLabel,IsPreferred,SDRID,DenominatorWeighted,DenominatorUnweighted,CILow,CIHigh,LevelRank
+795160,Sex before the age of 15 [Women],8,1,1998,HA_AFSY_W_A15,135763010,I,1000,Total,Total,TRUE,HAAFSYWA15,4459,4459,NA,NA,NA
+795161,Number of young women,4324,0,1998,HA_AFSY_W_NM1,135763020,D,1000,Total,Total,TRUE,HAAFSYWNM1,4459,4459,NA,NA,NA
+796612,Number of young women (unweighted),4459,0,1998,HA_AFSY_W_UN1,135763030,U,1000,Total,Total,TRUE,HAAFSYWUN1,NA,NA,NA,NA,NA
+795358,Sex before the age of 18 [Women],54.5,1,1998,HA_AFSY_W_A18,135763040,I,1000,Total,Total,TRUE,HAAFSYWA18,2993,2993,NA,NA,NA
+795240,Number of young women age 18-24,2955,0,1998,HA_AFSY_W_NM2,135763050,D,1000,Total,Total,TRUE,HAAFSYWNM2,2993,2993,NA,NA,NA
+796631,Number of young women age 18-24 (unweighted),2993,0,1998,HA_AFSY_W_UN2,135763060,U,1000,Total,Total,TRUE,HAAFSYWUN2,NA,NA,NA,NA,NA
+795192,Young women never having sexual intercourse,40.3,1,1998,HA_PSXY_W_NSX,135803010,I,1000,Total,Total,TRUE,HAPSXYWNSX,3857,3857,NA,NA,NA
+795191,Young women having premarital sex in last year,48.7,1,1998,HA_PSXY_W_SX1,135803020,I,1000,Total,Total,TRUE,HAPSXYWSX1,3857,3857,NA,NA,NA
+795231,Number of never-married young women,3721,0,1998,HA_PSXY_W_NUM,135803030,D,1000,Total,Total,TRUE,HAPSXYWNUM,3857,3857,NA,NA,NA
+796482,Number of never-married young women (unweighted),3857,0,1998,HA_PSXY_W_UNW,135803040,U,1000,Total,Total,TRUE,HAPSXYWUNW,NA,NA,NA,NA,NA
+796410,Young women using a condom during premarital sex,21.8,1,1998,HA_PSXY_W_CND,135803050,I,1000,Total,Total,TRUE,HAPSXYWCND,1858,1858,NA,NA,NA
+796412,Number of never-married young women who had sex in the past year,1811,0,1998,HA_PSXY_W_NM1,135803060,D,1000,Total,Total,TRUE,HAPSXYWNM1,1858,1858,NA,NA,NA
+796531,Number of never-married young women who had sex in the past year (unweighted),1858,0,1998,HA_PSXY_W_UN1,135803070,U,1000,Total,Total,TRUE,HAPSXYWUN1,NA,NA,NA,NA,NA
+795149,Number of sexually active young women,2343,0,1998,HA_MSPY_W_NM2,135833050,D,1000,Total,Total,TRUE,HAMSPYWNM2,2390,2390,NA,NA,NA
+796592,Number of sexually active young women (unweighted),2390,0,1998,HA_MSPY_W_UN2,135833060,U,1000,Total,Total,TRUE,HAMSPYWUN2,NA,NA,NA,NA,NA
+652413,Higher risk sex in the last year [Women],57.6,1,2016,HA_HRSX_W_HRS,135403010,I,10000,Total 15-49,Total 15-49,TRUE,HAHRSXWHRS,6489,6489,NA,NA,NA
+658950,Number of women reporting sexual activity in the last 12 months,6586,0,2016,HA_HRSX_W_NM1,135403020,D,10000,Total 15-49,Total 15-49,TRUE,HAHRSXWNM1,6489,6489,NA,NA,NA
+341328,Number of women reporting sexual activity in the last 12 months (unweighted),6489,0,2016,HA_HRSX_W_UN1,135403030,U,10000,Total 15-49,Total 15-49,TRUE,HAHRSXWUN1,NA,NA,NA,NA,NA
+462686,"Condom use at last higher risk sex (with a non-marital, non-cohabiting partner) [Women]",60,1,2016,HA_HRSX_W_CND,135403040,I,10000,Total 15-49,Total 15-49,TRUE,HAHRSXWCND,3866,3866,NA,NA,NA
+469008,"Number of women who had sex with a non-marital, non-cohabiting partner in the last 12 months",3793,0,2016,HA_HRSX_W_NM2,135403050,D,10000,Total 15-49,Total 15-49,TRUE,HAHRSXWNM2,3866,3866,NA,NA,NA
+306992,"Number of women who had sex with a non-marital, non-cohabiting partner in the last 12 months (unweighted)",3866,0,2016,HA_HRSX_W_UN2,135403060,U,10000,Total 15-49,Total 15-49,TRUE,HAHRSXWUN2,NA,NA,NA,NA,NA
+596075,Higher risk sex in the last year [Men],68.7,1,2016,HA_HRSX_M_HRS,135404070,I,10000,Total 15-49,Total 15-49,TRUE,HAHRSXMHRS,2532,2532,NA,NA,NA
+601992,Number of men reporting sexual activity in the last 12 months,2603,0,2016,HA_HRSX_M_NM1,135404080,D,10000,Total 15-49,Total 15-49,TRUE,HAHRSXMNM1,2532,2532,NA,NA,NA
+371076,Number of men reporting sexual activity in the last 12 months (unweighted),2532,0,2016,HA_HRSX_M_UN1,135404090,U,10000,Total 15-49,Total 15-49,TRUE,HAHRSXMUN1,NA,NA,NA,NA,NA
+253261,"Condom use at last higher risk sex (with a non-marital, non-cohabiting partner) [Men]",68.4,1,2016,HA_HRSX_M_CND,135404100,I,10000,Total 15-49,Total 15-49,TRUE,HAHRSXMCND,1799,1799,NA,NA,NA
+253260,"Number of men who had sex with a non-marital, non-cohabiting partner in the last 12 months",1787,0,2016,HA_HRSX_M_NM2,135404110,D,10000,Total 15-49,Total 15-49,TRUE,HAHRSXMNM2,1799,1799,NA,NA,NA
+253271,"Number of men who had sex with a non-marital, non-cohabiting partner in the last 12 months (unweighted)",1799,0,2016,HA_HRSX_M_UN2,135404120,U,10000,Total 15-49,Total 15-49,TRUE,HAHRSXMUN2,NA,NA,NA,NA,NA
+625365,Higher-risk Sex (with multiple partners among all respondents) [Women],4.5,1,2016,HA_MSXP_W_2PP,135433010,I,10000,Total 15-49,Total 15-49,TRUE,HAMSXPW2PP,6717.5,6717.5,NA,NA,NA
+629905,Number of women,8514,0,2016,HA_MSXP_W_NM1,135433020,D,10000,Total 15-49,Total 15-49,TRUE,HAMSXPWNM1,6717.5,6717.5,NA,NA,NA
+292734,Number of women (unweighted),8514,0,2016,HA_MSXP_W_UN1,135433030,U,10000,Total 15-49,Total 15-49,TRUE,HAMSXPWUN1,NA,NA,NA,NA,NA
+8674,Condom use during higher-risk sex (with multiple partners) [Women],57.6,1,2016,HA_MSXP_W_CND,135433040,I,10000,Total 15-49,Total 15-49,TRUE,HAMSXPWCND,394,394,NA,NA,NA
+17990,Number of women,387,0,2016,HA_MSXP_W_NM2,135433050,D,10000,Total 15-49,Total 15-49,TRUE,HAMSXPWNM2,394,394,NA,NA,NA
+389803,Number of women (unweighted),394,0,2016,HA_MSXP_W_UN2,135433060,U,10000,Total 15-49,Total 15-49,TRUE,HAMSXPWUN2,NA,NA,NA,NA,NA
+636646,Mean number of sexual partners in lifetime [Women],3.9,1,2016,HA_MSXP_W_MNP,135433070,I,10000,Total 15-49,Total 15-49,TRUE,HAMSXPWMNP,6717.5,6717.5,NA,NA,NA
+3439,Number of women who ever had sexual intercourse,7205,0,2016,HA_MSXP_W_NM3,135433080,D,10000,Total 15-49,Total 15-49,TRUE,HAMSXPWNM3,6717.5,6717.5,NA,NA,NA
+420759,Number of women who ever had sexual intercourse (unweighted),7182,0,2016,HA_MSXP_W_UN3,135433090,U,10000,Total 15-49,Total 15-49,TRUE,HAMSXPWUN3,NA,NA,NA,NA,NA
+561946,Higher-risk Sex (with multiple partners among all respondents) [Men],17,1,2016,HA_MSXP_M_2PP,135434100,I,10000,Total 15-49,Total 15-49,TRUE,HAMSXPM2PP,3179,3179,NA,NA,NA
+569669,Number of men,3202,0,2016,HA_MSXP_M_NM1,135434110,D,10000,Total 15-49,Total 15-49,TRUE,HAMSXPMNM1,3179,3179,NA,NA,NA
+359288,Number of men (unweighted),3179,0,2016,HA_MSXP_M_UN1,135434120,U,10000,Total 15-49,Total 15-49,TRUE,HAMSXPMUN1,NA,NA,NA,NA,NA
+751379,Condom use during higher-risk sex (with multiple partners) [Men],65.3,1,2016,HA_MSXP_M_CND,135434130,I,10000,Total 15-49,Total 15-49,TRUE,HAMSXPMCND,535,535,NA,NA,NA
+753925,Number of men,544,0,2016,HA_MSXP_M_NM2,135434140,D,10000,Total 15-49,Total 15-49,TRUE,HAMSXPMNM2,535,535,NA,NA,NA
+382523,Number of men (unweighted),535,0,2016,HA_MSXP_M_UN2,135434150,U,10000,Total 15-49,Total 15-49,TRUE,HAMSXPMUN2,NA,NA,NA,NA,NA
+570709,Mean number of sexual partners in lifetime [Men],14.7,1,2016,HA_MSXP_M_MNP,135434160,I,10000,Total 15-49,Total 15-49,TRUE,HAMSXPMMNP,2467,2467,NA,NA,NA
+572743,Number of men who ever had sexual intercourse,2488,0,2016,HA_MSXP_M_NM3,135434170,D,10000,Total 15-49,Total 15-49,TRUE,HAMSXPMNM3,2467,2467,NA,NA,NA
+280632,Number of men who ever had sexual intercourse (unweighted),2467,0,2016,HA_MSXP_M_UN3,135434180,U,10000,Total 15-49,Total 15-49,TRUE,HAMSXPMUN3,NA,NA,NA,NA,NA
+253258,Point prevalence of concurrent sexual partners [Women],1.5,1,2016,HA_CONC_W_PPV,135503010,I,10000,Total 15-49,Total 15-49,TRUE,HACONCWPPV,6717.5,6717.5,NA,NA,NA
+253259,Cumulative prevalence of concurrent sexual partners [Women],3.1,1,2016,HA_CONC_W_CPV,135503020,I,10000,Total 15-49,Total 15-49,TRUE,HACONCWCPV,6717.5,6717.5,NA,NA,NA
+440517,Had concurrent sexual partners [Women],68.1,1,2016,HA_CONC_W_CNC,135503050,I,10000,Total 15-49,Total 15-49,TRUE,HACONCWCNC,394,394,NA,NA,NA
+253265,Number of women with multiple partners in the 12 months preceding the survey,387,0,2016,HA_CONC_W_NM1,135503060,D,10000,Total 15-49,Total 15-49,TRUE,HACONCWNM1,394,394,NA,NA,NA
+440507,Number of women with multiple partners in the 12 months preceding the survey (unweighted),394,0,2016,HA_CONC_W_UN1,135503070,U,10000,Total 15-49,Total 15-49,TRUE,HACONCWUN1,NA,NA,NA,NA,NA
+318090,Point prevalence of concurrent sexual partners [Men],4.7,1,2016,HA_CONC_M_PPV,135504080,I,10000,Total 15-49,Total 15-49,TRUE,HACONCMPPV,3179,3179,NA,NA,NA
+318091,Cumulative prevalence of concurrent sexual partners [Men],12.1,1,2016,HA_CONC_M_CPV,135504090,I,10000,Total 15-49,Total 15-49,TRUE,HACONCMCPV,3179,3179,NA,NA,NA
+45811,Had concurrent sexual partners [Men],71,1,2016,HA_CONC_M_CNC,135504120,I,10000,Total 15-49,Total 15-49,TRUE,HACONCMCNC,544,544,NA,NA,NA
+43054,Number of men with multiple partners in the 12 months preceding the survey,544,0,2016,HA_CONC_M_NM1,135504130,D,10000,Total 15-49,Total 15-49,TRUE,HACONCMNM1,544,544,NA,NA,NA
+434780,Number of men with multiple partners in the 12 months preceding the survey (unweighted),535,0,2016,HA_CONC_M_UN1,135504140,U,10000,Total 15-49,Total 15-49,TRUE,HACONCMUN1,NA,NA,NA,NA,NA
+253277,Ever paid for sexual intercourse,4.7,1,2016,HA_PYSX_M_EPD,135534010,I,10000,Total 15-49,Total 15-49,TRUE,HAPYSXMEPD,3179,3179,NA,NA,NA
+253274,Paid for sexual intercourse in the past 12 months,2.9,1,2016,HA_PYSX_M_PD1,135534020,I,10000,Total 15-49,Total 15-49,TRUE,HAPYSXMPD1,3179,3179,NA,NA,NA
+24092,Condom use at last paid sexual intercourse,83.1,1,2016,HA_PYSX_M_CLS,135534050,I,10000,Total 15-49,Total 15-49,TRUE,HAPYSXMCLS,86,86,NA,NA,NA
+33305,Number of men who paid for sex in the last 12 months,92,0,2016,HA_PYSX_M_NM1,135534060,D,10000,Total 15-49,Total 15-49,TRUE,HAPYSXMNM1,86,86,NA,NA,NA
+432953,Number of men who paid for sex in the last 12 months (unweighted),86,0,2016,HA_PYSX_M_UN1,135534070,U,10000,Total 15-49,Total 15-49,TRUE,HAPYSXMUN1,NA,NA,NA,NA,NA
+17331,Sex before the age of 15 [Women],6.1,1,2016,HA_AFSY_W_A15,135763010,I,1000,Total,Total,TRUE,HAAFSYWA15,2913,2913,NA,NA,NA
+17332,Number of young women,2842,0,2016,HA_AFSY_W_NM1,135763020,D,1000,Total,Total,TRUE,HAAFSYWNM1,2913,2913,NA,NA,NA
+393814,Number of young women (unweighted),2913,0,2016,HA_AFSY_W_UN1,135763030,U,1000,Total,Total,TRUE,HAAFSYWUN1,NA,NA,NA,NA,NA
+253307,Sex before the age of 18 [Women],50.3,1,2016,HA_AFSY_W_A18,135763040,I,1000,Total,Total,TRUE,HAAFSYWA18,1995,1995,NA,NA,NA
+253306,Number of young women age 18-24,1984,0,2016,HA_AFSY_W_NM2,135763050,D,1000,Total,Total,TRUE,HAAFSYWNM2,1995,1995,NA,NA,NA
+407073,Number of young women age 18-24 (unweighted),1995,0,2016,HA_AFSY_W_UN2,135763060,U,1000,Total,Total,TRUE,HAAFSYWUN2,NA,NA,NA,NA,NA
+519771,Sex before the age of 15 [Men],14.6,1,2016,HA_AFSY_M_A15,135764070,I,1000,Total,Total,TRUE,HAAFSYMA15,1307,1307,NA,NA,NA
+526205,Number of young men,1235,0,2016,HA_AFSY_M_NM1,135764080,D,1000,Total,Total,TRUE,HAAFSYMNM1,1307,1307,NA,NA,NA
+253304,Number of young men (unweighted),1307,0,2016,HA_AFSY_M_UN1,135764090,U,1000,Total,Total,TRUE,HAAFSYMUN1,NA,NA,NA,NA,NA
+253301,Sex before the age of 18 [Men],66.2,1,2016,HA_AFSY_M_A18,135764100,I,1000,Total,Total,TRUE,HAAFSYMA18,888,888,NA,NA,NA
+253310,Number of young men age 18-24,848,0,2016,HA_AFSY_M_NM2,135764110,D,1000,Total,Total,TRUE,HAAFSYMNM2,888,888,NA,NA,NA
+253300,Number of young men age 18-24 (unweighted),888,0,2016,HA_AFSY_M_UN2,135764120,U,1000,Total,Total,TRUE,HAAFSYMUN2,848,NA,NA,NA,NA
+452375,Young women never having sexual intercourse,37.4,1,2016,HA_PSXY_W_NSX,135803010,I,1000,Total,Total,TRUE,HAPSXYWNSX,2621,2621,NA,NA,NA
+452374,Young women having premarital sex in last year,57.1,1,2016,HA_PSXY_W_SX1,135803020,I,1000,Total,Total,TRUE,HAPSXYWSX1,2621,2621,NA,NA,NA
+454888,Number of never-married young women,2508,0,2016,HA_PSXY_W_NUM,135803030,D,1000,Total,Total,TRUE,HAPSXYWNUM,2621,2621,NA,NA,NA
+287452,Number of never-married young women (unweighted),2621,0,2016,HA_PSXY_W_UNW,135803040,U,1000,Total,Total,TRUE,HAPSXYWUNW,NA,NA,NA,NA,NA
+358671,Young women using a condom during premarital sex,62.7,1,2016,HA_PSXY_W_CND,135803050,I,1000,Total,Total,TRUE,HAPSXYWCND,1471,1471,NA,NA,NA
+253312,Number of never-married young women who had sex in the past year,1431,0,2016,HA_PSXY_W_NM1,135803060,D,1000,Total,Total,TRUE,HAPSXYWNM1,1471,1471,NA,NA,NA
+358669,Number of never-married young women who had sex in the past year (unweighted),1471,0,2016,HA_PSXY_W_UN1,135803070,U,1000,Total,Total,TRUE,HAPSXYWUN1,NA,NA,NA,NA,NA
+253309,Young men never having sexual intercourse,30.7,1,2016,HA_PSXY_M_NSX,135804080,I,1000,Total,Total,TRUE,HAPSXYMNSX,1268,1268,NA,NA,NA
+253305,Young men having premarital sex in last year,62.5,1,2016,HA_PSXY_M_SX1,135804090,I,1000,Total,Total,TRUE,HAPSXYMSX1,1268,1268,NA,NA,NA
+253308,Number of never-married men,1191,0,2016,HA_PSXY_M_NUM,135804100,D,1000,Total,Total,TRUE,HAPSXYMNUM,1268,1268,NA,NA,NA
+253311,Number of never-married men (unweighted),1268,0,2016,HA_PSXY_M_UNW,135804110,U,1000,Total,Total,TRUE,HAPSXYMUNW,NA,NA,NA,NA,NA
+253313,Young men using a condom during premarital sex,75.9,1,2016,HA_PSXY_M_CND,135804120,I,1000,Total,Total,TRUE,HAPSXYMCND,783,783,NA,NA,NA
+253315,Number of men,744,0,2016,HA_PSXY_M_NM1,135804130,D,1000,Total,Total,TRUE,HAPSXYMNM1,783,783,NA,NA,NA
+253302,Number of men (unweighted),783,0,2016,HA_PSXY_M_UN1,135804140,U,1000,Total,Total,TRUE,HAPSXYMUN1,NA,NA,NA,NA,NA
+518745,Young women having multiple partners in last year,4.6,1,2016,HA_MSPY_W_2PP,135833010,I,1000,Total,Total,TRUE,HAMSPYW2PP,2913,2913,NA,NA,NA
+354461,Sexually active young women having multiple partners in last year,7.5,1,2016,HA_MSPY_W_2PS,135833040,I,1000,Total,Total,TRUE,HAMSPYW2PS,1754,1754,NA,NA,NA
+253303,Number of sexually active young women,1757,0,2016,HA_MSPY_W_NM2,135833050,D,1000,Total,Total,TRUE,HAMSPYWNM2,1754,1754,NA,NA,NA
+354462,Number of sexually active young women (unweighted),1754,0,2016,HA_MSPY_W_UN2,135833060,U,1000,Total,Total,TRUE,HAMSPYWUN2,NA,NA,NA,NA,NA
+429205,Young women using a condom at last sexual intercourse,61.4,1,2016,HA_MSPY_W_CND,135833070,I,1000,Total,Total,TRUE,HAMSPYWCND,153,153,NA,NA,NA
+253314,Number of young women,132,0,2016,HA_MSPY_W_NM3,135833080,D,1000,Total,Total,TRUE,HAMSPYWNM3,153,153,NA,NA,NA
+429207,Number of young women (unweighted),153,0,2016,HA_MSPY_W_UN3,135833090,U,1000,Total,Total,TRUE,HAMSPYWUN3,NA,NA,NA,NA,NA
+253316,Young men having multiple partners in last year,20.7,1,2016,HA_MSPY_M_2PP,135834100,I,1000,Total,Total,TRUE,HAMSPYM2PP,1307,1307,NA,NA,NA
+253334,Sexually active young men having multiple partners in last year,32.4,1,2016,HA_MSPY_M_2PS,135834130,I,1000,Total,Total,TRUE,HAMSPYM2PS,820,820,NA,NA,NA
+253336,Number of sexually active young men,788,0,2016,HA_MSPY_M_NM2,135834140,D,1000,Total,Total,TRUE,HAMSPYMNM2,820,820,NA,NA,NA
+253331,Number of sexually active young men (unweighted),820,0,2016,HA_MSPY_M_UN2,135834150,U,1000,Total,Total,TRUE,HAMSPYMUN2,NA,NA,NA,NA,NA
+516011,Young men using a condom at last sexual intercourse,72.9,1,2016,HA_MSPY_M_CND,135834160,I,1000,Total,Total,TRUE,HAMSPYMCND,244,244,NA,NA,NA
+516010,Number of young men,256,0,2016,HA_MSPY_M_NM1,135834170,D,1000,Total,Total,TRUE,HAMSPYMNM1,244,244,NA,NA,NA
+253320,Number of young men (unweighted),244,0,2016,HA_MSPY_M_UN1,135834180,U,1000,Total,Total,TRUE,HAMSPYMUN1,NA,NA,NA,NA,NA
+253321,"Age-mixing in sexual partnerships (young women age 15-19, any partner in the last 12 months)",5.9,1,2016,HA_AMXY_W_M10,135863010,I,1000,Total,Total,TRUE,HAAMXYWM10,1153,1153,NA,NA,NA
+253322,Number of young women,575,0,2016,HA_AMXY_W_NUM,135863020,D,1000,Total,Total,TRUE,HAAMXYWNUM,1153,1153,NA,NA,NA
+253319,Number of young women (unweighted),1153,0,2016,HA_AMXY_W_UNW,135863030,U,1000,Total,Total,TRUE,HAAMXYWUNW,NA,NA,NA,NA,NA
+452376,"Age-mixing in sexual partnerships (young men age 15-24, any partner in the last 12 months)",0.1,1,2016,HA_AMXY_M_M10,135864040,I,1000,Total,Total,TRUE,HAAMXYMM10,308,308,NA,NA,NA
+454666,Number of young men,287,0,2016,HA_AMXY_M_NUM,135864050,D,1000,Total,Total,TRUE,HAAMXYMNUM,308,308,NA,NA,NA
+287454,Number of young men (unweighted),308,0,2016,HA_AMXY_M_UNW,135864060,U,1000,Total,Total,TRUE,HAAMXYMUNW,NA,NA,NA,NA,NA

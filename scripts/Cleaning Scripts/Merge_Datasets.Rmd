@@ -1,0 +1,82 @@
+---
+title: "Merge"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(readr)
+library(here)
+library(purrr)
+
+```
+
+```{r}
+file_paths <- c(
+  "Access_To_Healthcare_01" = here("cleaned_data", "access-to-healthcare_cleaned.csv"),
+  "Child_Mortality_02"      = here("cleaned_data", "child-mortality-rate_cleaned.csv"),
+  "HIV_Behaviour_03"        = here("cleaned_data", "hiv-behavior_cleaned.csv"),
+  "Immunization_04"         = here("cleaned_data", "immunization_cleaned.csv"),
+  "Toilet_05"               = here("cleaned_data", "toilet_cleaned.csv"),
+  "Maternal_mortality_08"   = here("cleaned_data", "maternal-mortality_cleaned.csv"),
+  "Literacy_09"             = here("cleaned_data", "literacy_cleaned.csv"),
+  "Anthro_11"                 = here("cleaned_data", "anthropometry_cleaned.csv"),
+  "Water_06"               = here("cleaned_data", "water_cleaned.csv"),
+  "IYCF_12"                 = here("cleaned_data", "iycf_cleaned.csv")
+)
+
+
+keep_cols <- c(
+  "SurveyYear", "CharacteristicId", "CharacteristicCategory",
+  "CharacteristicLabel", "IndicatorId", "IndicatorType",
+  "Value", "DenominatorWeighted", "DenominatorUnweighted"
+)
+# read and clean datasets
+read_clean <- function(path) {
+  df <- read_csv(path, show_col_types = FALSE)
+  df %>% select(any_of(keep_cols))
+}
+
+# Define groups
+groups <- list(
+  GroupA_Health = c("Access_To_Healthcare_01", "Child_Mortality_02", "Immunization_04", "Maternal_mortality_08"),
+  GroupB_Sanitation = c("Toilet_05", "Water_06"),
+  GroupC_Nutrition = c("Anthro_11", "IYCF_12"),
+  GroupD_Social = c("Literacy_09", "HIV_Behaviour_03")
+)
+
+# Merge each group 
+group_dfs <- map(groups, function(group) {
+  dfs <- map(file_paths[group], read_clean)
+  bind_rows(dfs)  
+})
+
+
+# Check 
+dim(group_dfs$GroupA_Health)
+head(group_dfs$GroupA_Health)
+```
+
+```{r}
+#Pivot each dataset wide
+##too many NAs
+
+
+
+```
+
+```{r}
+
+# Save each group separately
+walk2(group_dfs, names(group_dfs), ~ {
+  write_csv(.x, here("cleaned_data", paste0(.y, "_merged.csv")))
+})
+
+```

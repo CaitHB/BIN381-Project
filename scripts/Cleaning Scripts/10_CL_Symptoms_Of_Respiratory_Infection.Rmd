@@ -1,0 +1,277 @@
+---
+title: "CL_Symptoms_Of_Respiratory_Infection_10"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Loading Libraries
+```{r}
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(readr)
+library(here)
+library(ggplot2)
+
+getwd()
+list.files("data/raw_data")
+```
+#Load Dataset 
+```{r}
+ari_df <- read_csv(here("raw_data", "symptoms-of-acute-respiratory-infection-ari_national_zaf.csv"))
+```
+
+#Display Dataset content
+```{r}
+head(ari_df)
+```
+
+#Remove the first row(meta data)
+```{r}
+ari_df <- ari_df[-1, ]
+```
+#dimensions 
+```{r}
+dim(ari_df)
+```
+#Inspect Duplicated rows
+```{r}
+dup_check <- ari_df %>%
+  group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
+  filter(n() > 1)
+
+dup_check
+
+```
+#Percentage Missing Values
+```{r}
+
+data.frame(
+  Column = names(ari_df),
+  Missing_Percentage = paste0(round(colMeans(is.na(ari_df)) * 100, 2), "%")
+  )
+
+```
+
+```{r}
+data.frame(
+  Column = names(ari_df),
+  Missing_Data = paste0(colSums(is.na(ari_df)))
+  )
+```
+
+#check data types
+```{r}
+data.frame(
+  Column = names(ari_df),
+  paste0(sapply(ari_df, typeof))
+)
+
+```
+#Check The structure of the dataset 
+```{r}
+str(ari_df)
+
+```
+#Convert Data Types
+```{r}
+ari_df <- ari_df %>%
+  mutate(
+        Value = as.numeric(Value),
+    Precision = as.numeric(Precision),
+    SurveyYear = as.integer(SurveyYear),
+    IndicatorOrder = as.integer(IndicatorOrder),
+    CharacteristicId = as.integer(CharacteristicId),
+    CharacteristicOrder = as.integer(CharacteristicOrder),
+    IsTotal = as.logical(as.integer(IsTotal)),
+    IsPreferred = as.logical(as.integer(IsPreferred)),
+    SurveyYearLabel = as.integer(SurveyYearLabel),
+    DenominatorWeighted = as.numeric(DenominatorWeighted),
+    DenominatorUnweighted = as.numeric(DenominatorUnweighted),
+  )
+```
+#check for unique values
+```{r}
+library(dplyr)
+library(purrr)
+
+# Summary table: column name, number of unique values, sample of unique values
+n_sample <- 3
+
+summary_tbl <- ari_df %>%
+  map_df(~ tibble(
+    n_unique = n_distinct(.),
+    sample_values = paste(head(unique(.), n_sample), collapse = ", ")
+  ), .id = "column")
+
+
+summary_tbl
+
+
+```
+
+#Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
+```{r}
+ari_df <- ari_df %>%
+
+ select(
+     -ISO3, 
+    -DHS_CountryCode, 
+    -CountryName, 
+    -SurveyId,
+    -ByVariableId, 
+    -ByVariableLabel, 
+    -IsTotal,
+    -RegionId, 
+    -SurveyYearLabel, 
+    -SurveyType,
+    -CharacteristicOrder
+  )
+```
+
+#Assumed pattern, the missing values can be filled with the non missing value in the opposite attribute
+```{r}
+
+
+library(dplyr)
+library(tidyr)
+
+
+ari_df <- ari_df %>%
+   mutate(
+    # 4740 <-> 4797
+    DenominatorUnweighted = if_else(
+      is.na(DenominatorUnweighted) & DenominatorWeighted == 4740,
+      4797,
+      DenominatorUnweighted
+    ),
+    DenominatorWeighted = if_else(
+      is.na(DenominatorWeighted) & DenominatorUnweighted == 4797,
+      4740,
+      DenominatorWeighted
+    ),
+
+    # 2912 <-> 2958
+    DenominatorUnweighted = if_else(
+      is.na(DenominatorUnweighted) & DenominatorWeighted == 2912,
+      2958,
+      DenominatorUnweighted
+    ),
+    DenominatorWeighted = if_else(
+      is.na(DenominatorWeighted) & DenominatorUnweighted == 2958,
+      2912,
+      DenominatorWeighted
+    ),
+
+    # 2025 <-> 2026
+    DenominatorUnweighted = if_else(
+      is.na(DenominatorUnweighted) & DenominatorWeighted == 2025,
+      2026,
+      DenominatorUnweighted
+    ),
+    DenominatorWeighted = if_else(
+      is.na(DenominatorWeighted) & DenominatorUnweighted == 2026,
+      2025,
+      DenominatorWeighted
+    ),
+
+    # 3444 <-> 3413
+    DenominatorUnweighted = if_else(
+      is.na(DenominatorUnweighted) & DenominatorWeighted == 3444,
+      3413,
+      DenominatorUnweighted
+    ),
+    DenominatorWeighted = if_else(
+      is.na(DenominatorWeighted) & DenominatorUnweighted == 3413,
+      3444,
+      DenominatorWeighted
+    ),
+
+    # 68 <-> 59
+    DenominatorUnweighted = if_else(
+      is.na(DenominatorUnweighted) & DenominatorWeighted == 68,
+      59,
+      DenominatorUnweighted
+    ),
+    DenominatorWeighted = if_else(
+      is.na(DenominatorWeighted) & DenominatorUnweighted == 59,
+      68,
+      DenominatorWeighted
+    ),
+
+    # 107 <-> 94
+    DenominatorUnweighted = if_else(
+      is.na(DenominatorUnweighted) & DenominatorWeighted == 107,
+      94,
+      DenominatorUnweighted
+    ),
+    DenominatorWeighted = if_else(
+      is.na(DenominatorWeighted) & DenominatorUnweighted == 94,
+      107,
+      DenominatorWeighted
+    ),
+
+    # 637 <-> 607
+    DenominatorUnweighted = if_else(
+      is.na(DenominatorUnweighted) & DenominatorWeighted == 637,
+      607,
+      DenominatorUnweighted
+    ),
+    DenominatorWeighted = if_else(
+      is.na(DenominatorWeighted) & DenominatorUnweighted == 607,
+      637,
+      DenominatorWeighted
+    ),
+
+    # 913 <-> 862
+    DenominatorUnweighted = if_else(
+      is.na(DenominatorUnweighted) & DenominatorWeighted == 913,
+      862,
+      DenominatorUnweighted
+    ),
+    DenominatorWeighted = if_else(
+      is.na(DenominatorWeighted) & DenominatorUnweighted == 862,
+      913,
+      DenominatorWeighted
+    )
+  )
+
+
+
+
+ari_df[
+       c("DenominatorWeighted", "DenominatorUnweighted")]
+
+```
+
+```{r}
+ggplot(ari_df, aes(x = DenominatorWeighted, y = DenominatorUnweighted)) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  labs(title = "Scatterplot for Outlier Detection",
+       x = "Denominator Weighted",
+       y = "Denominator Unweighted") +
+  theme_minimal()
+
+
+ggplot(ari_df, aes(y = DenominatorWeighted)) +
+  geom_boxplot(fill = "lightblue", outlier.color = "red", outlier.shape = 16) +
+  labs(title = "Boxplot of Denominator Weighted",
+       y = "Denominator Weighted") +
+  theme_minimal()
+
+
+
+
+```
+
+```{r}
+dim(ari_df)
+```
+#save cleaned data
+```{r}
+write_csv(ari_df, here("cleaned_data", "symptoms-of-acute-respiratory-infection-ari_cleaned.csv"))
+```

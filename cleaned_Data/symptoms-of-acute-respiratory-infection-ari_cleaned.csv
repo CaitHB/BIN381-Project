@@ -1,0 +1,27 @@
+DataId,Indicator,Value,Precision,SurveyYear,IndicatorId,IndicatorOrder,IndicatorType,CharacteristicId,CharacteristicCategory,CharacteristicLabel,IsPreferred,SDRID,DenominatorWeighted,DenominatorUnweighted,CILow,CIHigh,LevelRank
+598577,Children with symptoms of ARI,21.9,1,1998,CH_ARIS_C_ARI,93966010,I,1000,Total,Total,FALSE,CHARISCARI,2912,2958,NA,NA,NA
+397915,Children with symptoms of ARI,19.3,1,1998,CH_ARIS_C_ARI,93966010,I,1000,Total,Total,TRUE,CHARISCARI,4740,4797,NA,NA,NA
+598578,Number of children born in the last five (or three) years,2912,0,1998,CH_ARIS_C_NUM,93966020,D,1000,Total,Total,FALSE,CHARISCNUM,2912,2958,NA,NA,NA
+384931,Number of children born in the last five (or three) years,4740,0,1998,CH_ARIS_C_NUM,93966020,D,1000,Total,Total,TRUE,CHARISCNUM,4740,4797,NA,NA,NA
+139860,Number of children born in the last five (or three) years (unweighted),2958,0,1998,CH_ARIS_C_UNW,93966030,U,1000,Total,Total,FALSE,CHARISCUNW,2912,2958,NA,NA,NA
+26068,Number of children born in the last five (or three) years (unweighted),4797,0,1998,CH_ARIS_C_UNW,93966030,U,1000,Total,Total,TRUE,CHARISCUNW,4740,4797,NA,NA,NA
+450750,Children with ARI for whom advice or treatment was sought,81.9,1,1998,CH_ARIS_C_ADV,93966040,I,1000,Total,Total,FALSE,CHARISCADV,637,607,NA,NA,NA
+665172,Children with ARI for whom advice or treatment was sought,78.2,1,1998,CH_ARIS_C_ADV,93966040,I,1000,Total,Total,TRUE,CHARISCADV,913,862,NA,NA,NA
+457030,Number of children with symptoms of ARI born in the last five (or three) years,637,0,1998,CH_ARIS_C_NM2,93966060,D,1000,Total,Total,FALSE,CHARISCNM2,637,607,NA,NA,NA
+658945,Number of children with symptoms of ARI born in the last five (or three) years,913,0,1998,CH_ARIS_C_NM2,93966060,D,1000,Total,Total,TRUE,CHARISCNM2,913,862,NA,NA,NA
+320333,Number of children with symptoms of ARI born in the last five (or three) years (unweighted),607,0,1998,CH_ARIS_C_UN2,93966070,U,1000,Total,Total,FALSE,CHARISCUN2,637,607,NA,NA,NA
+32724,Number of children with symptoms of ARI born in the last five (or three) years (unweighted),862,0,1998,CH_ARIS_C_UN2,93966070,U,1000,Total,Total,TRUE,CHARISCUN2,913,862,NA,NA,NA
+550039,Children with symptoms of ARI,3.4,1,2016,CH_ARIS_C_ARI,93966010,I,1000,Total,Total,FALSE,CHARISCARI,2025,2026,NA,NA,NA
+520801,Children with symptoms of ARI,3.1,1,2016,CH_ARIS_C_ARI,93966010,I,1000,Total,Total,TRUE,CHARISCARI,3444,3413,NA,NA,NA
+550040,Number of children born in the last five (or three) years,2025,0,2016,CH_ARIS_C_NUM,93966020,D,1000,Total,Total,FALSE,CHARISCNUM,2025,2026,NA,NA,NA
+528550,Number of children born in the last five (or three) years,3444,0,2016,CH_ARIS_C_NUM,93966020,D,1000,Total,Total,TRUE,CHARISCNUM,3444,3413,NA,NA,NA
+149150,Number of children born in the last five (or three) years (unweighted),2026,0,2016,CH_ARIS_C_UNW,93966030,U,1000,Total,Total,FALSE,CHARISCUNW,2025,2026,NA,NA,NA
+439924,Number of children born in the last five (or three) years (unweighted),3413,0,2016,CH_ARIS_C_UNW,93966030,U,1000,Total,Total,TRUE,CHARISCUNW,3444,3413,NA,NA,NA
+628408,Children with ARI for whom advice or treatment was sought,96.9,1,2016,CH_ARIS_C_ADV,93966040,I,1000,Total,Total,FALSE,CHARISCADV,68,59,NA,NA,NA
+701545,Children with ARI for whom advice or treatment was sought,87.6,1,2016,CH_ARIS_C_ADV,93966040,I,1000,Total,Total,TRUE,CHARISCADV,107,94,NA,NA,NA
+628407,Children with symptoms of ARI who received antibiotics,46.7,1,2016,CH_ARIS_C_ABI,93966050,I,1000,Total,Total,FALSE,CHARISCABI,68,59,NA,NA,NA
+701543,Children with symptoms of ARI who received antibiotics,42,1,2016,CH_ARIS_C_ABI,93966050,I,1000,Total,Total,TRUE,CHARISCABI,107,94,NA,NA,NA
+630188,Number of children with symptoms of ARI born in the last five (or three) years,68,0,2016,CH_ARIS_C_NM2,93966060,D,1000,Total,Total,FALSE,CHARISCNM2,68,59,NA,NA,NA
+701544,Number of children with symptoms of ARI born in the last five (or three) years,107,0,2016,CH_ARIS_C_NM2,93966060,D,1000,Total,Total,TRUE,CHARISCNM2,107,94,NA,NA,NA
+300159,Number of children with symptoms of ARI born in the last five (or three) years (unweighted),59,0,2016,CH_ARIS_C_UN2,93966070,U,1000,Total,Total,FALSE,CHARISCUN2,68,59,NA,NA,NA
+149151,Number of children with symptoms of ARI born in the last five (or three) years (unweighted),94,0,2016,CH_ARIS_C_UN2,93966070,U,1000,Total,Total,TRUE,CHARISCUN2,107,94,NA,NA,NA

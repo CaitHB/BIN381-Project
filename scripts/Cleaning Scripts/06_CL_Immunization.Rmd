@@ -1,0 +1,198 @@
+---
+title: "CL_Immunization_06"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Loading Libraries
+```{r}
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(readr)
+library(here)
+library(ggplot2)
+
+getwd()
+list.files("data/raw_data")
+```
+#Load Dataset 
+```{r}
+imm_df <- read_csv(here("raw_data", "immunization_national_zaf.csv"))
+```
+
+#Display Dataset content
+```{r}
+head(imm_df)
+```
+
+#Remove the first row(meta data)
+```{r}
+imm_df <- imm_df[-1, ]
+```
+#dimensions 
+```{r}
+dim(imm_df)
+```
+#Inspect Duplicated rows
+```{r}
+dup_check <- imm_df %>%
+  group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
+  filter(n() > 1)
+
+dup_check
+
+```
+
+#Percentage Missing Values
+```{r}
+
+data.frame(
+  Column = names(imm_df),
+  Missing_Percentage = paste0(round(colMeans(is.na(imm_df)) * 100, 2), "%")
+  )
+
+```
+
+```{r}
+data.frame(
+  Column = names(imm_df),
+  Missing_Data = paste0(colSums(is.na(imm_df)))
+  )
+```
+
+#check data types
+```{r}
+data.frame(
+  Column = names(imm_df),
+  paste0(sapply(imm_df, typeof))
+)
+
+```
+#Check The structure of the dataset 
+```{r}
+str(imm_df)
+
+```
+#Convert Data Types
+```{r}
+imm_df <- imm_df %>%
+  mutate(
+        Value = as.numeric(Value),
+    Precision = as.numeric(Precision),
+    SurveyYear = as.integer(SurveyYear),
+    IndicatorOrder = as.integer(IndicatorOrder),
+    CharacteristicId = as.integer(CharacteristicId),
+    CharacteristicOrder = as.integer(CharacteristicOrder),
+    IsTotal = as.logical(as.integer(IsTotal)),
+    IsPreferred = as.logical(as.integer(IsPreferred)),
+    SurveyYearLabel = as.integer(SurveyYearLabel),
+    DenominatorWeighted = as.numeric(DenominatorWeighted),
+    DenominatorUnweighted = as.numeric(DenominatorUnweighted),
+  )
+```
+#check for unique values
+```{r}
+library(dplyr)
+library(purrr)
+
+# Summary table: column name, number of unique values, sample of unique values
+n_sample <- 3
+
+summary_tbl <- imm_df %>%
+  map_df(~ tibble(
+    n_unique = n_distinct(.),
+    sample_values = paste(head(unique(.), n_sample), collapse = ", ")
+  ), .id = "column")
+
+
+summary_tbl
+
+
+```
+
+#Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
+```{r}
+imm_df <- imm_df %>%
+
+ select(
+     -ISO3, 
+    -DHS_CountryCode, 
+    -CountryName, 
+    -SurveyId,
+    -ByVariableId, 
+    -ByVariableLabel, 
+    -IsTotal,
+    -RegionId, 
+    -SurveyYearLabel, 
+    -SurveyType,
+    -CharacteristicOrder
+  )
+```
+
+#Assumed pattern, the missing values can be filled with the previous non missing value in the opposite attribute
+```{r}
+
+
+library(dplyr)
+library(tidyr)
+
+imm_df <- imm_df %>%
+  fill(DenominatorWeighted, DenominatorUnweighted, .direction = "down")
+
+imm_df[
+       c("DenominatorWeighted", "DenominatorUnweighted")]
+
+```
+
+```{r}
+ggplot(imm_df, aes(x = DenominatorWeighted, y = DenominatorUnweighted)) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  labs(title = "Scatterplot for Outlier Detection",
+       x = "Denominator Weighted",
+       y = "Denominator Unweighted") +
+  theme_minimal()
+
+
+ggplot(imm_df, aes(y = DenominatorWeighted)) +
+  geom_boxplot(fill = "lightblue", outlier.color = "red", outlier.shape = 16) +
+  labs(title = "Boxplot of Denominator Weighted",
+       y = "Denominator Weighted") +
+  theme_minimal()
+```
+
+```{r}
+dim(imm_df)
+```
+
+#Outlier Handling
+```{r}
+# Calculate IQR boundaries
+Q1_w <- quantile(imm_df$DenominatorWeighted, 0.25, na.rm = TRUE)
+Q3_w <- quantile(imm_df$DenominatorWeighted, 0.75, na.rm = TRUE)
+IQR_w <- Q3_w - Q1_w
+lower_w <- Q1_w - 1.5 * IQR_w
+upper_w <- Q3_w + 1.5 * IQR_w
+
+Q1_uw <- quantile(imm_df$DenominatorUnweighted, 0.25, na.rm = TRUE)
+Q3_uw <- quantile(imm_df$DenominatorUnweighted, 0.75, na.rm = TRUE)
+IQR_uw <- Q3_uw - Q1_uw
+lower_uw <- Q1_uw - 1.5 * IQR_uw
+upper_uw <- Q3_uw + 1.5 * IQR_uw
+
+# Cap values to the IQR limits
+imm_df <- imm_df %>%
+  mutate(
+    DenominatorWeighted = pmin(pmax(DenominatorWeighted, lower_w), upper_w),
+    DenominatorUnweighted = pmin(pmax(DenominatorUnweighted, lower_uw), upper_uw)
+  )
+
+
+```
+#save cleaned data
+```{r}
+write_csv(imm_df, here("cleaned_data", "immunization_cleaned.csv"))
+```

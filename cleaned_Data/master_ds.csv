@@ -1,0 +1,891 @@
+SurveyYear,CharacteristicId,CharacteristicCategory,CharacteristicLabel,IndicatorId,IndicatorType,Value,DenominatorWeighted,DenominatorUnweighted,Dataset
+1998,1000,Total,Total,RH_ANCP_W_DOC,I,28.5,2871,2903,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_DOC,I,30,4122,4148,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_DOC,I,27.3,2010,2041,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_NRS,I,66.6,2871,2903,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_NRS,I,65,4122,4148,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_NRS,I,68.4,2010,2041,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_TBA,I,0.1,2871,2903,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_OTH,I,0.6,2871,2903,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_OTH,I,0.7,4122,4148,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_MIS,S,1.2,2871,2903,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_MIS,S,1.1,4122,4148,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_MIS,S,0.9,2010,2041,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_NON,I,2.9,2871,2903,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_NON,I,3.1,4122,4148,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_NON,I,2.7,2010,2041,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_TOT,T,100,2871,2903,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_SKP,I,95.1,2871,2903,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_SKP,I,95,4122,4148,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_SKP,I,95.7,2010,2041,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_NUM,D,2871,2010,2903,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_NUM,D,4122,2010,4148,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_NUM,D,2010,2010,2041,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_UNW,U,2903,2871,2041,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_UNW,U,4148,4122,2041,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_ANCP_W_UNW,U,2041,2010,2041,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_PUB,I,76.5,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_PUB,I,74.9,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_PUB,I,77.6,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_PRV,I,8,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_PRV,I,8.5,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_PRV,I,7.5,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_HOM,I,13.8,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_HOM,I,14.3,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_HOM,I,13.5,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_OTH,I,0.1,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_OTH,I,0.2,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_DKM,S,1.6,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_DKM,S,2.1,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_DKM,S,1.2,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_TOT,T,100,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_DHF,I,84.5,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_DHF,I,83.4,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_DHF,I,85.2,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_NUM,D,3072,2081,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_NUM,D,4992,2081,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_NUM,D,2081,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_UNW,U,3119,3072,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_UNW,U,5066,4992,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELP_C_UNW,U,2113,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_DOC,I,29.3,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_DOC,I,30,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_DOC,I,28.2,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_NRS,I,56.1,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_NRS,I,54.4,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_NRS,I,58.1,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_TBA,I,1.4,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_TBA,I,1.2,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_REL,I,9.9,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_REL,I,10.5,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_REL,I,9.7,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_NON,I,2.1,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_NON,I,1.8,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_DKM,S,1.2,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_DKM,S,1.7,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_DKM,S,0.9,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_TOT,T,100,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_SKP,I,85.5,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_SKP,I,84.4,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_SKP,I,86.4,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_CSC,I,15.4,3072,3119,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_CSC,I,15.5,4992,5066,Access_To_Healthcare_01
+1998,1000,Total,Total,RH_DELA_C_CSC,I,15.1,2081,2113,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_ARI,I,21.9,2912,2958,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_ARI,I,19.3,4740,4797,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_NUM,D,2912,4740,2958,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_NUM,D,4740,4740,4797,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_UNW,U,2958,2912,4797,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_UNW,U,4797,4740,4797,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_ADV,I,81.9,637,607,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_ADV,I,78.2,913,862,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_NM2,D,637,913,607,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_NM2,D,913,913,862,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_UN2,U,607,637,862,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_ARIS_C_UN2,U,862,913,862,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_ADV,I,62.1,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_ADV,I,60.6,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_ORS,I,52.7,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_ORS,I,51.2,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_RHF,I,70.6,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_RHF,I,68.6,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_ORT,I,83.1,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_ORT,I,81,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_INC,I,56.6,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_INC,I,57.1,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_ORI,I,90.2,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_ORI,I,89.1,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_NON,I,9.8,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_NON,I,10.9,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_IVS,I,0.5,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_IVS,I,0.4,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_HOM,I,87.6,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_HOM,I,86.3,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_NOT,I,0.6,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_NOT,I,0.5,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_DKM,S,0.9,508,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_DKM,S,1.7,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_NUM,D,508,627,523,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_NUM,D,627,627,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_UNW,U,523,508,634,Access_To_Healthcare_01
+1998,1000,Total,Total,CH_DIAT_C_UNW,U,634,627,634,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_DOC,I,17.1,1962,1977,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_DOC,I,16.1,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_NRS,I,76.8,1962,1977,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_NRS,I,76.6,3036,3036,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_NRS,I,77,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_OTH,I,0.6,1962,1977,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_OTH,I,0.5,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_NON,I,5.5,1962,1977,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_NON,I,5.7,3036,3036,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_NON,I,6.5,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_TOT,T,100,1962,1977,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_SKP,I,93.9,1962,1977,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_SKP,I,93.7,3036,3036,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_SKP,I,93.1,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_NUM,D,1962,1386,1977,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_NUM,D,3036,1386,3036,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_NUM,D,1386,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_UNW,U,1977,1962,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_UNW,U,3036,3036,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_ANCP_W_UNW,U,1376,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_PUB,I,88.3,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_PUB,I,87.4,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_PUB,I,88.4,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_PRV,I,7.7,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_PRV,I,8.5,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_HOM,I,3.6,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_HOM,I,3.7,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_HOM,I,3.4,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_OTH,I,0.3,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_OTH,I,0.4,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_OTH,I,0.5,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_TOT,T,100,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_DHF,I,96,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_DHF,I,95.9,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_DHF,I,96.1,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_NUM,D,2091,1414,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_NUM,D,3572,1414,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_NUM,D,1414,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_UNW,U,2105,2091,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_UNW,U,3548,3572,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELP_C_UNW,U,1406,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_DOC,I,29.1,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_DOC,I,28.7,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_DOC,I,29.5,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_NRS,I,67.6,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_NRS,I,68,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_TBA,I,0.2,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_TBA,I,0.1,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_REL,I,1.6,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_REL,I,1.9,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_REL,I,1.8,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_NON,I,1.5,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_NON,I,1.2,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_NON,I,0.9,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_TOT,T,100,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_SKP,I,96.7,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_SKP,I,97.1,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_CSC,I,24.9,2091,2105,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_CSC,I,24.2,3572,3548,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_DELA_C_CSC,I,25.3,1414,1406,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCMP_W_DOC,I,83.2,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCMP_W_CHW,I,0.2,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCMP_W_TBA,I,0.2,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCMP_W_NON,I,16.4,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCMP_W_TOT,T,100,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCMP_W_NUM,D,1386,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCMP_W_UNW,U,1376,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCCP_C_DOC,I,86.2,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCCP_C_CHW,I,0,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCCP_C_NON,I,13.8,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCCP_C_TOT,T,100,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCCP_C_NUM,D,1386,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,RH_PCCP_C_UNW,U,1376,1386,1376,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_ARI,I,3.4,2025,2026,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_ARI,I,3.1,3444,3413,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_NUM,D,2025,3444,2026,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_NUM,D,3444,3444,3413,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_UNW,U,2026,2025,3413,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_UNW,U,3413,3444,3413,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_ADV,I,96.9,68,59,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_ADV,I,87.6,107,94,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_ABI,I,46.7,68,59,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_ABI,I,42,107,94,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_NM2,D,68,107,59,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_NM2,D,107,107,94,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_UN2,U,59,68,94,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_ARIS_C_UN2,U,94,107,94,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_FEVT_C_ADV,I,66.8,422,410,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_FEVT_C_ADV,I,68.4,679,647,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_FEVT_C_AML,I,0.2,422,410,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_FEVT_C_AML,I,0.5,679,647,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_FEVT_C_ABI,I,29.2,422,410,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_FEVT_C_ABI,I,30.3,679,647,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_FEVT_C_NUM,D,422,679,410,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_FEVT_C_NUM,D,679,679,647,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_FEVT_C_UNW,U,410,422,647,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_FEVT_C_UNW,U,647,679,647,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ADV,I,59.2,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ADV,I,63,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ORS,I,46.5,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ORS,I,51.4,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_RHF,I,67.2,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_RHF,I,72.5,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ORT,I,75.4,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ORT,I,80.5,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ZNC,I,33.7,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ZNC,I,36.8,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_INC,I,14.6,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_INC,I,15,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ORI,I,79.2,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ORI,I,83.3,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_NON,I,20.8,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_NON,I,16.7,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ABI,I,7.2,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_ABI,I,10.6,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_AMO,I,2.4,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_AMO,I,1.8,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_IVS,I,0.2,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_IVS,I,0.6,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_INJ,I,0.5,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_INJ,I,1.1,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_HOM,I,9.1,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_HOM,I,10.3,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_NOT,I,16.2,246,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_NOT,I,12.1,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_NUM,D,246,356,256,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_NUM,D,356,356,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_UNW,U,256,246,350,Access_To_Healthcare_01
+2016,1000,Total,Total,CH_DIAT_C_UNW,U,350,356,350,Access_To_Healthcare_01
+1998,13000,Five year periods,0-4,CM_ECMT_C_NNR,I,20,NA,NA,Child_Mortality_02
+1998,13000,Five year periods,0-4,CM_ECMT_C_PNR,I,26,NA,NA,Child_Mortality_02
+1998,13000,Five year periods,0-4,CM_ECMT_C_IMR,I,45,NA,NA,Child_Mortality_02
+1998,13000,Five year periods,0-4,CM_ECMT_C_CMR,I,15,NA,NA,Child_Mortality_02
+1998,13000,Five year periods,0-4,CM_ECMT_C_U5M,I,59,NA,NA,Child_Mortality_02
+1998,1000,Total,Total,CM_ECMR_C_NNR,I,20,NA,NA,Child_Mortality_02
+1998,1000,Total,Total,CM_ECMR_C_NNR,I,19,NA,NA,Child_Mortality_02
+1998,1000,Total,Total,CM_ECMR_C_PNR,I,26,NA,NA,Child_Mortality_02
+1998,1000,Total,Total,CM_ECMR_C_PNR,I,23,NA,NA,Child_Mortality_02
+1998,1000,Total,Total,CM_ECMR_C_IMR,I,45,NA,NA,Child_Mortality_02
+1998,1000,Total,Total,CM_ECMR_C_IMR,I,42,NA,NA,Child_Mortality_02
+1998,1000,Total,Total,CM_ECMR_C_CMR,I,15,NA,NA,Child_Mortality_02
+1998,1000,Total,Total,CM_ECMR_C_U5M,I,59,NA,NA,Child_Mortality_02
+1998,1000,Total,Total,CM_ECMR_C_U5M,I,57,NA,NA,Child_Mortality_02
+1998,10000,Total 15-49,Total 15-49,CM_PNMR_C_NSB,I,127,NA,NA,Child_Mortality_02
+1998,10000,Total 15-49,Total 15-49,CM_PNMR_C_NEN,I,66,NA,NA,Child_Mortality_02
+1998,10000,Total 15-49,Total 15-49,CM_PNMR_C_PMR,I,38,NA,NA,Child_Mortality_02
+1998,10000,Total 15-49,Total 15-49,CM_PNMR_C_NUM,D,5119,NA,NA,Child_Mortality_02
+1998,10000,Total 15-49,Total 15-49,CM_PNMR_C_UNW,U,5183,NA,NA,Child_Mortality_02
+2016,13000,Five year periods,0-4,CM_ECMT_C_NNR,I,21,NA,NA,Child_Mortality_02
+2016,13000,Five year periods,0-4,CM_ECMT_C_PNR,I,14,NA,NA,Child_Mortality_02
+2016,13000,Five year periods,0-4,CM_ECMT_C_IMR,I,35,NA,NA,Child_Mortality_02
+2016,13000,Five year periods,0-4,CM_ECMT_C_CMR,I,7,NA,NA,Child_Mortality_02
+2016,13000,Five year periods,0-4,CM_ECMT_C_U5M,I,42,NA,NA,Child_Mortality_02
+2016,1000,Total,Total,CM_ECMR_C_NNR,I,21,NA,NA,Child_Mortality_02
+2016,1000,Total,Total,CM_ECMR_C_NNR,I,25,NA,NA,Child_Mortality_02
+2016,1000,Total,Total,CM_ECMR_C_PNR,I,14,NA,NA,Child_Mortality_02
+2016,1000,Total,Total,CM_ECMR_C_PNR,I,18,NA,NA,Child_Mortality_02
+2016,1000,Total,Total,CM_ECMR_C_IMR,I,35,NA,NA,Child_Mortality_02
+2016,1000,Total,Total,CM_ECMR_C_IMR,I,43,NA,NA,Child_Mortality_02
+2016,1000,Total,Total,CM_ECMR_C_CMR,I,7,NA,NA,Child_Mortality_02
+2016,1000,Total,Total,CM_ECMR_C_CMR,I,8,NA,NA,Child_Mortality_02
+2016,1000,Total,Total,CM_ECMR_C_U5M,I,42,NA,NA,Child_Mortality_02
+2016,1000,Total,Total,CM_ECMR_C_U5M,I,51,NA,NA,Child_Mortality_02
+2016,10000,Total 15-49,Total 15-49,CM_PNMR_C_NSB,I,37,NA,NA,Child_Mortality_02
+2016,10000,Total 15-49,Total 15-49,CM_PNMR_C_NEN,I,66,NA,NA,Child_Mortality_02
+2016,10000,Total 15-49,Total 15-49,CM_PNMR_C_PMR,I,29,NA,NA,Child_Mortality_02
+2016,10000,Total 15-49,Total 15-49,CM_PNMR_C_NUM,D,3577,NA,NA,Child_Mortality_02
+2016,10000,Total 15-49,Total 15-49,CM_PNMR_C_UNW,U,3563,NA,NA,Child_Mortality_02
+1998,1000,Total,Total,HA_AFSY_W_A15,I,8,4459,4459,HIV_Behaviour_03
+1998,1000,Total,Total,HA_AFSY_W_NM1,D,4324,4459,4459,HIV_Behaviour_03
+1998,1000,Total,Total,HA_AFSY_W_UN1,U,4459,NA,NA,HIV_Behaviour_03
+1998,1000,Total,Total,HA_AFSY_W_A18,I,54.5,2993,2993,HIV_Behaviour_03
+1998,1000,Total,Total,HA_AFSY_W_NM2,D,2955,2993,2993,HIV_Behaviour_03
+1998,1000,Total,Total,HA_AFSY_W_UN2,U,2993,NA,NA,HIV_Behaviour_03
+1998,1000,Total,Total,HA_PSXY_W_NSX,I,40.3,3857,3857,HIV_Behaviour_03
+1998,1000,Total,Total,HA_PSXY_W_SX1,I,48.7,3857,3857,HIV_Behaviour_03
+1998,1000,Total,Total,HA_PSXY_W_NUM,D,3721,3857,3857,HIV_Behaviour_03
+1998,1000,Total,Total,HA_PSXY_W_UNW,U,3857,NA,NA,HIV_Behaviour_03
+1998,1000,Total,Total,HA_PSXY_W_CND,I,21.8,1858,1858,HIV_Behaviour_03
+1998,1000,Total,Total,HA_PSXY_W_NM1,D,1811,1858,1858,HIV_Behaviour_03
+1998,1000,Total,Total,HA_PSXY_W_UN1,U,1858,NA,NA,HIV_Behaviour_03
+1998,1000,Total,Total,HA_MSPY_W_NM2,D,2343,2390,2390,HIV_Behaviour_03
+1998,1000,Total,Total,HA_MSPY_W_UN2,U,2390,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_W_HRS,I,57.6,6489,6489,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_W_NM1,D,6586,6489,6489,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_W_UN1,U,6489,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_W_CND,I,60,3866,3866,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_W_NM2,D,3793,3866,3866,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_W_UN2,U,3866,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_M_HRS,I,68.7,2532,2532,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_M_NM1,D,2603,2532,2532,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_M_UN1,U,2532,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_M_CND,I,68.4,1799,1799,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_M_NM2,D,1787,1799,1799,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_HRSX_M_UN2,U,1799,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_W_2PP,I,4.5,6717.5,6717.5,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_W_NM1,D,8514,6717.5,6717.5,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_W_UN1,U,8514,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_W_CND,I,57.6,394,394,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_W_NM2,D,387,394,394,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_W_UN2,U,394,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_W_MNP,I,3.9,6717.5,6717.5,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_W_NM3,D,7205,6717.5,6717.5,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_W_UN3,U,7182,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_M_2PP,I,17,3179,3179,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_M_NM1,D,3202,3179,3179,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_M_UN1,U,3179,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_M_CND,I,65.3,535,535,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_M_NM2,D,544,535,535,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_M_UN2,U,535,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_M_MNP,I,14.7,2467,2467,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_M_NM3,D,2488,2467,2467,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_MSXP_M_UN3,U,2467,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_CONC_W_PPV,I,1.5,6717.5,6717.5,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_CONC_W_CPV,I,3.1,6717.5,6717.5,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_CONC_W_CNC,I,68.1,394,394,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_CONC_W_NM1,D,387,394,394,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_CONC_W_UN1,U,394,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_CONC_M_PPV,I,4.7,3179,3179,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_CONC_M_CPV,I,12.1,3179,3179,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_CONC_M_CNC,I,71,544,544,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_CONC_M_NM1,D,544,544,544,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_CONC_M_UN1,U,535,NA,NA,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_PYSX_M_EPD,I,4.7,3179,3179,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_PYSX_M_PD1,I,2.9,3179,3179,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_PYSX_M_CLS,I,83.1,86,86,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_PYSX_M_NM1,D,92,86,86,HIV_Behaviour_03
+2016,10000,Total 15-49,Total 15-49,HA_PYSX_M_UN1,U,86,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_W_A15,I,6.1,2913,2913,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_W_NM1,D,2842,2913,2913,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_W_UN1,U,2913,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_W_A18,I,50.3,1995,1995,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_W_NM2,D,1984,1995,1995,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_W_UN2,U,1995,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_M_A15,I,14.6,1307,1307,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_M_NM1,D,1235,1307,1307,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_M_UN1,U,1307,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_M_A18,I,66.2,888,888,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_M_NM2,D,848,888,888,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AFSY_M_UN2,U,888,848,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_W_NSX,I,37.4,2621,2621,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_W_SX1,I,57.1,2621,2621,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_W_NUM,D,2508,2621,2621,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_W_UNW,U,2621,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_W_CND,I,62.7,1471,1471,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_W_NM1,D,1431,1471,1471,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_W_UN1,U,1471,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_M_NSX,I,30.7,1268,1268,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_M_SX1,I,62.5,1268,1268,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_M_NUM,D,1191,1268,1268,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_M_UNW,U,1268,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_M_CND,I,75.9,783,783,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_M_NM1,D,744,783,783,HIV_Behaviour_03
+2016,1000,Total,Total,HA_PSXY_M_UN1,U,783,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_W_2PP,I,4.6,2913,2913,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_W_2PS,I,7.5,1754,1754,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_W_NM2,D,1757,1754,1754,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_W_UN2,U,1754,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_W_CND,I,61.4,153,153,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_W_NM3,D,132,153,153,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_W_UN3,U,153,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_M_2PP,I,20.7,1307,1307,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_M_2PS,I,32.4,820,820,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_M_NM2,D,788,820,820,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_M_UN2,U,820,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_M_CND,I,72.9,244,244,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_M_NM1,D,256,244,244,HIV_Behaviour_03
+2016,1000,Total,Total,HA_MSPY_M_UN1,U,244,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AMXY_W_M10,I,5.9,1153,1153,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AMXY_W_NUM,D,575,1153,1153,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AMXY_W_UNW,U,1153,NA,NA,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AMXY_M_M10,I,0.1,308,308,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AMXY_M_NUM,D,287,308,308,HIV_Behaviour_03
+2016,1000,Total,Total,HA_AMXY_M_UNW,U,308,NA,NA,HIV_Behaviour_03
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_BCG,I,96.8,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_BCG,I,94.9,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_DP1,I,93.3,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_DP1,I,93.1,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_DP2,I,86.2,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_DP2,I,82.4,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_DP3,I,76.4,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_DP3,I,73.8,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_OP0,I,91.2,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_OP0,I,87.7,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_OP1,I,91,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_OP1,I,89,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_OP2,I,82.7,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_OP2,I,80,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_OP3,I,72.1,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_OP3,I,68.3,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_MSL,I,82.2,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_MSL,I,87.6,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_BAS,I,63.4,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_BAS,I,62.6,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_NON,I,2.2,973,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_NON,I,3.9,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_NUM,D,973,933,971,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_NUM,D,933,933,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_UNW,U,971,973,951,Immunization_04
+1998,268002,Source of vaccination information,Either source,CH_VACS_C_UNW,U,951,933,951,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_BCG,I,96.8,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_DP1,I,93.3,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_DP2,I,86.2,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_DP3,I,76.4,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_OP0,I,91.2,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_OP1,I,91,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_OP2,I,82.7,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_OP3,I,72.1,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_MSL,I,82.2,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_BAS,I,63.4,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_NON,I,2.2,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_NUM,D,973,973,971,Immunization_04
+1998,1000,Total,Total,CH_VACC_C_UNW,U,971,973,971,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_BCG,I,94.1,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_DP1,I,91.1,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_DP2,I,80.4,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_DP3,I,70.5,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_OP0,I,84.7,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_OP1,I,87.3,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_OP2,I,78,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_OP3,I,62.7,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_MSL,I,40.2,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_BAS,I,29.9,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_NON,I,15.2,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_VCD,I,61.8,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_NUM,D,3734,1417,1422.5,Immunization_04
+1998,1000,Total,Total,CH_VAC1_C_UNW,U,3761,1417,1422.5,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_BCG,I,92.5,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_BCG,I,91.5,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_DP1,I,91.2,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_DP1,I,87.5,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_DP2,I,75.3,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_DP2,I,71,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_DP3,I,64.9,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_DP3,I,63.3,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_OP0,I,92.3,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_OP0,I,88.3,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_OP1,I,78.1,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_OP1,I,74.3,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_MSL,I,86.1,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_MSL,I,84.4,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HP1,I,90.2,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HP1,I,87,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HP2,I,73.4,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HP2,I,71.6,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HP3,I,65,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HP3,I,65.8,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HB1,I,91.2,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HB1,I,87.5,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HB2,I,75.3,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HB2,I,71,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HB3,I,64.9,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_HB3,I,63.3,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_BAS,I,61.2,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_BAS,I,61.1,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_NON,I,5.3,677,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_NON,I,7.8,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_NUM,D,677,660,670,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_NUM,D,660,660,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_UNW,U,670,677,676,Immunization_04
+2016,268002,Source of vaccination information,Either source,CH_VACS_C_UNW,U,676,660,676,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_BCG,I,92.5,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_DP1,I,91.2,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_DP2,I,75.3,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_DP3,I,64.9,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_OP0,I,92.3,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_OP1,I,78.1,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_MSL,I,86.1,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_HP1,I,90.2,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_HP2,I,73.4,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_HP3,I,65,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_HB1,I,91.2,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_HB2,I,75.3,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_HB3,I,64.9,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_BAS,I,61.2,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_NON,I,5.3,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_NUM,D,677,677,670,Immunization_04
+2016,1000,Total,Total,CH_VACC_C_UNW,U,670,677,670,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_BCG,I,91.4,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_DP1,I,88.5,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_DP2,I,72.7,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_DP3,I,63.3,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_OP0,I,89.9,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_OP1,I,75.9,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_MSL,I,79.7,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_BAS,I,56.7,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_NON,I,8.9,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_VCD,I,63.7,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_NUM,D,1337,1337,1346,Immunization_04
+2016,1000,Total,Total,CH_VAC1_C_UNW,U,1346,1337,1346,Immunization_04
+1998,1000,Total,Total,WS_TLET_H_IMP,I,50.1,12247,12247,Toilet_05
+1998,1000,Total,Total,WS_TLET_H_NIM,I,38.3,12247,12247,Toilet_05
+1998,1000,Total,Total,WS_TLET_H_NPT,I,31.2,12247,12247,Toilet_05
+1998,1000,Total,Total,WS_TLET_H_NBK,I,6,12247,12247,Toilet_05
+1998,1000,Total,Total,WS_TLET_H_NFC,I,11.6,12247,12247,Toilet_05
+1998,1000,Total,Total,WS_TLET_H_DKM,S,0.7,12247,12247,Toilet_05
+1998,1000,Total,Total,WS_TLET_H_TOT,T,100,12247,12247,Toilet_05
+1998,1000,Total,Total,WS_TLET_H_NUM,D,12247,NA,12247,Toilet_05
+1998,1000,Total,Total,WS_TLET_H_UNW,U,12247,12247,NA,Toilet_05
+1998,1000,Total,Total,WS_TLET_P_IMP,I,46.4,52007,52465,Toilet_05
+1998,1000,Total,Total,WS_TLET_P_NIM,I,40.8,52007,52465,Toilet_05
+1998,1000,Total,Total,WS_TLET_P_NPT,I,34.1,52007,52465,Toilet_05
+1998,1000,Total,Total,WS_TLET_P_NBK,I,5.7,52007,52465,Toilet_05
+1998,1000,Total,Total,WS_TLET_P_NFC,I,12.8,52007,52465,Toilet_05
+1998,1000,Total,Total,WS_TLET_P_DKM,S,0.7,52007,52465,Toilet_05
+1998,1000,Total,Total,WS_TLET_P_TOT,T,100,52007,52465,Toilet_05
+1998,1000,Total,Total,WS_TLET_P_NUM,D,52007,NA,52465,Toilet_05
+1998,1000,Total,Total,WS_TLET_P_UNW,U,52465,52007,NA,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_IMP,I,95.6,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_FSW,I,56.8,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_FSP,I,1.7,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_FPT,I,1.3,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_VIP,I,26,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_PSL,I,8,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_COM,I,1.1,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_NIM,I,2,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_NFL,I,0.4,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_NBK,I,1.6,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_NFC,I,2.4,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_TOT,T,100,11083,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_NUM,D,11083,NA,11083,Toilet_05
+2016,1000,Total,Total,WS_TLET_H_UNW,U,11083,11083,NA,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_IMP,I,96,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_FSW,I,54.3,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_FSP,I,1.4,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_FPT,I,0.9,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_VIP,I,28.1,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_PSL,I,9.9,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_COM,I,1,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_NIM,I,1.7,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_NFL,I,0.4,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_NBK,I,1.4,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_NFC,I,2.2,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_TOT,T,100,37205,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_NUM,D,37205,NA,37925,Toilet_05
+2016,1000,Total,Total,WS_TLET_P_UNW,U,37925,37205,NA,Toilet_05
+1998,1000,Total,Total,RH_ANCP_W_DOC,I,28.5,2871,2903,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_DOC,I,30,4122,4148,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_DOC,I,27.3,2010,2041,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_NRS,I,66.6,2871,2903,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_NRS,I,65,4122,4148,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_NRS,I,68.4,2010,2041,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_TBA,I,0.1,2871,2903,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_OTH,I,0.6,2871,2903,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_OTH,I,0.7,4122,4148,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_MIS,S,1.2,2871,2903,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_MIS,S,1.1,4122,4148,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_MIS,S,0.9,2010,2041,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_NON,I,2.9,2871,2903,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_NON,I,3.1,4122,4148,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_NON,I,2.7,2010,2041,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_TOT,T,100,2871,2903,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_SKP,I,95.1,2871,2903,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_SKP,I,95,4122,4148,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_SKP,I,95.7,2010,2041,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_NUM,D,2871,2010,2903,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_NUM,D,4122,2010,4148,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_NUM,D,2010,2010,2041,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_UNW,U,2903,2871,2041,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_UNW,U,4148,4122,2041,Maternal_mortality_08
+1998,1000,Total,Total,RH_ANCP_W_UNW,U,2041,2010,2041,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_PUB,I,76.5,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_PUB,I,74.9,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_PUB,I,77.6,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_PRV,I,8,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_PRV,I,8.5,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_PRV,I,7.5,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_HOM,I,13.8,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_HOM,I,14.3,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_HOM,I,13.5,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_OTH,I,0.1,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_OTH,I,0.2,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_DKM,S,1.6,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_DKM,S,2.1,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_DKM,S,1.2,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_TOT,T,100,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_DHF,I,84.5,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_DHF,I,83.4,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_DHF,I,85.2,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_NUM,D,3072,2081,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_NUM,D,4992,2081,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_NUM,D,2081,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_UNW,U,3119,3072,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_UNW,U,5066,4992,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELP_C_UNW,U,2113,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_DOC,I,29.3,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_DOC,I,30,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_DOC,I,28.2,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_NRS,I,56.1,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_NRS,I,54.4,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_NRS,I,58.1,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_TBA,I,1.4,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_TBA,I,1.2,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_REL,I,9.9,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_REL,I,10.5,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_REL,I,9.7,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_NON,I,2.1,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_NON,I,1.8,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_DKM,S,1.2,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_DKM,S,1.7,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_DKM,S,0.9,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_TOT,T,100,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_SKP,I,85.5,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_SKP,I,84.4,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_SKP,I,86.4,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_CSC,I,15.4,3072,3119,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_CSC,I,15.5,4992,5066,Maternal_mortality_08
+1998,1000,Total,Total,RH_DELA_C_CSC,I,15.1,2081,2113,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_ARI,I,21.9,2912,2958,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_ARI,I,19.3,4740,4797,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_NUM,D,2912,4740,2958,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_NUM,D,4740,4740,4797,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_UNW,U,2958,2912,4797,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_UNW,U,4797,4740,4797,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_ADV,I,81.9,637,607,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_ADV,I,78.2,913,862,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_NM2,D,637,913,607,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_NM2,D,913,913,862,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_UN2,U,607,637,862,Maternal_mortality_08
+1998,1000,Total,Total,CH_ARIS_C_UN2,U,862,913,862,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_ADV,I,62.1,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_ADV,I,60.6,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_ORS,I,52.7,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_ORS,I,51.2,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_RHF,I,70.6,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_RHF,I,68.6,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_ORT,I,83.1,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_ORT,I,81,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_INC,I,56.6,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_INC,I,57.1,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_ORI,I,90.2,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_ORI,I,89.1,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_NON,I,9.8,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_NON,I,10.9,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_IVS,I,0.5,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_IVS,I,0.4,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_HOM,I,87.6,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_HOM,I,86.3,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_NOT,I,0.6,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_NOT,I,0.5,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_DKM,S,0.9,508,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_DKM,S,1.7,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_NUM,D,508,627,523,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_NUM,D,627,627,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_UNW,U,523,508,634,Maternal_mortality_08
+1998,1000,Total,Total,CH_DIAT_C_UNW,U,634,627,634,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_DOC,I,17.1,1962,1977,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_DOC,I,16.1,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_NRS,I,76.8,1962,1977,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_NRS,I,76.6,3036,3036,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_NRS,I,77,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_OTH,I,0.6,1962,1977,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_OTH,I,0.5,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_NON,I,5.5,1962,1977,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_NON,I,5.7,3036,3036,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_NON,I,6.5,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_TOT,T,100,1962,1977,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_SKP,I,93.9,1962,1977,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_SKP,I,93.7,3036,3036,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_SKP,I,93.1,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_NUM,D,1962,1386,1977,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_NUM,D,3036,1386,3036,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_NUM,D,1386,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_UNW,U,1977,1962,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_UNW,U,3036,3036,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_ANCP_W_UNW,U,1376,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_PUB,I,88.3,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_PUB,I,87.4,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_PUB,I,88.4,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_PRV,I,7.7,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_PRV,I,8.5,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_HOM,I,3.6,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_HOM,I,3.7,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_HOM,I,3.4,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_OTH,I,0.3,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_OTH,I,0.4,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_OTH,I,0.5,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_TOT,T,100,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_DHF,I,96,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_DHF,I,95.9,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_DHF,I,96.1,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_NUM,D,2091,1414,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_NUM,D,3572,1414,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_NUM,D,1414,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_UNW,U,2105,2091,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_UNW,U,3548,3572,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELP_C_UNW,U,1406,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_DOC,I,29.1,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_DOC,I,28.7,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_DOC,I,29.5,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_NRS,I,67.6,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_NRS,I,68,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_TBA,I,0.2,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_TBA,I,0.1,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_REL,I,1.6,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_REL,I,1.9,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_REL,I,1.8,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_NON,I,1.5,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_NON,I,1.2,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_NON,I,0.9,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_TOT,T,100,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_SKP,I,96.7,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_SKP,I,97.1,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_CSC,I,24.9,2091,2105,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_CSC,I,24.2,3572,3548,Maternal_mortality_08
+2016,1000,Total,Total,RH_DELA_C_CSC,I,25.3,1414,1406,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCMP_W_DOC,I,83.2,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCMP_W_CHW,I,0.2,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCMP_W_TBA,I,0.2,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCMP_W_NON,I,16.4,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCMP_W_TOT,T,100,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCMP_W_NUM,D,1386,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCMP_W_UNW,U,1376,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCCP_C_DOC,I,86.2,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCCP_C_CHW,I,0,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCCP_C_NON,I,13.8,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCCP_C_TOT,T,100,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCCP_C_NUM,D,1386,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,RH_PCCP_C_UNW,U,1376,1386,1376,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_ARI,I,3.4,2025,2026,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_ARI,I,3.1,3444,3413,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_NUM,D,2025,3444,2026,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_NUM,D,3444,3444,3413,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_UNW,U,2026,2025,3413,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_UNW,U,3413,3444,3413,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_ADV,I,96.9,68,59,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_ADV,I,87.6,107,94,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_ABI,I,46.7,68,59,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_ABI,I,42,107,94,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_NM2,D,68,107,59,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_NM2,D,107,107,94,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_UN2,U,59,68,94,Maternal_mortality_08
+2016,1000,Total,Total,CH_ARIS_C_UN2,U,94,107,94,Maternal_mortality_08
+2016,1000,Total,Total,CH_FEVT_C_ADV,I,66.8,422,410,Maternal_mortality_08
+2016,1000,Total,Total,CH_FEVT_C_ADV,I,68.4,679,647,Maternal_mortality_08
+2016,1000,Total,Total,CH_FEVT_C_AML,I,0.2,422,410,Maternal_mortality_08
+2016,1000,Total,Total,CH_FEVT_C_AML,I,0.5,679,647,Maternal_mortality_08
+2016,1000,Total,Total,CH_FEVT_C_ABI,I,29.2,422,410,Maternal_mortality_08
+2016,1000,Total,Total,CH_FEVT_C_ABI,I,30.3,679,647,Maternal_mortality_08
+2016,1000,Total,Total,CH_FEVT_C_NUM,D,422,679,410,Maternal_mortality_08
+2016,1000,Total,Total,CH_FEVT_C_NUM,D,679,679,647,Maternal_mortality_08
+2016,1000,Total,Total,CH_FEVT_C_UNW,U,410,422,647,Maternal_mortality_08
+2016,1000,Total,Total,CH_FEVT_C_UNW,U,647,679,647,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ADV,I,59.2,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ADV,I,63,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ORS,I,46.5,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ORS,I,51.4,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_RHF,I,67.2,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_RHF,I,72.5,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ORT,I,75.4,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ORT,I,80.5,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ZNC,I,33.7,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ZNC,I,36.8,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_INC,I,14.6,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_INC,I,15,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ORI,I,79.2,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ORI,I,83.3,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_NON,I,20.8,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_NON,I,16.7,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ABI,I,7.2,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_ABI,I,10.6,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_AMO,I,2.4,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_AMO,I,1.8,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_IVS,I,0.2,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_IVS,I,0.6,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_INJ,I,0.5,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_INJ,I,1.1,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_HOM,I,9.1,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_HOM,I,10.3,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_NOT,I,16.2,246,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_NOT,I,12.1,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_NUM,D,246,356,256,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_NUM,D,356,356,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_UNW,U,256,246,350,Maternal_mortality_08
+2016,1000,Total,Total,CH_DIAT_C_UNW,U,350,356,350,Maternal_mortality_08
+2016,10000,Total 15-49,Total 15-49,ED_LITR_W_SCH,I,11.8,8514,11805,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_W_RDW,I,76.2,8514,11805,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_W_RDP,I,8.2,8514,11805,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_W_NRD,I,3.5,8514,11805,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_W_NCD,I,0.1,8514,11805,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_W_BLD,I,0.1,8514,11805,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_W_TOT,T,100,8514,11805,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_W_LIT,I,96.3,8514,11805,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_W_NUM,D,8514,8514,11805,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_W_UNW,U,11805,8514,11805,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_M_SCH,I,10.8,3202,3179,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_M_RDW,I,71.4,3202,3179,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_M_RDP,I,12.8,3202,3179,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_M_NRD,I,4.9,3202,3179,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_M_NCD,I,0.1,3202,3179,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_M_BLD,I,0,3202,3179,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_M_TOT,T,100,3202,3179,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_M_LIT,I,94.9,3202,3179,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_M_NUM,D,3202,3202,3179,Literacy_09
+2016,10000,Total 15-49,Total 15-49,ED_LITR_M_UNW,U,3179,3202,3179,Literacy_09
+1998,1000,Total,Total,CH_ARIS_C_ARI,I,21.9,2912,2958,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_ARI,I,19.3,4740,4797,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_NUM,D,2912,2912,2958,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_NUM,D,4740,4740,4797,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_UNW,U,2958,2912,2958,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_UNW,U,4797,4740,4797,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_ADV,I,81.9,637,607,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_ADV,I,78.2,913,862,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_NM2,D,637,637,607,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_NM2,D,913,913,862,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_UN2,U,607,637,607,ARI_10
+1998,1000,Total,Total,CH_ARIS_C_UN2,U,862,913,862,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_ARI,I,3.4,2025,2026,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_ARI,I,3.1,3444,3413,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_NUM,D,2025,2025,2026,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_NUM,D,3444,3444,3413,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_UNW,U,2026,2025,2026,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_UNW,U,3413,3444,3413,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_ADV,I,96.9,68,59,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_ADV,I,87.6,107,94,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_ABI,I,46.7,68,59,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_ABI,I,42,107,94,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_NM2,D,68,68,59,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_NM2,D,107,107,94,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_UN2,U,59,68,59,ARI_10
+2016,1000,Total,Total,CH_ARIS_C_UN2,U,94,107,94,ARI_10
+2016,1000,Total,Total,CN_NUTS_C_HA3,I,9.8,1404,1468,Anthro_11
+2016,1000,Total,Total,CN_NUTS_C_HA2,I,27.4,1404,1468,Anthro_11
+2016,1000,Total,Total,CN_NUTS_C_HAM,I,-1.1,1404,1468,Anthro_11
+2016,1000,Total,Total,CN_NUTS_C_WH3,I,0.6,1384,1449,Anthro_11
+2016,1000,Total,Total,CN_NUTS_C_WH2,I,2.5,1384,1449,Anthro_11
+2016,1000,Total,Total,CN_NUTS_C_WHP,I,13.3,1384,1449,Anthro_11
+2016,1000,Total,Total,CN_NUTS_C_WHM,I,0.6,1384,1449,Anthro_11
+2016,1000,Total,Total,CN_NUTS_C_WA3,I,1.1,1416,1479,Anthro_11
+2016,1000,Total,Total,CN_NUTS_C_WA2,I,5.9,1416,1479,Anthro_11
+2016,1000,Total,Total,CN_NUTS_C_WAP,I,4.5,1416,1479,Anthro_11
+2016,1000,Total,Total,CN_NUTS_C_WAM,I,-0.2,1416,1479,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_SHT,I,1.5,3272,3405,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_NM1,D,3272,3272,3405,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_UN1,U,3405,3272,3405,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_BMI,I,28.3,3081,3210,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_NRM,I,34.7,3081,3210,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_THN,I,3.1,3081,3210,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_TH1,I,2.6,3081,3210,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_TH2,I,0.5,3081,3210,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_OWT,I,62.2,3081,3210,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_OVW,I,26.3,3081,3210,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_OBS,I,35.9,3081,3210,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_NUM,D,3081,3081,3210,Anthro_11
+2016,1000,Total,Total,AN_NUTS_W_UNW,U,3210,3081,3210,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_SHT,I,0.3,3202,3179,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_NM1,D,3202,3202,3179,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_UN1,U,3179,3202,3179,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_BMI,I,23,2336,2457,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_NRM,I,65.2,2336,2457,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_THN,I,9.6,2336,2457,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_TH1,I,7.4,2336,2457,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_TH2,I,2.2,2336,2457,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_OWT,I,25.1,2336,2457,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_OVW,I,17.2,2336,2457,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_OBS,I,7.9,2336,2457,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_NUM,D,2336,2336,2457,Anthro_11
+2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_UNW,U,2457,2336,2457,Anthro_11
+1998,1000,Total,Total,CN_BRFI_C_EVR,I,87.4,1623,1613.5,IYCF_12
+1998,1000,Total,Total,CN_BRFI_C_1HR,I,38.9,1623,1613.5,IYCF_12
+1998,295001,Age in months (other groupings),0-5,CN_BRFS_C_EXB,I,6.9,499,505,IYCF_12
+1998,295001,Age in months (other groupings),0-5,CN_BRFS_C_WAT,I,6.3,499,505,IYCF_12
+1998,295001,Age in months (other groupings),0-5,CN_BRFS_C_CMP,I,40.9,499,505,IYCF_12
+1998,295001,Age in months (other groupings),0-5,CN_BRFS_C_BRF,I,83.4,499,505,IYCF_12
+1998,295001,Age in months (other groupings),0-5,CN_BRFS_C_BNP,I,59.4,505,514,IYCF_12
+1998,1000,Total,Total,CN_BFDR_C_MDA,I,16,1386,1376,IYCF_12
+2016,1000,Total,Total,CN_BRFI_C_EVR,I,84,1386,1376,IYCF_12
+2016,1000,Total,Total,CN_BRFI_C_1HR,I,67.3,1386,1376,IYCF_12
+2016,295001,Age in months (other groupings),0-5,CN_BRFS_C_EXB,I,31.6,345,346,IYCF_12
+2016,295001,Age in months (other groupings),0-5,CN_BRFS_C_WAT,I,13.6,345,346,IYCF_12
+2016,295001,Age in months (other groupings),0-5,CN_BRFS_C_CMP,I,17.6,345,346,IYCF_12
+2016,295001,Age in months (other groupings),0-5,CN_BRFS_C_BRF,I,74.8,345,346,IYCF_12
+2016,295001,Age in months (other groupings),0-5,CN_BRFS_C_BNP,I,44.7,363,363,IYCF_12
+2016,1000,Total,Total,CN_BFDR_C_MDA,I,10.7,363,386,IYCF_12
+2016,1000,Total,Total,CN_IYCF_C_BTB,I,11.2,363,386,IYCF_12
+2016,1000,Total,Total,CN_IYCF_C_MKN,I,68.4,504,491,IYCF_12
+2016,1000,Total,Total,CN_IYCF_C_3PN,I,30.6,504,491,IYCF_12
+2016,1000,Total,Total,CN_IYCF_C_4FA,I,39.9,867,877,IYCF_12
+2016,1000,Total,Total,CN_IYCF_C_MNA,I,50.2,867,877,IYCF_12
+2016,1000,Total,Total,CN_IYCF_C_3PA,I,22.5,867,877,IYCF_12

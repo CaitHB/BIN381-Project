@@ -1,0 +1,117 @@
+DataId,Indicator,Value,Precision,SurveyYear,IndicatorId,IndicatorOrder,IndicatorType,CharacteristicId,CharacteristicCategory,CharacteristicLabel,IsPreferred,SDRID,DenominatorWeighted,DenominatorUnweighted,CILow,CIHigh,LevelRank
+330965,BCG vaccination received,96.8,1,1998,CH_VACS_C_BCG,93886010,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCBCG,973,971,NA,NA,NA
+139796,BCG vaccination received,94.9,1,1998,CH_VACS_C_BCG,93886010,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCBCG,933,951,NA,NA,NA
+330966,DPT 1 vaccination received,93.3,1,1998,CH_VACS_C_DP1,93886020,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCDP1,973,971,NA,NA,NA
+139797,DPT 1 vaccination received,93.1,1,1998,CH_VACS_C_DP1,93886020,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCDP1,933,951,NA,NA,NA
+330967,DPT 2 vaccination received,86.2,1,1998,CH_VACS_C_DP2,93886030,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCDP2,973,971,NA,NA,NA
+139798,DPT 2 vaccination received,82.4,1,1998,CH_VACS_C_DP2,93886030,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCDP2,933,951,NA,NA,NA
+330969,DPT 3 vaccination received,76.4,1,1998,CH_VACS_C_DP3,93886040,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCDP3,973,971,NA,NA,NA
+139793,DPT 3 vaccination received,73.8,1,1998,CH_VACS_C_DP3,93886040,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCDP3,933,951,NA,NA,NA
+330968,Polio 0 vaccination received,91.2,1,1998,CH_VACS_C_OP0,93886050,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCOP0,973,971,NA,NA,NA
+139792,Polio 0 vaccination received,87.7,1,1998,CH_VACS_C_OP0,93886050,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCOP0,933,951,NA,NA,NA
+330973,Polio 1 vaccination received,91,1,1998,CH_VACS_C_OP1,93886060,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCOP1,973,971,NA,NA,NA
+139795,Polio 1 vaccination received,89,1,1998,CH_VACS_C_OP1,93886060,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCOP1,933,951,NA,NA,NA
+330976,Polio 2 vaccination received,82.7,1,1998,CH_VACS_C_OP2,93886070,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCOP2,973,971,NA,NA,NA
+139854,Polio 2 vaccination received,80,1,1998,CH_VACS_C_OP2,93886070,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCOP2,933,951,NA,NA,NA
+330974,Polio 3 vaccination received,72.1,1,1998,CH_VACS_C_OP3,93886080,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCOP3,973,971,NA,NA,NA
+139852,Polio 3 vaccination received,68.3,1,1998,CH_VACS_C_OP3,93886080,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCOP3,933,951,NA,NA,NA
+330975,Measles vaccination received,82.2,1,1998,CH_VACS_C_MSL,93886090,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCMSL,973,971,NA,NA,NA
+139853,Measles vaccination received,87.6,1,1998,CH_VACS_C_MSL,93886090,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCMSL,933,951,NA,NA,NA
+330970,Fully vaccinated (8 basic antigens),63.4,1,1998,CH_VACS_C_BAS,93886230,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCBAS,973,971,NA,NA,NA
+139816,Fully vaccinated (8 basic antigens),62.6,1,1998,CH_VACS_C_BAS,93886230,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCBAS,933,951,NA,NA,NA
+330971,Received no vaccinations,2.2,1,1998,CH_VACS_C_NON,93886250,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCNON,973,971,NA,NA,NA
+139817,Received no vaccinations,3.9,1,1998,CH_VACS_C_NON,93886250,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCNON,933,951,NA,NA,NA
+139862,Number of children 12-23 months,973,0,1998,CH_VACS_C_NUM,93886260,D,268002,Source of vaccination information,Either source,TRUE,CHVACSCNUM,933,971,NA,NA,NA
+139826,Number of children 12-23 months,933,0,1998,CH_VACS_C_NUM,93886260,D,268002,Source of vaccination information,Either source,FALSE,CHVACSCNUM,933,951,NA,NA,NA
+330972,Number of children 12-23 months (unweighted),971,0,1998,CH_VACS_C_UNW,93886270,U,268002,Source of vaccination information,Either source,TRUE,CHVACSCUNW,973,951,NA,NA,NA
+139839,Number of children 12-23 months (unweighted),951,0,1998,CH_VACS_C_UNW,93886270,U,268002,Source of vaccination information,Either source,FALSE,CHVACSCUNW,933,951,NA,NA,NA
+796064,BCG vaccination received,96.8,1,1998,CH_VACC_C_BCG,93906010,I,1000,Total,Total,TRUE,CHVACCCBCG,973,971,NA,NA,NA
+796068,DPT 1 vaccination received,93.3,1,1998,CH_VACC_C_DP1,93906020,I,1000,Total,Total,TRUE,CHVACCCDP1,973,971,NA,NA,NA
+796065,DPT 2 vaccination received,86.2,1,1998,CH_VACC_C_DP2,93906030,I,1000,Total,Total,TRUE,CHVACCCDP2,973,971,NA,NA,NA
+796073,DPT 3 vaccination received,76.4,1,1998,CH_VACC_C_DP3,93906040,I,1000,Total,Total,TRUE,CHVACCCDP3,973,971,NA,NA,NA
+796069,Polio 0 vaccination received,91.2,1,1998,CH_VACC_C_OP0,93906050,I,1000,Total,Total,TRUE,CHVACCCOP0,973,971,NA,NA,NA
+796070,Polio 1 vaccination received,91,1,1998,CH_VACC_C_OP1,93906060,I,1000,Total,Total,TRUE,CHVACCCOP1,973,971,NA,NA,NA
+796071,Polio 2 vaccination received,82.7,1,1998,CH_VACC_C_OP2,93906070,I,1000,Total,Total,TRUE,CHVACCCOP2,973,971,NA,NA,NA
+796072,Polio 3 vaccination received,72.1,1,1998,CH_VACC_C_OP3,93906080,I,1000,Total,Total,TRUE,CHVACCCOP3,973,971,NA,NA,NA
+796074,Measles vaccination received,82.2,1,1998,CH_VACC_C_MSL,93906090,I,1000,Total,Total,TRUE,CHVACCCMSL,973,971,NA,NA,NA
+796066,Fully vaccinated (8 basic antigens),63.4,1,1998,CH_VACC_C_BAS,93906230,I,1000,Total,Total,TRUE,CHVACCCBAS,973,971,NA,NA,NA
+796075,Received no vaccinations,2.2,1,1998,CH_VACC_C_NON,93906250,I,1000,Total,Total,TRUE,CHVACCCNON,973,971,NA,NA,NA
+796079,Number of children 12-23 months,973,0,1998,CH_VACC_C_NUM,93906270,D,1000,Total,Total,TRUE,CHVACCCNUM,973,971,NA,NA,NA
+796699,Number of children 12-23 months (unweighted),971,0,1998,CH_VACC_C_UNW,93906280,U,1000,Total,Total,TRUE,CHVACCCUNW,973,971,NA,NA,NA
+795173,BCG vaccination received in first year,94.1,1,1998,CH_VAC1_C_BCG,93936010,I,1000,Total,Total,TRUE,CHVAC1CBCG,1417,1422.5,NA,NA,NA
+795174,DPT 1 vaccination received in first year,91.1,1,1998,CH_VAC1_C_DP1,93936020,I,1000,Total,Total,TRUE,CHVAC1CDP1,1417,1422.5,NA,NA,NA
+795175,DPT 2 vaccination received in first year,80.4,1,1998,CH_VAC1_C_DP2,93936030,I,1000,Total,Total,TRUE,CHVAC1CDP2,1417,1422.5,NA,NA,NA
+795179,DPT 3 vaccination received in first year,70.5,1,1998,CH_VAC1_C_DP3,93936040,I,1000,Total,Total,TRUE,CHVAC1CDP3,1417,1422.5,NA,NA,NA
+795176,Polio 0 vaccination received in first year,84.7,1,1998,CH_VAC1_C_OP0,93936050,I,1000,Total,Total,TRUE,CHVAC1COP0,1417,1422.5,NA,NA,NA
+795172,Polio 1 vaccination received in first year,87.3,1,1998,CH_VAC1_C_OP1,93936060,I,1000,Total,Total,TRUE,CHVAC1COP1,1417,1422.5,NA,NA,NA
+795177,Polio 2 vaccination received in first year,78,1,1998,CH_VAC1_C_OP2,93936070,I,1000,Total,Total,TRUE,CHVAC1COP2,1417,1422.5,NA,NA,NA
+795183,Polio 3 vaccination received in first year,62.7,1,1998,CH_VAC1_C_OP3,93936080,I,1000,Total,Total,TRUE,CHVAC1COP3,1417,1422.5,NA,NA,NA
+795178,Measles vaccination received in first year,40.2,1,1998,CH_VAC1_C_MSL,93936090,I,1000,Total,Total,TRUE,CHVAC1CMSL,1417,1422.5,NA,NA,NA
+795180,Fully vaccinated (8 basic antigens),29.9,1,1998,CH_VAC1_C_BAS,93936230,I,1000,Total,Total,TRUE,CHVAC1CBAS,1417,1422.5,NA,NA,NA
+795181,Received no vaccinations in first year,15.2,1,1998,CH_VAC1_C_NON,93936250,I,1000,Total,Total,TRUE,CHVAC1CNON,1417,1422.5,NA,NA,NA
+795182,Percentage showing a vaccination card,61.8,1,1998,CH_VAC1_C_VCD,93936260,I,1000,Total,Total,TRUE,CHVAC1CVCD,1417,1422.5,NA,NA,NA
+795194,Number of children one to four years of age,3734,0,1998,CH_VAC1_C_NUM,93936270,D,1000,Total,Total,TRUE,CHVAC1CNUM,1417,1422.5,NA,NA,NA
+796533,Number of children one to four years of age (unweighted),3761,0,1998,CH_VAC1_C_UNW,93936280,U,1000,Total,Total,TRUE,CHVAC1CUNW,1417,1422.5,NA,NA,NA
+538293,BCG vaccination received,92.5,1,2016,CH_VACS_C_BCG,93886010,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCBCG,677,670,NA,NA,NA
+358597,BCG vaccination received,91.5,1,2016,CH_VACS_C_BCG,93886010,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCBCG,660,676,NA,NA,NA
+538295,DPT 1 vaccination received,91.2,1,2016,CH_VACS_C_DP1,93886020,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCDP1,677,670,NA,NA,NA
+358599,DPT 1 vaccination received,87.5,1,2016,CH_VACS_C_DP1,93886020,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCDP1,660,676,NA,NA,NA
+538296,DPT 2 vaccination received,75.3,1,2016,CH_VACS_C_DP2,93886030,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCDP2,677,670,NA,NA,NA
+358600,DPT 2 vaccination received,71,1,2016,CH_VACS_C_DP2,93886030,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCDP2,660,676,NA,NA,NA
+538283,DPT 3 vaccination received,64.9,1,2016,CH_VACS_C_DP3,93886040,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCDP3,677,670,NA,NA,NA
+358602,DPT 3 vaccination received,63.3,1,2016,CH_VACS_C_DP3,93886040,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCDP3,660,676,NA,NA,NA
+538301,Polio 0 vaccination received,92.3,1,2016,CH_VACS_C_OP0,93886050,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCOP0,677,670,NA,NA,NA
+358607,Polio 0 vaccination received,88.3,1,2016,CH_VACS_C_OP0,93886050,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCOP0,660,676,NA,NA,NA
+538286,Polio 1 vaccination received,78.1,1,2016,CH_VACS_C_OP1,93886060,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCOP1,677,670,NA,NA,NA
+358616,Polio 1 vaccination received,74.3,1,2016,CH_VACS_C_OP1,93886060,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCOP1,660,676,NA,NA,NA
+538280,Measles vaccination received,86.1,1,2016,CH_VACS_C_MSL,93886090,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCMSL,677,670,NA,NA,NA
+358624,Measles vaccination received,84.4,1,2016,CH_VACS_C_MSL,93886090,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCMSL,660,676,NA,NA,NA
+538290,Hepatitis 1 vaccination received,90.2,1,2016,CH_VACS_C_HP1,93886110,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCHP1,677,670,NA,NA,NA
+358611,Hepatitis 1 vaccination received,87,1,2016,CH_VACS_C_HP1,93886110,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCHP1,660,676,NA,NA,NA
+538298,Hepatitis 2 vaccination received,73.4,1,2016,CH_VACS_C_HP2,93886120,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCHP2,677,670,NA,NA,NA
+358605,Hepatitis 2 vaccination received,71.6,1,2016,CH_VACS_C_HP2,93886120,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCHP2,660,676,NA,NA,NA
+538284,Hepatitis 3 vaccination received,65,1,2016,CH_VACS_C_HP3,93886130,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCHP3,677,670,NA,NA,NA
+358603,Hepatitis 3 vaccination received,65.8,1,2016,CH_VACS_C_HP3,93886130,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCHP3,660,676,NA,NA,NA
+538299,Haemophilus influenza type b 1 vaccination received,91.2,1,2016,CH_VACS_C_HB1,93886140,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCHB1,677,670,NA,NA,NA
+358606,Haemophilus influenza type b 1 vaccination received,87.5,1,2016,CH_VACS_C_HB1,93886140,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCHB1,660,676,NA,NA,NA
+538285,Haemophilus influenza type b 2 vaccination received,75.3,1,2016,CH_VACS_C_HB2,93886150,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCHB2,677,670,NA,NA,NA
+358604,Haemophilus influenza type b 2 vaccination received,71,1,2016,CH_VACS_C_HB2,93886150,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCHB2,660,676,NA,NA,NA
+538297,Haemophilus influenza type b 3 vaccination received,64.9,1,2016,CH_VACS_C_HB3,93886160,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCHB3,677,670,NA,NA,NA
+358610,Haemophilus influenza type b 3 vaccination received,63.3,1,2016,CH_VACS_C_HB3,93886160,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCHB3,660,676,NA,NA,NA
+538276,Fully vaccinated (8 basic antigens),61.2,1,2016,CH_VACS_C_BAS,93886230,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCBAS,677,670,NA,NA,NA
+358617,Fully vaccinated (8 basic antigens),61.1,1,2016,CH_VACS_C_BAS,93886230,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCBAS,660,676,NA,NA,NA
+538277,Received no vaccinations,5.3,1,2016,CH_VACS_C_NON,93886250,I,268002,Source of vaccination information,Either source,TRUE,CHVACSCNON,677,670,NA,NA,NA
+358620,Received no vaccinations,7.8,1,2016,CH_VACS_C_NON,93886250,I,268002,Source of vaccination information,Either source,FALSE,CHVACSCNON,660,676,NA,NA,NA
+539210,Number of children 12-23 months,677,0,2016,CH_VACS_C_NUM,93886260,D,268002,Source of vaccination information,Either source,TRUE,CHVACSCNUM,660,670,NA,NA,NA
+149148,Number of children 12-23 months,660,0,2016,CH_VACS_C_NUM,93886260,D,268002,Source of vaccination information,Either source,FALSE,CHVACSCNUM,660,676,NA,NA,NA
+291112,Number of children 12-23 months (unweighted),670,0,2016,CH_VACS_C_UNW,93886270,U,268002,Source of vaccination information,Either source,TRUE,CHVACSCUNW,677,676,NA,NA,NA
+358621,Number of children 12-23 months (unweighted),676,0,2016,CH_VACS_C_UNW,93886270,U,268002,Source of vaccination information,Either source,FALSE,CHVACSCUNW,660,676,NA,NA,NA
+509956,BCG vaccination received,92.5,1,2016,CH_VACC_C_BCG,93906010,I,1000,Total,Total,TRUE,CHVACCCBCG,677,670,NA,NA,NA
+509959,DPT 1 vaccination received,91.2,1,2016,CH_VACC_C_DP1,93906020,I,1000,Total,Total,TRUE,CHVACCCDP1,677,670,NA,NA,NA
+509957,DPT 2 vaccination received,75.3,1,2016,CH_VACC_C_DP2,93906030,I,1000,Total,Total,TRUE,CHVACCCDP2,677,670,NA,NA,NA
+509960,DPT 3 vaccination received,64.9,1,2016,CH_VACC_C_DP3,93906040,I,1000,Total,Total,TRUE,CHVACCCDP3,677,670,NA,NA,NA
+509965,Polio 0 vaccination received,92.3,1,2016,CH_VACC_C_OP0,93906050,I,1000,Total,Total,TRUE,CHVACCCOP0,677,670,NA,NA,NA
+509966,Polio 1 vaccination received,78.1,1,2016,CH_VACC_C_OP1,93906060,I,1000,Total,Total,TRUE,CHVACCCOP1,677,670,NA,NA,NA
+509968,Measles vaccination received,86.1,1,2016,CH_VACC_C_MSL,93906090,I,1000,Total,Total,TRUE,CHVACCCMSL,677,670,NA,NA,NA
+509961,Hepatitis 1 vaccination received,90.2,1,2016,CH_VACC_C_HP1,93906110,I,1000,Total,Total,TRUE,CHVACCCHP1,677,670,NA,NA,NA
+509958,Hepatitis 2 vaccination received,73.4,1,2016,CH_VACC_C_HP2,93906120,I,1000,Total,Total,TRUE,CHVACCCHP2,677,670,NA,NA,NA
+509955,Hepatitis 3 vaccination received,65,1,2016,CH_VACC_C_HP3,93906130,I,1000,Total,Total,TRUE,CHVACCCHP3,677,670,NA,NA,NA
+509970,Haemophilus influenza type b 1 vaccination received,91.2,1,2016,CH_VACC_C_HB1,93906140,I,1000,Total,Total,TRUE,CHVACCCHB1,677,670,NA,NA,NA
+509971,Haemophilus influenza type b 2 vaccination received,75.3,1,2016,CH_VACC_C_HB2,93906150,I,1000,Total,Total,TRUE,CHVACCCHB2,677,670,NA,NA,NA
+509972,Haemophilus influenza type b 3 vaccination received,64.9,1,2016,CH_VACC_C_HB3,93906160,I,1000,Total,Total,TRUE,CHVACCCHB3,677,670,NA,NA,NA
+509978,Fully vaccinated (8 basic antigens),61.2,1,2016,CH_VACC_C_BAS,93906230,I,1000,Total,Total,TRUE,CHVACCCBAS,677,670,NA,NA,NA
+509969,Received no vaccinations,5.3,1,2016,CH_VACC_C_NON,93906250,I,1000,Total,Total,TRUE,CHVACCCNON,677,670,NA,NA,NA
+516214,Number of children 12-23 months,677,0,2016,CH_VACC_C_NUM,93906270,D,1000,Total,Total,TRUE,CHVACCCNUM,677,670,NA,NA,NA
+291635,Number of children 12-23 months (unweighted),670,0,2016,CH_VACC_C_UNW,93906280,U,1000,Total,Total,TRUE,CHVACCCUNW,677,670,NA,NA,NA
+36637,BCG vaccination received in first year,91.4,1,2016,CH_VAC1_C_BCG,93936010,I,1000,Total,Total,TRUE,CHVAC1CBCG,1337,1346,NA,NA,NA
+36638,DPT 1 vaccination received in first year,88.5,1,2016,CH_VAC1_C_DP1,93936020,I,1000,Total,Total,TRUE,CHVAC1CDP1,1337,1346,NA,NA,NA
+36639,DPT 2 vaccination received in first year,72.7,1,2016,CH_VAC1_C_DP2,93936030,I,1000,Total,Total,TRUE,CHVAC1CDP2,1337,1346,NA,NA,NA
+36640,DPT 3 vaccination received in first year,63.3,1,2016,CH_VAC1_C_DP3,93936040,I,1000,Total,Total,TRUE,CHVAC1CDP3,1337,1346,NA,NA,NA
+36645,Polio 0 vaccination received in first year,89.9,1,2016,CH_VAC1_C_OP0,93936050,I,1000,Total,Total,TRUE,CHVAC1COP0,1337,1346,NA,NA,NA
+36644,Polio 1 vaccination received in first year,75.9,1,2016,CH_VAC1_C_OP1,93936060,I,1000,Total,Total,TRUE,CHVAC1COP1,1337,1346,NA,NA,NA
+36646,Measles vaccination received in first year,79.7,1,2016,CH_VAC1_C_MSL,93936090,I,1000,Total,Total,TRUE,CHVAC1CMSL,1337,1346,NA,NA,NA
+36641,Fully vaccinated (8 basic antigens),56.7,1,2016,CH_VAC1_C_BAS,93936230,I,1000,Total,Total,TRUE,CHVAC1CBAS,1337,1346,NA,NA,NA
+36642,Received no vaccinations in first year,8.9,1,2016,CH_VAC1_C_NON,93936250,I,1000,Total,Total,TRUE,CHVAC1CNON,1337,1346,NA,NA,NA
+36643,Percentage showing a vaccination card,63.7,1,2016,CH_VAC1_C_VCD,93936260,I,1000,Total,Total,TRUE,CHVAC1CVCD,1337,1346,NA,NA,NA
+45399,Number of children one to four years of age,1337,0,2016,CH_VAC1_C_NUM,93936270,D,1000,Total,Total,TRUE,CHVAC1CNUM,1337,1346,NA,NA,NA
+417774,Number of children one to four years of age (unweighted),1346,0,2016,CH_VAC1_C_UNW,93936280,U,1000,Total,Total,TRUE,CHVAC1CUNW,1337,1346,NA,NA,NA
