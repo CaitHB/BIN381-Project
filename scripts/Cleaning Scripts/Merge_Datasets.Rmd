@@ -14,6 +14,8 @@ library(dplyr)
 library(tidyr)
 library(readr)
 library(here)
+library(purrr)
+
 ```
 
 ```{r}
@@ -25,8 +27,8 @@ file_paths <- c(
   "Toilet_05"               = here("cleaned_data", "toilet_cleaned.csv"),
   "Maternal_mortality_08"   = here("cleaned_data", "maternal-mortality_cleaned.csv"),
   "Literacy_09"             = here("cleaned_data", "literacy_cleaned.csv"),
-  "ARI_10"                  = here("cleaned_data", "symptoms-of-acute-respiratory-infection-ari_cleaned.csv"),
-  "Anthro_11"               = here("cleaned_data", "anthropometry_cleaned.csv"),
+  "Anthro_11"                 = here("cleaned_data", "anthropometry_cleaned.csv"),
+  "Water_06"               = here("cleaned_data", "water_cleaned.csv"),
   "IYCF_12"                 = here("cleaned_data", "iycf_cleaned.csv")
 )
 
@@ -36,12 +38,29 @@ keep_cols <- c(
   "CharacteristicLabel", "IndicatorId", "IndicatorType",
   "Value", "DenominatorWeighted", "DenominatorUnweighted"
 )
+# Function to read and clean datasets
+read_clean <- function(path) {
+  df <- read_csv(path, show_col_types = FALSE)
+  df %>% select(any_of(keep_cols))
+}
 
-master_df <- map2(file_paths, names(file_paths), ~ {
-  read_csv(.x, show_col_types = FALSE) %>%
-    select(any_of(keep_cols)) %>%       # <-- use any_of() here
-    mutate(Dataset = .y)                # track which dataset it came from
+# Define groups
+groups <- list(
+  GroupA_Health = c("Access_To_Healthcare_01", "Child_Mortality_02", "Immunization_04", "Maternal_mortality_08"),
+  GroupB_Sanitation = c("Toilet_05", "Water_06"),
+  GroupC_Nutrition = c("Anthro_11", "IYCF_12"),
+  GroupD_Social = c("Literacy_09", "HIV_Behaviour_03")
+)
+
+# Merge each group
+group_dfs <- map(groups, function(group) {
+  dfs <- map(file_paths[group], read_clean)
+  bind_rows(dfs, .id = "Dataset")  # keep track of dataset source
 })
+
+# Check one of the groups
+dim(group_dfs$GroupA_Health)
+head(group_dfs$GroupA_Health)
 ```
 
 ```{r}
@@ -53,21 +72,10 @@ master_df <- map2(file_paths, names(file_paths), ~ {
 ```
 
 ```{r}
-# Bind all datasets together row-wise
-merged_df <- bind_rows(master_df)
 
-dim(merged_df)
-colnames(merged_df)
-head(merged_df[,1:10])
-
-
-```
-
-```{r}
-
-write_csv(merged_df, here("cleaned_data", "master_ds.csv"))
-```
-
-```{r}
+# Save each group separately
+walk2(group_dfs, names(group_dfs), ~ {
+  write_csv(.x, here("cleaned_data", paste0(.y, "_merged.csv")))
+})
 
 ```
