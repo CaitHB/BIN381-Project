@@ -1,0 +1,56 @@
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+# Load Group C dataset
+data <- read_csv("~/GitHub/BIN381-Project/merged datasets/GroupC_Nutrition_merged.csv")
+
+# Filter out denominators and unweighted counts
+data <- data %>%
+  filter(!(IndicatorType %in% c("D", "U")))
+
+# Transformations
+data <- data %>%
+  mutate(
+    IndicatorId_orig = IndicatorId,
+    IndicatorType = as.numeric(factor(IndicatorType)),
+    IndicatorId = as.numeric(factor(IndicatorId)),
+    Value_scaled = scale(Value),
+    DenominatorWeighted_scaled = scale(DenominatorWeighted),
+    DenominatorUnweighted_scaled = scale(DenominatorUnweighted),
+    Weighted_Proportion = DenominatorWeighted / DenominatorUnweighted,
+    SurveyYearFactor = as.factor(SurveyYear)
+  )
+
+# Aggregation
+agg_data <- data %>%
+  group_by(SurveyYear, IndicatorId_orig) %>%
+  summarise(
+    Avg_Value = mean(Value, na.rm = TRUE),
+    Total_Weighted = sum(DenominatorWeighted, na.rm = TRUE)
+  )
+
+# Visualization 1: Average Value by Year
+ggplot(agg_data, aes(x=SurveyYear, y=Avg_Value, color=IndicatorId_orig, group=IndicatorId_orig)) +
+  geom_line(size = 1.1) +
+  geom_point(size = 2.5) +
+  labs(
+    title="Nutrition and Feeding Indicators by Year",
+    x="Survey Year",
+    y="Average Value (%)",
+    color="Indicator"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Visualization 2: Total Weighted Count by Year
+ggplot(agg_data, aes(x=SurveyYear, y=Total_Weighted, fill=IndicatorId_orig)) +
+  geom_col(position = "dodge") +
+  labs(
+    title="Sample Size by Indicator and Year",
+    x="Survey Year",
+    y="Total Weighted Count",
+    fill="Indicator"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
