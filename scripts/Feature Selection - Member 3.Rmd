@@ -1,0 +1,160 @@
+
+
+
+
+---
+title: "Feature Selection - Member 3"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Load required libraries
+library(tidyverse)
+library(skimr)
+library(ggplot2)
+library(readr)
+library(knitr)
+library(dplyr)
+library(tidyr)
+library(summarytools)
+library(corrplot)
+
+# Create output directories
+dir.create("../outputs/visuals", recursive = TRUE, showWarnings = FALSE)
+dir.create("../outputs/summary_tables", recursive = TRUE, showWarnings = FALSE)
+dir.create("../outputs/dictionary", recursive = TRUE, showWarnings = FALSE)
+
+```
+# Load merged datasets
+```{r echo=FALSE}
+dataA <- read_csv("C:/Belgium Campus/PRG282_Project/BIN381-Project/merged datasets/GroupA_Health_merged.csv")
+dataB <- read_csv("C:/Belgium Campus/PRG282_Project/BIN381-Project/merged datasets/GroupB_Sanitation_merged.csv")
+dataC <- read_csv("C:/Belgium Campus/PRG282_Project/BIN381-Project/merged datasets/GroupC_Nutrition_merged.csv")
+dataD <- read_csv("C:/Belgium Campus/PRG282_Project/BIN381-Project/merged datasets/GroupD_Social_merged.csv")
+
+# Combine all datasets into one (if required)
+combined_data <- bind_rows(dataA, dataB, dataC, dataD)
+
+# Preview the first few rows
+kable(head(combined_data), caption = "First few rows of the combined dataset")
+
+```
+
+```{r echo=FALSE}
+# Summary statistics for numeric variables
+numeric_cols <- select(combined_data, where(is.numeric))
+
+summary_stats <- numeric_cols %>%
+  summarise(across(everything(), list(mean = ~mean(., na.rm = TRUE),
+                                      sd   = ~sd(., na.rm = TRUE),
+                                      min  = ~min(., na.rm = TRUE),
+                                      max  = ~max(., na.rm = TRUE)))) %>%
+  pivot_longer(cols = everything(),
+               names_to = c("Variable", "Statistic"),
+               names_sep = "_",
+               values_to = "Value") %>%
+  arrange(Variable)
+
+# Display summary statistics
+kable(summary_stats, caption = "Summary Statistics for Numeric Variables")
+
+```
+
+```{r echo=FALSE}
+# Checking for missing values in the dataset
+missing_values <- colSums(is.na(combined_data))
+kable(missing_values, caption = "Missing Values Per Column")
+
+```
+
+```{r echo=FALSE}
+# Check for duplicate rows in the dataset
+duplicates <- sum(duplicated(combined_data))
+if (duplicates > 0) {
+  message(paste("Warning: Found", duplicates, "duplicate rows in the dataset."))
+} else {
+  message("No duplicates found.")
+}
+
+```
+
+```{r echo=FALSE}
+# Correlation matrix for numerical features
+cor_matrix <- cor(select(combined_data, where(is.numeric)), use = "complete.obs")
+# Visualize the correlation matrix
+corrplot(cor_matrix, method = "color", addCoef.col = "black", tl.cex = 0.8)
+
+# Display the correlation matrix
+kable(as.data.frame(cor_matrix), caption = "Correlation Matrix for Numerical Features")
+
+```
+
+```{r echo=FALSE}
+# Inspect column names to confirm 'Value' and 'DenominatorWeighted' exist
+colnames(combined_data)
+
+# Inspect the first few rows of the 'Value' and 'DenominatorWeighted' columns
+head(combined_data$Value)
+head(combined_data$DenominatorWeighted)
+
+# Convert the 'Value' and 'DenominatorWeighted' columns to numeric if needed
+combined_data$Value <- as.numeric(combined_data$Value)
+combined_data$DenominatorWeighted <- as.numeric(combined_data$DenominatorWeighted)
+
+# Remove rows with NA values in the 'Value' and 'DenominatorWeighted' columns
+cleaned_data <- combined_data %>%
+  filter(!is.na(Value) & !is.na(DenominatorWeighted))
+
+# Perform the correlation test between 'Value' and 'DenominatorWeighted'
+cor_test_value_denominator <- cor.test(cleaned_data$Value, cleaned_data$DenominatorWeighted)
+print(cor_test_value_denominator)
+
+# Perform the correlation test between 'Value' and 'DenominatorUnweighted'
+cor_test_value_denominator_unweighted <- cor.test(cleaned_data$Value, cleaned_data$DenominatorUnweighted)
+print(cor_test_value_denominator_unweighted)
+
+# Perform the correlation test between 'DenominatorWeighted' and 'DenominatorUnweighted'
+cor_test_denominator_weighted_unweighted <- cor.test(cleaned_data$DenominatorWeighted, cleaned_data$DenominatorUnweighted)
+print(cor_test_denominator_weighted_unweighted)
+
+```
+
+
+
+
+```{r echo=FALSE}
+# Select relevant features based on correlation and significance tests
+selected_features <- combined_data %>%
+  select(Value, DenominatorWeighted, DenominatorUnweighted)  # Replace with other features if needed
+
+# Display the selected features
+kable(head(selected_features), caption = "Selected Features for Modeling")
+
+
+```
+
+```{r echo=FALSE}
+# Plotting the distribution of selected features
+ggplot(selected_features, aes(x = Value)) +
+  geom_histogram(binwidth = 10, fill = "skyblue", color = "black") +
+  labs(title = "Distribution of Value", x = "Value", y = "Frequency") +
+  theme_minimal()
+
+ggsave("../outputs/visuals/value_distribution.png", width = 6, height = 4)
+
+
+```
+
+
+```{r echo=FALSE}
+
+# Save the selected features for modeling
+write_csv(selected_features, "../outputs/summary_tables/selected_features.csv")
+
+# Provide a summary of the feature selection process
+cat("Feature selection was performed based on correlation analysis and statistical tests. The selected features for further modeling are saved in the 'selected_features.csv' file.")
+
+```
