@@ -2,12 +2,11 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 
-# Load Group C dataset
-data <- read_csv("~/GitHub/BIN381-Project/merged datasets/GroupC_Nutrition_merged.csv")
+data <- read_csv("~/GitHub/BIN381-Project/merged datasets/GroupD_Social_merged.csv")
 
-# Filter out denominators and unweighted counts
+# Filter out totals, denominators, and unweighted rows
 data <- data %>%
-  filter(!(IndicatorType %in% c("D", "U")))
+  filter(!(IndicatorType %in% c("D", "U", "T")))
 
 # Transformations
 # Create new variables and scale numeric columns
@@ -17,7 +16,7 @@ data <- data %>%
 # Convert SurveyYear to factor
 data <- data %>%
   mutate(
-    IndicatorId_orig = IndicatorId,
+    IndicatorId_orig = IndicatorId,  # preserve original
     IndicatorType = as.numeric(factor(IndicatorType)),
     IndicatorId = as.numeric(factor(IndicatorId)),
     Value_scaled = scale(Value),
@@ -27,7 +26,7 @@ data <- data %>%
     SurveyYearFactor = as.factor(SurveyYear)
   )
 
-# Aggregation 
+# Aggregation
 # Summarize average Value and total DenominatorWeighted by SurveyYear and IndicatorId_orig
 agg_data <- data %>%
   group_by(SurveyYear, IndicatorId_orig) %>%
@@ -37,23 +36,22 @@ agg_data <- data %>%
   )
 
 # Visualization 1: Average Value by Year
-# Rainbow color palette
+# 
 ggplot(agg_data, aes(x=SurveyYear, y=Avg_Value, color=IndicatorId_orig, group=IndicatorId_orig)) +
-  geom_line(size = 1.1) +
-  geom_point(size = 2.5) +
+  geom_line(size=1.1) +
+  geom_point(size=2.5) +
   labs(
-    title="Nutrition and Feeding Indicators by Year",
+    title="Literacy & HIV Behaviour Indicators by Year",
     x="Survey Year",
     y="Average Value (%)",
     color="Indicator"
   ) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle=45, hjust=1))
 
 # Visualization 2: Total Weighted Count by Year
-# Rainbow color palette
 ggplot(agg_data, aes(x=SurveyYear, y=Total_Weighted, fill=IndicatorId_orig)) +
-  geom_col(position = "dodge") +
+  geom_col(position="dodge") +
   labs(
     title="Sample Size by Indicator and Year",
     x="Survey Year",
@@ -61,4 +59,8 @@ ggplot(agg_data, aes(x=SurveyYear, y=Total_Weighted, fill=IndicatorId_orig)) +
     fill="Indicator"
   ) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle=45, hjust=1))
+
+# save plots
+ggsave("outputs/groupD_avg_value_by_year.png", width=10, height=6)
+ggsave("outputs/groupD_total_weighted_by_year.png", width=10, height=6)
