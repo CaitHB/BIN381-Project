@@ -1,0 +1,102 @@
+---
+title: "EDA_New_Script"
+author: "Group K"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Load required packages
+library(tidyverse)
+library(skimr)
+library(ggplot2)
+library(readr)
+library(knitr)
+library(dplyr)
+library(tidyr)
+library(summarytools)
+library(readxl)  # Since you're working with Excel files
+library(here)    # Load the here package
+
+# Set working directory relative to the project root
+knitr::opts_knit$set(root.dir = here::here())
+
+# Create directories for output if they don't exist
+dir.create("outputs/visuals", recursive = TRUE, showWarnings = FALSE)
+dir.create("outputs/summary_tables", recursive = TRUE, showWarnings = FALSE)
+
+```
+
+```{r}
+# Define the path to the merged datasets folder
+merged_data_folder <- here("merged datasets")
+
+# List the files in the folder to confirm they're being detected correctly
+dataset_files <- list.files(merged_data_folder, pattern = "*.csv$", full.names = TRUE)
+
+# Debugging step: Print the files to ensure they're detected
+print("Found the following files:")
+print(dataset_files)
+
+# Check if the files exist
+stopifnot(length(dataset_files) > 0, "No CSV files found in 'merged datasets' folder!")
+
+# Load all merged data files (GroupA, GroupB, GroupC, GroupD)
+groupA_data <- read_csv(dataset_files[1])  # First file for GroupA
+groupB_data <- read_csv(dataset_files[2])  # Second file for GroupB
+groupC_data <- read_csv(dataset_files[3])  # Third file for GroupC
+groupD_data <- read_csv(dataset_files[4])  # Fourth file for GroupD
+
+
+```
+```{r}
+# Display the first 5 rows of Group A's data
+kable(head(groupA_data), caption = "First 5 Rows of Group A Data")
+
+# Repeat for other groups if needed
+kable(head(groupB_data), caption = "First 5 Rows of Group B Data")
+kable(head(groupC_data), caption = "First 5 Rows of Group C Data")
+kable(head(groupD_data), caption = "First 5 Rows of Group D Data")
+```
+
+
+
+```{r}
+# Summary statistics for Group A data
+summary(groupA_data)
+
+# Repeat for other groups
+summary(groupB_data)
+summary(groupC_data)
+summary(groupD_data)
+
+
+```
+
+```{r}
+# Missing values in Group A
+missing_groupA <- colSums(is.na(groupA_data))
+cat("Missing values in Group A:\n", missing_groupA, "\n")
+
+# Duplicates in Group A
+duplicates_groupA <- sum(duplicated(groupA_data))
+cat("Number of duplicate rows in Group A:", duplicates_groupA, "\n")
+
+# Repeat for other groups if needed
+
+
+```
+
+```{r}
+# Example visualization: Distribution of a specific variable in Group A
+ggplot(groupA_data, aes(x = variable_of_interest)) + 
+  geom_histogram(binwidth = 10) + 
+  labs(title = "Distribution of Variable in Group A")
+
+# Save the plot
+ggsave("outputs/visuals/groupA_variable_plot.png")
+
+```
