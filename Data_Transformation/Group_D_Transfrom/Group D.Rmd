@@ -1,5 +1,5 @@
 ---
-title: "Group D"
+title: "Group D Transformation and Visualization"
 author: "Group_K"
 date: "`r Sys.Date()`"
 output: pdf_document
@@ -9,15 +9,16 @@ output: pdf_document
 library(readr)
 library(dplyr)
 library(ggplot2)
+library(tidyr)
+library(scales)
 
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r}
 # Load Group D data
-data <- read_csv("merged datasets/GroupD_Social_merged.csv")
+data <- read_csv("~/GitHub/BIN381-Project/merged datasets/GroupD_Social_merged.csv")
 
-# Preview
 head(data)
 ```
 

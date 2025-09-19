@@ -1,5 +1,5 @@
 ---
-title: "Group B T"
+title: "Group B Transformation and Visualization"
 author: "Group K"
 date: "`r Sys.Date()`"
 output: pdf_document
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```{r}
 # Load data
-data <- read_csv("merged datasets/GroupB_Sanitation_merged.csv")
+data <- read_csv("~/GitHub/BIN381-Project/merged datasets/GroupB_Sanitation_merged.csv") 
 
 # Check first few rows
 head(data)
@@ -30,7 +30,7 @@ head(data)
 # Filtering
 # Keep only relevant IndicatorIds
 data <- data %>% 
-  filter(!(IndicatorType %in% c("T", "D", "U"))) # whas needed to remove totals/denominators/unweighted
+filter(!(IndicatorType %in% c("T", "D", "U"))) # whas needed to remove totals/denominators/unweighted
 ```
 
 ```{r}
