@@ -32,10 +32,11 @@ dir.create("../outputs/dictionary", recursive = TRUE, showWarnings = FALSE)
 ```
 # Load merged datasets
 ```{r echo=FALSE}
-dataA <- read_csv(here("merged datasets", "GroupA_Health_merged.csv"))
-dataB <- read_csv(here("merged datasets", "GroupB_Sanitation_merged.csv"))
-dataC <- read_csv(here("merged datasets", "GroupC_Nutrition_merged.csv"))
-dataD <- read_csv(here("merged datasets", "GroupD_Social_merged.csv"))
+dataA <- read_csv(here("merged datasets", "GroupA_Health_merged.csv"), show_col_types = FALSE)
+dataB <- read_csv(here("merged datasets", "GroupB_Sanitation_merged.csv"), show_col_types = FALSE)
+dataC <- read_csv(here("merged datasets", "GroupC_Nutrition_merged.csv"), show_col_types = FALSE)
+dataD <- read_csv(here("merged datasets", "GroupD_Social_merged.csv"), show_col_types = FALSE)
+
 
 # Combine all datasets into one (if required)
 combined_data <- bind_rows(dataA, dataB, dataC, dataD)
@@ -50,7 +51,7 @@ important_cols <- combined_data %>%
 important_cols %>%
   head(10) %>%
   kable(booktabs = TRUE, caption = "Key columns of the dataset") %>%
-  kable_styling(latex_options = c("scale_down", "hold_position"))
+  kable_styling(latex_options = c("hold_position"))
 ```
 
 ```{r echo=FALSE}
@@ -103,42 +104,51 @@ kable(as.data.frame(cor_matrix), caption = "Correlation Matrix for Numerical Fea
 ```
 
 ```{r echo=FALSE}
-# Inspect column names to confirm 'Value' and 'DenominatorWeighted' exist
-colnames(combined_data)
+# Ensure numeric columns
+combined_data <- combined_data %>%
+  mutate(
+    Value = as.numeric(Value),
+    DenominatorWeighted = as.numeric(DenominatorWeighted),
+    DenominatorUnweighted = as.numeric(DenominatorUnweighted)
+  )
 
-# Inspect the first few rows of the 'Value' and 'DenominatorWeighted' columns
-head(combined_data$Value)
-head(combined_data$DenominatorWeighted)
-
-# Convert the 'Value' and 'DenominatorWeighted' columns to numeric if needed
-combined_data$Value <- as.numeric(combined_data$Value)
-combined_data$DenominatorWeighted <- as.numeric(combined_data$DenominatorWeighted)
-
-# Remove rows with NA values in the 'Value' and 'DenominatorWeighted' columns
+# Remove rows with NA in key columns
 cleaned_data <- combined_data %>%
-  filter(!is.na(Value) & !is.na(DenominatorWeighted))
+  filter(!is.na(Value) & !is.na(DenominatorWeighted) & !is.na(DenominatorUnweighted))
 
-# Perform the correlation test between 'Value' and 'DenominatorWeighted'
-cor_test_value_denominator <- cor.test(cleaned_data$Value, cleaned_data$DenominatorWeighted)
-print(cor_test_value_denominator)
+# Display key column names in a table
+col_table <- tibble(Column_Names = c("Dataset", "SurveyYear", "CharacteristicId",
+                                     "CharacteristicCategory", "CharacteristicLabel",
+                                     "IndicatorId", "IndicatorType", "Value",
+                                     "DenominatorWeighted", "DenominatorUnweighted"))
+kable(col_table, caption = "Key Columns in the Dataset") %>%
+  kable_styling(latex_options = c("hold_position"))
 
-# Perform the correlation test between 'Value' and 'DenominatorUnweighted'
-cor_test_value_denominator_unweighted <- cor.test(cleaned_data$Value, cleaned_data$DenominatorUnweighted)
-print(cor_test_value_denominator_unweighted)
+# Compute Pearson correlations
+cor_table <- tibble(
+  Variable_Pair = c(
+    "Value & DenominatorWeighted",
+    "Value & DenominatorUnweighted",
+    "DenominatorWeighted & DenominatorUnweighted"
+  ),
+  Pearson_Correlation = c(
+    cor(cleaned_data$Value, cleaned_data$DenominatorWeighted, use = "complete.obs"),
+    cor(cleaned_data$Value, cleaned_data$DenominatorUnweighted, use = "complete.obs"),
+    cor(cleaned_data$DenominatorWeighted, cleaned_data$DenominatorUnweighted, use = "complete.obs")
+  )
+)
 
-# Perform the correlation test between 'DenominatorWeighted' and 'DenominatorUnweighted'
-cor_test_denominator_weighted_unweighted <- cor.test(cleaned_data$DenominatorWeighted, cleaned_data$DenominatorUnweighted)
-print(cor_test_denominator_weighted_unweighted)
+# Display correlations neatly
+kable(cor_table, caption = "Pearson Correlations Between Selected Variables") %>%
+  kable_styling(latex_options = c("hold_position"))
 
 ```
-
-
 
 
 ```{r echo=FALSE}
 # Select relevant features based on correlation and significance tests
 selected_features <- combined_data %>%
-  select(Value, DenominatorWeighted, DenominatorUnweighted)  # Replace with other features if needed
+  select(Value, DenominatorWeighted, DenominatorUnweighted) 
 
 # Display the selected features
 kable(head(selected_features), caption = "Selected Features for Modeling")
@@ -164,7 +174,5 @@ ggsave("../outputs/visuals/value_distribution.png", width = 6, height = 4)
 # Save the selected features for modeling
 write_csv(selected_features, "../outputs/summary_tables/selected_features.csv")
 
-# Provide a summary of the feature selection process
-cat("Feature selection was performed based on correlation analysis and statistical tests. The selected features for further modeling are saved in the 'selected_features.csv' file.")
-
 ```
+## Feature selection was performed based on correlation analysis and statistical tests. The selected features are saved in the `selected_features.csv` file.
