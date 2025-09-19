@@ -5,9 +5,10 @@ date: "`r Sys.Date()`"
 output: pdf_document
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,   results = "hide",  message = FALSE,   # hide package messages
+  warning = FALSE)
 ```
-#Loading Libraries
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -15,29 +16,30 @@ library(stringr)
 library(readr)
 library(here)
 library(ggplot2)
+library(purrr)
 
 getwd()
 list.files("data/raw_data")
 ```
-#Load Dataset 
+
 ```{r}
 wtr_df <- read_csv(here("raw_data", "water_national_zaf.csv"))
 ```
 
-#Display Dataset content
-```{r}
-head(wtr_df)
+## Display Dataset content
+```{r, results='hold'}
+head(wtr_df, 3)
 ```
 
-#Remove the first row(meta data)
+## Remove the first row(meta data)
 ```{r}
 wtr_df <- wtr_df[-1, ]
 ```
-#dimensions 
+ 
 ```{r}
 dim(wtr_df)
 ```
-#Inspect Duplicated rows
+
 ```{r}
 dup_check <- wtr_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value, DenominatorWeighted) %>%
@@ -52,7 +54,7 @@ wtr_df <- wtr_df %>%
   distinct(Indicator, SurveyYear, CharacteristicId, Value, DenominatorWeighted, .keep_all = TRUE)
 
 ```
-#Percentage Missing Values
+
 ```{r}
 
 data.frame(
@@ -69,7 +71,7 @@ data.frame(
   )
 ```
 
-#check data types
+
 ```{r}
 data.frame(
   Column = names(wtr_df),
@@ -77,13 +79,13 @@ data.frame(
 )
 
 ```
-#Check The structure of the dataset 
+
 ```{r}
 str(wtr_df)
 
 ```
-#Convert Data Types
-```{r}
+## Convert Data Types
+```{r,echo=TRUE}
 wtr_df <- wtr_df %>%
   mutate(
         Value = as.numeric(Value),
@@ -99,10 +101,9 @@ wtr_df <- wtr_df %>%
     DenominatorUnweighted = as.numeric(DenominatorUnweighted),
   )
 ```
-#check for unique values
-```{r}
-library(dplyr)
-library(purrr)
+## Check for unique values
+```{r, results='hold'}
+
 
 # Summary table: column name, number of unique values, sample of unique values
 n_sample <- 3
@@ -119,7 +120,7 @@ summary_tbl
 
 ```
 
-#Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
+#Drop the countries only one unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 wtr_df <- wtr_df %>%
   select(
@@ -152,7 +153,7 @@ wtr_df[
 
 ```
 # Replace DenominatorUnweighted for a specific dataid
-```{r}
+```{r, echo=TRUE}
 
 wtr_df$DenominatorUnweighted[wtr_df$DataId == "795270"] <- 12247
 
@@ -185,7 +186,7 @@ unique(wtr_df$Indicator)
 dim(wtr_df)
 ```
 
-#save cleaned data
+
 ```{r}
 write_csv(wtr_df, here("cleaned_data", "water_cleaned.csv"))
 ```

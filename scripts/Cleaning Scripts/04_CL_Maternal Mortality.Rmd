@@ -6,7 +6,8 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,   results = "hide",  message = FALSE,   # hide package messages
+  warning = FALSE)
 ```
 
 #Loading Libraries
@@ -17,30 +18,31 @@ library(stringr)
 library(readr)
 library(here)
 library(purrr)
+library(ggplot2)
 
 getwd()
 list.files("data/raw_data")
 ```
-#Load Dataset 
+
 ```{r}
 mam_df <- read_csv(here("raw_data", "maternal-mortality_national_zaf.csv"))
 ```
 
-#Disdplay Dataset content
-```{r}
-head(mam_df)
+## Display Dataset content
+```{r, results='markup'}
+head(mam_df,3)
 ```
 
-#Remove the first row(meta data)
+## Remove the first row(meta data)
 ```{r}
 mam_df <- mam_df[-1, ]
 ```
-#dimensions 
+
 ```{r}
 dim(mam_df)
 ```
 
-#Inspect Duplicated rows
+
 ```{r}
 dup_check <- mam_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
@@ -50,7 +52,6 @@ dup_check
 
 ```
 
-#perc mising values
 ```{r}
 
 data.frame(
@@ -67,7 +68,7 @@ data.frame(
   )
 ```
 
-#check data types
+
 ```{r}
 data.frame(
   Column = names(mam_df),
@@ -75,14 +76,14 @@ data.frame(
 )
 
 ```
-#Check The structure of the dataset 
+ 
 ```{r}
 str(mam_df)
 
 ```
 
-#Convert Data Types
-```{r}
+## Convert Data Types
+```{r, echo=TRUE}
 mam_df <- mam_df %>%
   mutate(
         Value = as.numeric(Value),
@@ -99,7 +100,7 @@ mam_df <- mam_df %>%
   )
 ```
 # Summary table: column name, number of unique values, sample of unique values
-```{r}
+```{r, results='markup'}
 
 n_sample <- 3
 
@@ -153,7 +154,7 @@ ggplot(mam_df, aes(y = Value)) +
 dim(mam_df)
 ```
 
-#save cleaned data
+
 ```{r}
-write_csv(acc_df, here("cleaned_data", "maternal-mortality_cleaned.csv"))
+write_csv(mam_df, here("cleaned_data", "maternal-mortality_cleaned.csv"))
 ```

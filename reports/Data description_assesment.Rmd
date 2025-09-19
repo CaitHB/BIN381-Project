@@ -2,7 +2,7 @@
 title: "Data description and selection"
 author: "Group K"
 date: "`r Sys.Date()`"
-output: word_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
