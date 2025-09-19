@@ -6,10 +6,11 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,   results = "hide",  message = FALSE,   # hide package messages
+  warning = FALSE)
 ```
 
-#Loading Libraries
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -22,27 +23,27 @@ library(purrr)
 getwd()
 list.files("data/raw_data")
 ```
-#Load Dataset 
+ 
 ```{r}
 cmr_df <- read_csv(here("raw_data", "child-mortality-rates_national_zaf.csv"))
 ```
 
-#Disdplay Dataset content
-```{r}
-head(cmr_df)
+## Disdplay Dataset content
+```{r, results='markup'}
+head(cmr_df, 3)
 ```
 
-#Remove the first row(meta data)
-```{r}
+## Remove the first row(meta data)
+```{r, echo=TRUE}
 cmr_df <- cmr_df[-1, ]
 ```
-#dimensions 
+
 ```{r}
 dim(cmr_df)
 ```
 
-#Inspect Duplicated rows
-```{r}
+## Inspect Duplicated rows
+```{r, results='markup'}
 dup_check <- cmr_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
   filter(n() > 1)
@@ -50,12 +51,12 @@ dup_check <- cmr_df %>%
 dup_check
 
 ```
-#Removed newer duplicated row
-```{r}
+## Removed newer duplicated row
+```{r, echo=TRUE}
 cmr_df <- cmr_df %>% filter(DataId != "799142")
 ```
 
-#Perc misisng data
+
 ```{r}
 
 data.frame(
@@ -72,7 +73,7 @@ data.frame(
   )
 ```
 
-#check data types
+
 ```{r}
 data.frame(
   Column = names(cmr_df),
@@ -80,14 +81,14 @@ data.frame(
 )
 
 ```
-#Check The structure of the dataset 
+
 ```{r}
 str(cmr_df)
 
 ```
 
-#Convert Data Types
-```{r}
+## Convert Data Types
+```{r, echo=TRUE}
 cmr_df <- cmr_df %>%
   mutate(
         Value = as.numeric(Value),
@@ -104,10 +105,9 @@ cmr_df <- cmr_df %>%
   )
 ```
 
-# Summary table: column name, number of unique values, sample of unique values
-```{r}
-library(dplyr)
-library(purrr)
+## Summary table: column name, number of unique values, sample of unique values
+```{r, results='hold'}
+
 
 n_sample <- 3
 
@@ -121,23 +121,8 @@ summary_tbl <- cmr_df %>%
 summary_tbl
 ```
 
-# Summary table: column name, number of unique values, sample of unique values
-```{r}
 
-n_sample <- 3
-
-summary_tbl <- cmr_df %>%
-  map_df(~ tibble(
-    n_unique = n_distinct(.),
-    sample_values = paste(head(unique(.), n_sample), collapse = ", ")
-  ), .id = "column")
-
-summary_tbl
-
-```
-
-
-#Drop the countries only one unqiue value: reason, there is no useful information - country is also always za
+## Drop the countries only one unqiue value: reason, there is no useful information - country is also always za
 ```{r}
 
 cmr_df <- cmr_df %>%
@@ -156,7 +141,6 @@ cmr_df <- cmr_df %>%
     -CharacteristicOrder
   )
 ```
-```
 
 ```{r}
 str(cmr_df)
@@ -168,7 +152,6 @@ str(cmr_df)
 dim(cmr_df)
 ```
 
-#save cleaned data
 ```{r}
 write_csv(cmr_df, here("cleaned_data", "child-mortality-rate_cleaned.csv"))
 ```

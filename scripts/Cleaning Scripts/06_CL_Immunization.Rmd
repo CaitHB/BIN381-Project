@@ -5,9 +5,10 @@ date: "`r Sys.Date()`"
 output: pdf_document
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,   results = "hide",  message = FALSE,   # hide package messages
+  warning = FALSE)
 ```
-#Loading Libraries
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -15,29 +16,30 @@ library(stringr)
 library(readr)
 library(here)
 library(ggplot2)
+library(purrr)
 
 getwd()
 list.files("data/raw_data")
 ```
-#Load Dataset 
+
 ```{r}
 imm_df <- read_csv(here("raw_data", "immunization_national_zaf.csv"))
 ```
 
-#Display Dataset content
-```{r}
-head(imm_df)
+## Display Dataset content
+```{r, results='hold'}
+head(imm_df,5)
 ```
 
 #Remove the first row(meta data)
-```{r}
+```{r, echo=TRUE}
 imm_df <- imm_df[-1, ]
 ```
-#dimensions 
+
 ```{r}
 dim(imm_df)
 ```
-#Inspect Duplicated rows
+
 ```{r}
 dup_check <- imm_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
@@ -47,7 +49,7 @@ dup_check
 
 ```
 
-#Percentage Missing Values
+
 ```{r}
 
 data.frame(
@@ -64,7 +66,6 @@ data.frame(
   )
 ```
 
-#check data types
 ```{r}
 data.frame(
   Column = names(imm_df),
@@ -72,13 +73,13 @@ data.frame(
 )
 
 ```
-#Check The structure of the dataset 
+ 
 ```{r}
 str(imm_df)
 
 ```
-#Convert Data Types
-```{r}
+## Convert Data Types
+```{r, results='hold'}
 imm_df <- imm_df %>%
   mutate(
         Value = as.numeric(Value),
@@ -96,8 +97,8 @@ imm_df <- imm_df %>%
 ```
 #check for unique values
 ```{r}
-library(dplyr)
-library(purrr)
+
+
 
 # Summary table: column name, number of unique values, sample of unique values
 n_sample <- 3
@@ -114,7 +115,7 @@ summary_tbl
 
 ```
 
-#Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
+#Drop the countries only one unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 imm_df <- imm_df %>%
 
@@ -134,11 +135,7 @@ imm_df <- imm_df %>%
 ```
 
 #Assumed pattern, the missing values can be filled with the previous non missing value in the opposite attribute
-```{r}
-
-
-library(dplyr)
-library(tidyr)
+```{r, echo=TRUE}
 
 imm_df <- imm_df %>%
   fill(DenominatorWeighted, DenominatorUnweighted, .direction = "down")
@@ -168,8 +165,8 @@ ggplot(imm_df, aes(y = DenominatorWeighted)) +
 dim(imm_df)
 ```
 
-#Outlier Handling
-```{r}
+## Outlier Handling
+```{r, echo=TRUE}
 # Calculate IQR boundaries
 Q1_w <- quantile(imm_df$DenominatorWeighted, 0.25, na.rm = TRUE)
 Q3_w <- quantile(imm_df$DenominatorWeighted, 0.75, na.rm = TRUE)
@@ -192,7 +189,7 @@ imm_df <- imm_df %>%
 
 
 ```
-#save cleaned data
+
 ```{r}
 write_csv(imm_df, here("cleaned_data", "immunization_cleaned.csv"))
 ```
