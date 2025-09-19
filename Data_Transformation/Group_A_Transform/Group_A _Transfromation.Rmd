@@ -1,0 +1,110 @@
+---
+title: "Data description and selection"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(readr)
+library(knitr)
+library(kableExtra)
+library(here)
+library(purrr)
+
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+
+datasets <- list(
+  "Access_To_Healthcare_01" = here("raw_data", "access-to-health-care_national_zaf.csv"),
+  "Child_Mortality_02" = here("raw_data", "child-mortality-rates_national_zaf.csv"),
+  "HIV_Behaviour_03" = here("raw_data", "hiv-behavior_national_zaf.csv"),
+  "Immunization_04" = here("raw_data", "immunization_national_zaf.csv"),
+  "Toilet_05" = here("raw_data", "toilet-facilities_national_zaf.csv"),
+  "Water_06" = here("raw_data", "water_national_zaf.csv"),
+  "Covid_07" = here("raw_data", "covid-19-prevention_national_zaf.csv"),
+  "Maternal_mortality_08" = here("raw_data", "maternal-mortality_national_zaf.csv"),
+  "Literacy_09" = here("raw_data", "literacy_national_zaf.csv"),
+  "ARI_10" = here("raw_data", "symptoms-of-acute-respiratory-infection-ari_national_zaf.csv"),
+  "Anthro_11" = here("raw_data", "anthropometry_national_zaf.csv"),
+  "IYCF_12" = here("raw_data", "iycf_national_zaf.csv")
+)
+```
+
+```{r}
+summarize_dataset <- function(file_path, dataset_name){
+  df <- read_csv(file_path, show_col_types = FALSE)
+  n_rows <- nrow(df)
+  n_cols <- ncol(df)
+  
+  n_numeric <- sum(sapply(df, is.numeric))
+  n_character <- sum(sapply(df, is.character))
+  n_factor <- sum(sapply(df, is.factor))
+  n_logical <- sum(sapply(df, is.logical))
+  n_date <- sum(sapply(df, lubridate::is.Date))  # use lubridate to detect dates
+  
+  
+  data.frame(
+    Dataset = dataset_name,
+    Rows = n_rows,
+    Columns = n_cols,
+    Numeric_Columns = n_numeric,
+    Character_Columns = n_character,
+    Factor_Columns = n_factor,
+    Logical_Columns = n_logical,
+    Date_Columns = n_date
+  )
+}
+
+# Apply function to all datasets
+summary_table <- do.call(rbind, lapply(names(datasets), function(name) {
+  summarize_dataset(datasets[[name]], name)
+}))
+
+# Display table in Word
+knitr::kable(summary_table, caption = "Overview of all datasets with detailed column types")
+
+```
+
+
+```{r}
+# Function to calculate data quality measures
+data_quality_summary <- function(file_path, dataset_name) {
+  df <- read_csv(file_path, show_col_types = FALSE)
+  
+  n_duplicates <- sum(duplicated(df))
+  missing_pct <- round(sum(is.na(df)) / (nrow(df) * ncol(df)) * 100, 2)
+  
+  # Simple checks for outliers/invalids
+  numeric_cols <- df %>% select(where(is.numeric))
+  outliers <- sum(sapply(numeric_cols, function(x) sum(x < 0 | x > 100, na.rm = TRUE))) # example for percentages
+  
+  # Inconsistent coding (non-numeric, non-date factors)
+  char_cols <- df %>% select(where(is.character))
+  inconsistent <- sum(sapply(char_cols, function(x) sum(grepl("unknown|Unknown|N/A|NA|n/a", x))))
+  
+  # Unexpected zeros
+  zeros <- sum(sapply(numeric_cols, function(x) sum(x == 0, na.rm = TRUE)))
+  
+  data.frame(
+    Dataset = dataset_name,
+    Duplicate_Rows = n_duplicates,
+    Missing_Values_Percent = missing_pct,
+    Outliers_Invalid = outliers,
+    Inconsistent_Coding = inconsistent,
+    Unexpected_Zeros = zeros
+  )
+}
+
+# Apply function to all datasets
+quality_table <- bind_rows(
+  lapply(seq_along(datasets), function(i) {
+    data_quality_summary(datasets[[i]], names(datasets)[i])
+  })
+)
+knitr::kable(quality_table, caption = "Data Quality Summary for All Datasets")
+
+```
