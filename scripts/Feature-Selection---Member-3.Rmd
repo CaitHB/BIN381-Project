@@ -40,11 +40,17 @@ dataD <- read_csv(here("merged datasets", "GroupD_Social_merged.csv"))
 # Combine all datasets into one (if required)
 combined_data <- bind_rows(dataA, dataB, dataC, dataD)
 
+# Select only the most important columns
+important_cols <- combined_data %>%
+  select(SurveyYear, 
+         CharacteristicLabel, 
+         Value, DenominatorWeighted, DenominatorUnweighted)
 
-head(combined_data) %>%
-  kable(caption = "First few rows of the combined dataset", booktabs = TRUE) %>%
+# Preview the first 10 rows in a PDF-friendly table
+important_cols %>%
+  head(10) %>%
+  kable(booktabs = TRUE, caption = "Key columns of the dataset") %>%
   kable_styling(latex_options = c("scale_down", "hold_position"))
-
 ```
 
 ```{r echo=FALSE}
