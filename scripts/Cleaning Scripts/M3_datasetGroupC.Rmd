@@ -24,12 +24,12 @@ file_paths <- c(
   "IYCF_12"                 = here("cleaned_data", "iycf_cleaned.csv")
 )
 
-
 keep_cols <- c(
-  "SurveyYear", "Indicator", "IndicatorId", "IndicatorType",
-  "Value", "DenominatorWeighted", "DenominatorUnweighted","CharacteristicLabel", "CharacteristicCategory"
+  "SurveyYear", "IndicatorId", "Indicator", "IndicatorType", "Value",
+  "DenominatorWeighted", "DenominatorUnweighted",
+  "CharacteristicLabel", "CharacteristicCategory"
 )
-# read and clean datasets
+
 read_clean <- function(path) {
   df <- read_csv(path, show_col_types = FALSE)
   df %>% select(any_of(keep_cols))
@@ -40,11 +40,11 @@ groups <- list(
   GroupC_Nutrition = c("Anthro_11", "IYCF_12")
 )
 
-# Merge each group 
 group_dfs <- map(groups, function(group) {
   dfs <- map(file_paths[group], read_clean)
-  bind_rows(dfs)  
+  bind_rows(dfs)
 })
+
 
 
 ```
@@ -61,7 +61,8 @@ group_dfs <- map(groups, function(group) {
 
 # Save each group separately
 walk2(group_dfs, names(group_dfs), ~ {
-  write_csv(.x, here("cleaned_data", paste0(.y, "_merged.csv")))
+  write_csv(.x, here("merged datasets", paste0(.y, "_merged.csv")))
 })
+
 
 ```
