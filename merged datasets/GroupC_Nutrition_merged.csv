@@ -1,60 +1,60 @@
-Dataset,SurveyYear,CharacteristicId,CharacteristicCategory,CharacteristicLabel,IndicatorId,IndicatorType,Value,DenominatorWeighted,DenominatorUnweighted
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_HA3,I,9.8,1404,1468
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_HA2,I,27.4,1404,1468
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_HAM,I,-1.1,1404,1468
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_WH3,I,0.6,1384,1449
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_WH2,I,2.5,1384,1449
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_WHP,I,13.3,1384,1449
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_WHM,I,0.6,1384,1449
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_WA3,I,1.1,1416,1479
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_WA2,I,5.9,1416,1479
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_WAP,I,4.5,1416,1479
-Anthro_11,2016,1000,Total,Total,CN_NUTS_C_WAM,I,-0.2,1416,1479
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_SHT,I,1.5,3272,3405
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_NM1,D,3272,3272,3405
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_UN1,U,3405,3272,3405
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_BMI,I,28.3,3081,3210
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_NRM,I,34.7,3081,3210
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_THN,I,3.1,3081,3210
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_TH1,I,2.6,3081,3210
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_TH2,I,0.5,3081,3210
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_OWT,I,62.2,3081,3210
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_OVW,I,26.3,3081,3210
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_OBS,I,35.9,3081,3210
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_NUM,D,3081,3081,3210
-Anthro_11,2016,1000,Total,Total,AN_NUTS_W_UNW,U,3210,3081,3210
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_SHT,I,0.3,3202,3179
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_NM1,D,3202,3202,3179
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_UN1,U,3179,3202,3179
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_BMI,I,23,2336,2457
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_NRM,I,65.2,2336,2457
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_THN,I,9.6,2336,2457
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_TH1,I,7.4,2336,2457
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_TH2,I,2.2,2336,2457
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_OWT,I,25.1,2336,2457
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_OVW,I,17.2,2336,2457
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_OBS,I,7.9,2336,2457
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_NUM,D,2336,2336,2457
-Anthro_11,2016,10000,Total 15-49,Total 15-49,AN_NUTS_M_UNW,U,2457,2336,2457
-IYCF_12,1998,1000,Total,Total,CN_BRFI_C_EVR,I,87.4,1623,1613.5
-IYCF_12,1998,1000,Total,Total,CN_BRFI_C_1HR,I,38.9,1623,1613.5
-IYCF_12,1998,295001,Age in months (other groupings),0-5,CN_BRFS_C_EXB,I,6.9,499,505
-IYCF_12,1998,295001,Age in months (other groupings),0-5,CN_BRFS_C_WAT,I,6.3,499,505
-IYCF_12,1998,295001,Age in months (other groupings),0-5,CN_BRFS_C_CMP,I,40.9,499,505
-IYCF_12,1998,295001,Age in months (other groupings),0-5,CN_BRFS_C_BRF,I,83.4,499,505
-IYCF_12,1998,295001,Age in months (other groupings),0-5,CN_BRFS_C_BNP,I,59.4,505,514
-IYCF_12,1998,1000,Total,Total,CN_BFDR_C_MDA,I,16,1386,1376
-IYCF_12,2016,1000,Total,Total,CN_BRFI_C_EVR,I,84,1386,1376
-IYCF_12,2016,1000,Total,Total,CN_BRFI_C_1HR,I,67.3,1386,1376
-IYCF_12,2016,295001,Age in months (other groupings),0-5,CN_BRFS_C_EXB,I,31.6,345,346
-IYCF_12,2016,295001,Age in months (other groupings),0-5,CN_BRFS_C_WAT,I,13.6,345,346
-IYCF_12,2016,295001,Age in months (other groupings),0-5,CN_BRFS_C_CMP,I,17.6,345,346
-IYCF_12,2016,295001,Age in months (other groupings),0-5,CN_BRFS_C_BRF,I,74.8,345,346
-IYCF_12,2016,295001,Age in months (other groupings),0-5,CN_BRFS_C_BNP,I,44.7,363,363
-IYCF_12,2016,1000,Total,Total,CN_BFDR_C_MDA,I,10.7,363,386
-IYCF_12,2016,1000,Total,Total,CN_IYCF_C_BTB,I,11.2,363,386
-IYCF_12,2016,1000,Total,Total,CN_IYCF_C_MKN,I,68.4,504,491
-IYCF_12,2016,1000,Total,Total,CN_IYCF_C_3PN,I,30.6,504,491
-IYCF_12,2016,1000,Total,Total,CN_IYCF_C_4FA,I,39.9,867,877
-IYCF_12,2016,1000,Total,Total,CN_IYCF_C_MNA,I,50.2,867,877
-IYCF_12,2016,1000,Total,Total,CN_IYCF_C_3PA,I,22.5,867,877
+SurveyYear,IndicatorId,Indicator,IndicatorType,Value,DenominatorWeighted,DenominatorUnweighted,CharacteristicLabel,CharacteristicCategory
+2016,CN_NUTS_C_HA3,Children severely stunted,I,9.8,1404,1468,Total,Total
+2016,CN_NUTS_C_HA2,Children stunted,I,27.4,1404,1468,Total,Total
+2016,CN_NUTS_C_HAM,Mean height for age of children,I,-1.1,1404,1468,Total,Total
+2016,CN_NUTS_C_WH3,Children severely wasted,I,0.6,1384,1449,Total,Total
+2016,CN_NUTS_C_WH2,Children wasted,I,2.5,1384,1449,Total,Total
+2016,CN_NUTS_C_WHP,Children overweight,I,13.3,1384,1449,Total,Total
+2016,CN_NUTS_C_WHM,Mean weight for height of children,I,0.6,1384,1449,Total,Total
+2016,CN_NUTS_C_WA3,Children severely underweight,I,1.1,1416,1479,Total,Total
+2016,CN_NUTS_C_WA2,Children underweight,I,5.9,1416,1479,Total,Total
+2016,CN_NUTS_C_WAP,Children overweight for their age,I,4.5,1416,1479,Total,Total
+2016,CN_NUTS_C_WAM,Mean weight for age of children,I,-0.2,1416,1479,Total,Total
+2016,AN_NUTS_W_SHT,Women with height below 145 cm,I,1.5,3272,3405,Total,Total
+2016,AN_NUTS_W_NM1,Number of women,D,3272,3272,3405,Total,Total
+2016,AN_NUTS_W_UN1,Number of women (unweighted),U,3405,3272,3405,Total,Total
+2016,AN_NUTS_W_BMI,Mean Body Mass Index (BMI) for women,I,28.3,3081,3210,Total,Total
+2016,AN_NUTS_W_NRM,Women with normal BMI (18.5-24.9),I,34.7,3081,3210,Total,Total
+2016,AN_NUTS_W_THN,Women who are thin according to BMI (<18.5),I,3.1,3081,3210,Total,Total
+2016,AN_NUTS_W_TH1,Women who are mildly thin according to BMI (17.0-18.4),I,2.6,3081,3210,Total,Total
+2016,AN_NUTS_W_TH2,Women who are moderately thin according to BMI (<17.0),I,0.5,3081,3210,Total,Total
+2016,AN_NUTS_W_OWT,Women who are overweight or obese according to BMI (>=25.0),I,62.2,3081,3210,Total,Total
+2016,AN_NUTS_W_OVW,Women who are overweight according to BMI (25.0-29.9),I,26.3,3081,3210,Total,Total
+2016,AN_NUTS_W_OBS,Women who are obese according to BMI (>=30.0),I,35.9,3081,3210,Total,Total
+2016,AN_NUTS_W_NUM,Number of women,D,3081,3081,3210,Total,Total
+2016,AN_NUTS_W_UNW,Number of women (unweighted),U,3210,3081,3210,Total,Total
+2016,AN_NUTS_M_SHT,Men with height below 145 cm,I,0.3,3202,3179,Total 15-49,Total 15-49
+2016,AN_NUTS_M_NM1,Number of men,D,3202,3202,3179,Total 15-49,Total 15-49
+2016,AN_NUTS_M_UN1,Number of men (unweighted),U,3179,3202,3179,Total 15-49,Total 15-49
+2016,AN_NUTS_M_BMI,Mean Body Mass Index (BMI) for men,I,23,2336,2457,Total 15-49,Total 15-49
+2016,AN_NUTS_M_NRM,Men with normal BMI (18.5-24.9),I,65.2,2336,2457,Total 15-49,Total 15-49
+2016,AN_NUTS_M_THN,Men who are thin according to BMI (<18.5),I,9.6,2336,2457,Total 15-49,Total 15-49
+2016,AN_NUTS_M_TH1,Men who are mildly thin according to BMI (17.0-18.4),I,7.4,2336,2457,Total 15-49,Total 15-49
+2016,AN_NUTS_M_TH2,Men who are moderately thin according to BMI (<17.0),I,2.2,2336,2457,Total 15-49,Total 15-49
+2016,AN_NUTS_M_OWT,Men who are overweight or obese according to BMI (>=25.0),I,25.1,2336,2457,Total 15-49,Total 15-49
+2016,AN_NUTS_M_OVW,Men who are overweight according to BMI (25.0-29.9),I,17.2,2336,2457,Total 15-49,Total 15-49
+2016,AN_NUTS_M_OBS,Men who are obese according to BMI (>=30.0),I,7.9,2336,2457,Total 15-49,Total 15-49
+2016,AN_NUTS_M_NUM,Number of men,D,2336,2336,2457,Total 15-49,Total 15-49
+2016,AN_NUTS_M_UNW,Number of men (unweighted),U,2457,2336,2457,Total 15-49,Total 15-49
+1998,CN_BRFI_C_EVR,Children ever breastfed,I,87.4,1623,1613.5,Total,Total
+1998,CN_BRFI_C_1HR,Children who started breastfeeding within 1 hour of birth,I,38.9,1623,1613.5,Total,Total
+1998,CN_BRFS_C_EXB,Children exclusively breastfed,I,6.9,499,505,0-5,Age in months (other groupings)
+1998,CN_BRFS_C_WAT,Children breastfeeding and consuming plain water only,I,6.3,499,505,0-5,Age in months (other groupings)
+1998,CN_BRFS_C_CMP,Children breastfeeding and consuming complementary foods,I,40.9,499,505,0-5,Age in months (other groupings)
+1998,CN_BRFS_C_BRF,Children currently breastfeeding,I,83.4,499,505,0-5,Age in months (other groupings)
+1998,CN_BRFS_C_BNP,Children using a bottle with a nipple,I,59.4,505,514,0-5,Age in months (other groupings)
+1998,CN_BFDR_C_MDA,Median duration of any breastfeeding,I,16,1386,1376,Total,Total
+2016,CN_BRFI_C_EVR,Children ever breastfed,I,84,1386,1376,Total,Total
+2016,CN_BRFI_C_1HR,Children who started breastfeeding within 1 hour of birth,I,67.3,1386,1376,Total,Total
+2016,CN_BRFS_C_EXB,Children exclusively breastfed,I,31.6,345,346,0-5,Age in months (other groupings)
+2016,CN_BRFS_C_WAT,Children breastfeeding and consuming plain water only,I,13.6,345,346,0-5,Age in months (other groupings)
+2016,CN_BRFS_C_CMP,Children breastfeeding and consuming complementary foods,I,17.6,345,346,0-5,Age in months (other groupings)
+2016,CN_BRFS_C_BRF,Children currently breastfeeding,I,74.8,345,346,0-5,Age in months (other groupings)
+2016,CN_BRFS_C_BNP,Children using a bottle with a nipple,I,44.7,363,363,0-5,Age in months (other groupings)
+2016,CN_BFDR_C_MDA,Median duration of any breastfeeding,I,10.7,363,386,Total,Total
+2016,CN_IYCF_C_BTB,Breastfed children 6-23 months fed both 4+ food groups and the minimum meal frequency,I,11.2,363,386,Total,Total
+2016,CN_IYCF_C_MKN,Non-breastfed children 6-23 months fed milk or milk products,I,68.4,504,491,Total,Total
+2016,CN_IYCF_C_3PN,Non-breastfed children 6-23 months with 3 IYCF practices,I,30.6,504,491,Total,Total
+2016,CN_IYCF_C_4FA,Children 6-23 months fed 5+ food groups,I,39.9,867,877,Total,Total
+2016,CN_IYCF_C_MNA,Children 6-23 months fed the minimum meal frequency,I,50.2,867,877,Total,Total
+2016,CN_IYCF_C_3PA,Children 6-23 months with 3 IYCF practices,I,22.5,867,877,Total,Total

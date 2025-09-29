@@ -3,7 +3,7 @@
 
 
 ---
-title: "Feature Selection - Member 3"
+title: "Feature Selection"
 author: "Group K"
 date: "`r Sys.Date()`"
 output: pdf_document

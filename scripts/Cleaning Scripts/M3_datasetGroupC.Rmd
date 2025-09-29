@@ -1,0 +1,67 @@
+---
+title: "M3_datasetGroupC"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(readr)
+library(here)
+library(purrr)
+
+```
+
+```{r}
+file_paths <- c(
+  "Anthro_11"                 = here("cleaned_data", "anthropometry_cleaned.csv"),
+  "IYCF_12"                 = here("cleaned_data", "iycf_cleaned.csv")
+)
+
+
+keep_cols <- c(
+  "SurveyYear", "Indicator", "IndicatorId", "IndicatorType",
+  "Value", "DenominatorWeighted", "DenominatorUnweighted","CharacteristicLabel", "CharacteristicCategory"
+)
+# read and clean datasets
+read_clean <- function(path) {
+  df <- read_csv(path, show_col_types = FALSE)
+  df %>% select(any_of(keep_cols))
+}
+
+# Define groups
+groups <- list(
+  GroupC_Nutrition = c("Anthro_11", "IYCF_12")
+)
+
+# Merge each group 
+group_dfs <- map(groups, function(group) {
+  dfs <- map(file_paths[group], read_clean)
+  bind_rows(dfs)  
+})
+
+
+```
+
+```{r}
+#Pivot each dataset wide
+##too many NAs
+
+
+
+```
+
+```{r}
+
+# Save each group separately
+walk2(group_dfs, names(group_dfs), ~ {
+  write_csv(.x, here("cleaned_data", paste0(.y, "_merged.csv")))
+})
+
+```
