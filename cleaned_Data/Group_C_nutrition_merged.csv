@@ -1,60 +1,60 @@
-SurveyYear,IndicatorId,Indicator,IndicatorType,Value,ValueType,Value_zscore,DenominatorWeighted,DenominatorUnweighted,CharacteristicLabel,CharacteristicCategory,IndicatorCategoryHigh,PopulationGroup,ChildNutritionScore,AdultBMIScore
-2016,CN_NUTS_C_HA3,Children severely stunted,I,9.8,I,-0.25800580614838003,1404,1468,Total,Total,Child Growth (Height for Age),Children,5.8545454545454545,23
-2016,CN_NUTS_C_HA2,Children stunted,I,27.4,I,0.7306290546484155,1404,1468,Total,Total,Child Growth (Height for Age),Children,5.8545454545454545,23
-2016,CN_NUTS_C_HAM,Mean height for age of children,I,-1.1,I,-0.8702853506191228,1404,1468,Total,Total,Child Growth (Height for Age),Children,5.8545454545454545,23
-2016,CN_NUTS_C_WH3,Children severely wasted,I,0.6,I,-0.7747922106557961,1384,1449,Total,Total,Child Growth (Weight for Height),Children,5.8545454545454545,23
-2016,CN_NUTS_C_WH2,Children wasted,I,2.5,I,-0.6680645836379602,1384,1449,Total,Total,Child Growth (Weight for Height),Children,5.8545454545454545,23
-2016,CN_NUTS_C_WHP,Children overweight,I,13.3,I,-0.06140228269447182,1384,1449,Total,Total,Child Growth (Weight for Height),Children,5.8545454545454545,23
-2016,CN_NUTS_C_WHM,Mean weight for height of children,I,0.6,I,-0.7747922106557961,1384,1449,Total,Total,Child Growth (Weight for Height),Children,5.8545454545454545,23
-2016,CN_NUTS_C_WA3,Children severely underweight,I,1.1,I,-0.7467059930195235,1416,1479,Total,Total,Child Growth (Weight for Age),Children,5.8545454545454545,23
-2016,CN_NUTS_C_WA2,Children underweight,I,5.9,I,-0.4770783037113064,1416,1479,Total,Total,Child Growth (Weight for Age),Children,5.8545454545454545,23
-2016,CN_NUTS_C_WAP,Children overweight for their age,I,4.5,I,-0.5557197130928697,1416,1479,Total,Total,Child Growth (Weight for Age),Children,5.8545454545454545,23
-2016,CN_NUTS_C_WAM,Mean weight for age of children,I,-0.2,I,-0.8197301588738322,1416,1479,Total,Total,Child Growth (Weight for Age),Children,5.8545454545454545,23
-2016,AN_NUTS_W_SHT,Women with height below 145 cm,I,1.5,I,-0.7242370189105053,3272,3405,Total,Total,Adult Height,All,5.8545454545454545,23
-2016,AN_NUTS_W_NM1,Number of women,D,3272,D,0.6930781065601938,3272,3405,Total,Total,Counts / Population,All,5.8545454545454545,23
-2016,AN_NUTS_W_UN1,Number of women (unweighted),U,3405,U,0.8226396978597685,3272,3405,Total,Total,Counts / Population,All,5.8545454545454545,23
-2016,AN_NUTS_W_BMI,Mean Body Mass Index (BMI) for women,I,28.3,I,0.7811842463937063,3081,3210,Total,Total,Adult BMI,All,5.8545454545454545,23
-2016,AN_NUTS_W_NRM,Women with normal BMI (18.5-24.9),I,34.7,I,1.1406878321379958,3081,3210,Total,Total,Other Health Metrics,All,5.8545454545454545,23
-2016,AN_NUTS_W_THN,Women who are thin according to BMI (<18.5),I,3.1,I,-0.634361122474433,3081,3210,Total,Total,Adult Nutrition Status,All,5.8545454545454545,23
-2016,AN_NUTS_W_TH1,Women who are mildly thin according to BMI (17.0-18.4),I,2.6,I,-0.6624473401107056,3081,3210,Total,Total,Adult Nutrition Status,All,5.8545454545454545,23
-2016,AN_NUTS_W_TH2,Women who are moderately thin according to BMI (<17.0),I,0.5,I,-0.7804094541830505,3081,3210,Total,Total,Adult Nutrition Status,All,5.8545454545454545,23
-2016,AN_NUTS_W_OWT,Women who are overweight or obese according to BMI (>=25.0),I,62.2,I,2.685429802132989,3081,3210,Total,Total,Adult Nutrition Status,All,5.8545454545454545,23
-2016,AN_NUTS_W_OVW,Women who are overweight according to BMI (25.0-29.9),I,26.3,I,0.6688393758486159,3081,3210,Total,Total,Other Health Metrics,All,5.8545454545454545,23
-2016,AN_NUTS_W_OBS,Women who are obese according to BMI (>=30.0),I,35.9,I,1.2080947544650498,3081,3210,Total,Total,Adult Nutrition Status,All,5.8545454545454545,23
-2016,AN_NUTS_W_NUM,Number of women,D,3081,D,0.2507124646119999,3081,3210,Total,Total,Counts / Population,All,5.8545454545454545,23
-2016,AN_NUTS_W_UNW,Number of women (unweighted),U,3210,U,0.3539333689111787,3081,3210,Total,Total,Counts / Population,All,5.8545454545454545,23
-2016,AN_NUTS_M_SHT,Men with height below 145 cm,I,0.3,I,-0.7916439412375595,3202,3179,Total 15-49,Total 15-49,Adult Height,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_NM1,Number of men,D,3202,D,0.5309545728619028,3202,3179,Total 15-49,Total 15-49,Counts / Population,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_UN1,Number of men (unweighted),U,3179,U,0.2794210807193516,3202,3179,Total 15-49,Total 15-49,Counts / Population,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_BMI,Mean Body Mass Index (BMI) for men,I,23,I,0.4834703394492167,2336,2457,Total 15-49,Total 15-49,Adult BMI,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_NRM,Men with normal BMI (18.5-24.9),I,65.2,I,2.8539471079506247,2336,2457,Total 15-49,Total 15-49,Other Health Metrics,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_THN,Men who are thin according to BMI (<18.5),I,9.6,I,-0.26924029320288917,2336,2457,Total 15-49,Total 15-49,Adult Nutrition Status,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_TH1,Men who are mildly thin according to BMI (17.0-18.4),I,7.4,I,-0.3928196508024886,2336,2457,Total 15-49,Total 15-49,Adult Nutrition Status,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_TH2,Men who are moderately thin according to BMI (<17.0),I,2.2,I,-0.6849163142197238,2336,2457,Total 15-49,Total 15-49,Adult Nutrition Status,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_OWT,Men who are overweight or obese according to BMI (>=25.0),I,25.1,I,0.6014324535215617,2336,2457,Total 15-49,Total 15-49,Adult Nutrition Status,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_OVW,Men who are overweight according to BMI (25.0-29.9),I,17.2,I,0.15767021486845442,2336,2457,Total 15-49,Total 15-49,Other Health Metrics,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_OBS,Men who are obese according to BMI (>=30.0),I,7.9,I,-0.364733433166216,2336,2457,Total 15-49,Total 15-49,Adult Nutrition Status,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_NUM,Number of men,D,2336,D,-1.4747451440340964,2336,2457,Total 15-49,Total 15-49,Counts / Population,Adults,5.8545454545454545,23
-2016,AN_NUTS_M_UNW,Number of men (unweighted),U,2457,U,-1.4559941474902989,2336,2457,Total 15-49,Total 15-49,Counts / Population,Adults,5.8545454545454545,23
-1998,CN_BRFI_C_EVR,Children ever breastfed,I,87.4,I,1.7028241761098002,1623,1613.5,Total,Total,Child Feeding & Breastfeeding,Children,NA,NA
-1998,CN_BRFI_C_1HR,Children who started breastfeeding within 1 hour of birth,I,38.9,I,-0.08459677412055577,1623,1613.5,Total,Total,Child Feeding & Breastfeeding,Children,NA,NA
-1998,CN_BRFS_C_EXB,Children exclusively breastfed,I,6.9,I,-1.2639260608704812,499,505,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,NA,NA
-1998,CN_BRFS_C_WAT,Children breastfeeding and consuming plain water only,I,6.3,I,-1.2860384849970423,499,505,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,NA,NA
-1998,CN_BRFS_C_CMP,Children breastfeeding and consuming complementary foods,I,40.9,I,-0.01088869369868543,499,505,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,NA,NA
-1998,CN_BRFS_C_BRF,Children currently breastfeeding,I,83.4,I,1.5554080152660597,499,505,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,NA,NA
-1998,CN_BRFS_C_BNP,Children using a bottle with a nipple,I,59.4,I,0.6709110502036152,505,514,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,NA,NA
-1998,CN_BFDR_C_MDA,Median duration of any breastfeeding,I,16,I,-0.9285542949509712,1386,1376,Total,Total,Child Feeding & Breastfeeding,Children,NA,NA
-2016,CN_BRFI_C_EVR,Children ever breastfed,I,84,I,1.5775204393926203,1386,1376,Total,Total,Child Feeding & Breastfeeding,Children,5.8545454545454545,23
-2016,CN_BRFI_C_1HR,Children who started breastfeeding within 1 hour of birth,I,67.3,I,0.962057967870003,1386,1376,Total,Total,Child Feeding & Breastfeeding,Children,5.8545454545454545,23
-2016,CN_BRFS_C_EXB,Children exclusively breastfed,I,31.6,I,-0.35363126766038244,345,346,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,5.8545454545454545,23
-2016,CN_BRFS_C_WAT,Children breastfeeding and consuming plain water only,I,13.6,I,-1.0170039914572155,345,346,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,5.8545454545454545,23
-2016,CN_BRFS_C_CMP,Children breastfeeding and consuming complementary foods,I,17.6,I,-0.8695878306134748,345,346,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,5.8545454545454545,23
-2016,CN_BRFS_C_BRF,Children currently breastfeeding,I,74.8,I,1.2384632694520168,345,346,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,5.8545454545454545,23
-2016,CN_BRFS_C_BNP,Children using a bottle with a nipple,I,44.7,I,0.12915665910286836,363,363,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,5.8545454545454545,23
-2016,CN_BFDR_C_MDA,Median duration of any breastfeeding,I,10.7,I,-1.1238807080689277,363,386,Total,Total,Child Feeding & Breastfeeding,Children,5.8545454545454545,23
-2016,CN_IYCF_C_BTB,Breastfed children 6-23 months fed both 4+ food groups and the minimum meal frequency,I,11.2,I,-1.10545368796346,363,386,Total,Total,Child Nutrition / Feeding Practices,Children,5.8545454545454545,23
-2016,CN_IYCF_C_MKN,Non-breastfed children 6-23 months fed milk or milk products,I,68.4,I,1.002597412102032,504,491,Total,Total,Child Nutrition / Feeding Practices,Children,5.8545454545454545,23
-2016,CN_IYCF_C_3PN,Non-breastfed children 6-23 months with 3 IYCF practices,I,30.6,I,-0.3904853078713176,504,491,Total,Total,Child Nutrition / Feeding Practices,Children,5.8545454545454545,23
-2016,CN_IYCF_C_4FA,Children 6-23 months fed 5+ food groups,I,39.9,I,-0.04774273390962061,867,877,Total,Total,Child Nutrition / Feeding Practices,Children,5.8545454545454545,23
-2016,CN_IYCF_C_MNA,Children 6-23 months fed the minimum meal frequency,I,50.2,I,0.3318538802630118,867,877,Total,Total,Child Nutrition / Feeding Practices,Children,5.8545454545454545,23
-2016,CN_IYCF_C_3PA,Children 6-23 months with 3 IYCF practices,I,22.5,I,-0.6890030335798926,867,877,Total,Total,Child Nutrition / Feeding Practices,Children,5.8545454545454545,23
+SurveyYear,IndicatorId,Indicator,IndicatorType,Value,Value_zscore,DenominatorWeighted,DenominatorUnweighted,CharacteristicLabel,CharacteristicCategory,IndicatorCategoryHigh,PopulationGroup,ChildNutritionScore,AdultBMIScore
+2016,CN_NUTS_C_HA3,Children severely stunted,I,9.8,-0.25800580614838003,1404,1468,Total,Total,Child Growth (Height for Age),Children,5.853438878795743,NA
+2016,CN_NUTS_C_HA2,Children stunted,I,27.4,0.7306290546484155,1404,1468,Total,Total,Child Growth (Height for Age),Children,5.853438878795743,NA
+2016,CN_NUTS_C_HAM,Mean height for age of children,I,-1.1,-0.8702853506191228,1404,1468,Total,Total,Child Growth (Height for Age),Children,5.853438878795743,NA
+2016,CN_NUTS_C_WH3,Children severely wasted,I,0.6,-0.7747922106557961,1384,1449,Total,Total,Child Growth (Weight for Height),Children,5.853438878795743,NA
+2016,CN_NUTS_C_WH2,Children wasted,I,2.5,-0.6680645836379602,1384,1449,Total,Total,Child Growth (Weight for Height),Children,5.853438878795743,NA
+2016,CN_NUTS_C_WHP,Children overweight,I,13.3,-0.06140228269447182,1384,1449,Total,Total,Child Growth (Weight for Height),Children,5.853438878795743,NA
+2016,CN_NUTS_C_WHM,Mean weight for height of children,I,0.6,-0.7747922106557961,1384,1449,Total,Total,Child Growth (Weight for Height),Children,5.853438878795743,NA
+2016,CN_NUTS_C_WA3,Children severely underweight,I,1.1,-0.7467059930195235,1416,1479,Total,Total,Child Growth (Weight for Age),Children,5.853438878795743,NA
+2016,CN_NUTS_C_WA2,Children underweight,I,5.9,-0.4770783037113064,1416,1479,Total,Total,Child Growth (Weight for Age),Children,5.853438878795743,NA
+2016,CN_NUTS_C_WAP,Children overweight for their age,I,4.5,-0.5557197130928697,1416,1479,Total,Total,Child Growth (Weight for Age),Children,5.853438878795743,NA
+2016,CN_NUTS_C_WAM,Mean weight for age of children,I,-0.2,-0.8197301588738322,1416,1479,Total,Total,Child Growth (Weight for Age),Children,5.853438878795743,NA
+2016,AN_NUTS_W_SHT,Women with height below 145 cm,I,1.5,-0.7242370189105053,3272,3405,Total,Total,Adult Height,All,NA,NA
+2016,AN_NUTS_W_NM1,Number of women,D,3272,0.6930781065601938,3272,3405,Total,Total,Counts / Population,All,NA,NA
+2016,AN_NUTS_W_UN1,Number of women (unweighted),U,3405,0.8226396978597685,3272,3405,Total,Total,Counts / Population,All,NA,NA
+2016,AN_NUTS_W_BMI,Mean Body Mass Index (BMI) for women,I,28.3,0.7811842463937063,3081,3210,Total,Total,Adult BMI,All,NA,NA
+2016,AN_NUTS_W_NRM,Women with normal BMI (18.5-24.9),I,34.7,1.1406878321379958,3081,3210,Total,Total,Other Health Metrics,All,NA,NA
+2016,AN_NUTS_W_THN,Women who are thin according to BMI (<18.5),I,3.1,-0.634361122474433,3081,3210,Total,Total,Adult Nutrition Status,All,NA,NA
+2016,AN_NUTS_W_TH1,Women who are mildly thin according to BMI (17.0-18.4),I,2.6,-0.6624473401107056,3081,3210,Total,Total,Adult Nutrition Status,All,NA,NA
+2016,AN_NUTS_W_TH2,Women who are moderately thin according to BMI (<17.0),I,0.5,-0.7804094541830505,3081,3210,Total,Total,Adult Nutrition Status,All,NA,NA
+2016,AN_NUTS_W_OWT,Women who are overweight or obese according to BMI (>=25.0),I,62.2,2.685429802132989,3081,3210,Total,Total,Adult Nutrition Status,All,NA,NA
+2016,AN_NUTS_W_OVW,Women who are overweight according to BMI (25.0-29.9),I,26.3,0.6688393758486159,3081,3210,Total,Total,Other Health Metrics,All,NA,NA
+2016,AN_NUTS_W_OBS,Women who are obese according to BMI (>=30.0),I,35.9,1.2080947544650498,3081,3210,Total,Total,Adult Nutrition Status,All,NA,NA
+2016,AN_NUTS_W_NUM,Number of women,D,3081,0.2507124646119999,3081,3210,Total,Total,Counts / Population,All,NA,NA
+2016,AN_NUTS_W_UNW,Number of women (unweighted),U,3210,0.3539333689111787,3081,3210,Total,Total,Counts / Population,All,NA,NA
+2016,AN_NUTS_M_SHT,Men with height below 145 cm,I,0.3,-0.7916439412375595,3202,3179,Total 15-49,Total 15-49,Adult Height,Adults,NA,23
+2016,AN_NUTS_M_NM1,Number of men,D,3202,0.5309545728619028,3202,3179,Total 15-49,Total 15-49,Counts / Population,Adults,NA,23
+2016,AN_NUTS_M_UN1,Number of men (unweighted),U,3179,0.2794210807193516,3202,3179,Total 15-49,Total 15-49,Counts / Population,Adults,NA,23
+2016,AN_NUTS_M_BMI,Mean Body Mass Index (BMI) for men,I,23,0.4834703394492167,2336,2457,Total 15-49,Total 15-49,Adult BMI,Adults,NA,23
+2016,AN_NUTS_M_NRM,Men with normal BMI (18.5-24.9),I,65.2,2.8539471079506247,2336,2457,Total 15-49,Total 15-49,Other Health Metrics,Adults,NA,23
+2016,AN_NUTS_M_THN,Men who are thin according to BMI (<18.5),I,9.6,-0.26924029320288917,2336,2457,Total 15-49,Total 15-49,Other Health Metrics,Adults,NA,23
+2016,AN_NUTS_M_TH1,Men who are mildly thin according to BMI (17.0-18.4),I,7.4,-0.3928196508024886,2336,2457,Total 15-49,Total 15-49,Other Health Metrics,Adults,NA,23
+2016,AN_NUTS_M_TH2,Men who are moderately thin according to BMI (<17.0),I,2.2,-0.6849163142197238,2336,2457,Total 15-49,Total 15-49,Other Health Metrics,Adults,NA,23
+2016,AN_NUTS_M_OWT,Men who are overweight or obese according to BMI (>=25.0),I,25.1,0.6014324535215617,2336,2457,Total 15-49,Total 15-49,Adult Nutrition Status,Adults,NA,23
+2016,AN_NUTS_M_OVW,Men who are overweight according to BMI (25.0-29.9),I,17.2,0.15767021486845442,2336,2457,Total 15-49,Total 15-49,Other Health Metrics,Adults,NA,23
+2016,AN_NUTS_M_OBS,Men who are obese according to BMI (>=30.0),I,7.9,-0.364733433166216,2336,2457,Total 15-49,Total 15-49,Adult Nutrition Status,Adults,NA,23
+2016,AN_NUTS_M_NUM,Number of men,D,2336,-1.4747451440340964,2336,2457,Total 15-49,Total 15-49,Counts / Population,Adults,NA,23
+2016,AN_NUTS_M_UNW,Number of men (unweighted),U,2457,-1.4559941474902989,2336,2457,Total 15-49,Total 15-49,Counts / Population,Adults,NA,23
+1998,CN_BRFI_C_EVR,Children ever breastfed,I,87.4,1.7028241761098002,1623,1613.5,Total,Total,Child Feeding & Breastfeeding,Children,NA,NA
+1998,CN_BRFI_C_1HR,Children who started breastfeeding within 1 hour of birth,I,38.9,-0.08459677412055577,1623,1613.5,Total,Total,Child Feeding & Breastfeeding,Children,NA,NA
+1998,CN_BRFS_C_EXB,Children exclusively breastfed,I,6.9,-1.2639260608704812,499,505,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,NA,NA
+1998,CN_BRFS_C_WAT,Children breastfeeding and consuming plain water only,I,6.3,-1.2860384849970423,499,505,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,NA,NA
+1998,CN_BRFS_C_CMP,Children breastfeeding and consuming complementary foods,I,40.9,-0.01088869369868543,499,505,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,NA,NA
+1998,CN_BRFS_C_BRF,Children currently breastfeeding,I,83.4,1.5554080152660597,499,505,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,NA,NA
+1998,CN_BRFS_C_BNP,Children using a bottle with a nipple,I,59.4,0.6709110502036152,505,514,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,NA,NA
+1998,CN_BFDR_C_MDA,Median duration of any breastfeeding,I,16,-0.9285542949509712,1386,1376,Total,Total,Child Feeding & Breastfeeding,Children,NA,NA
+2016,CN_BRFI_C_EVR,Children ever breastfed,I,84,1.5775204393926203,1386,1376,Total,Total,Child Feeding & Breastfeeding,Children,5.853438878795743,NA
+2016,CN_BRFI_C_1HR,Children who started breastfeeding within 1 hour of birth,I,67.3,0.962057967870003,1386,1376,Total,Total,Child Feeding & Breastfeeding,Children,5.853438878795743,NA
+2016,CN_BRFS_C_EXB,Children exclusively breastfed,I,31.6,-0.35363126766038244,345,346,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,5.853438878795743,NA
+2016,CN_BRFS_C_WAT,Children breastfeeding and consuming plain water only,I,13.6,-1.0170039914572155,345,346,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,5.853438878795743,NA
+2016,CN_BRFS_C_CMP,Children breastfeeding and consuming complementary foods,I,17.6,-0.8695878306134748,345,346,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,5.853438878795743,NA
+2016,CN_BRFS_C_BRF,Children currently breastfeeding,I,74.8,1.2384632694520168,345,346,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,5.853438878795743,NA
+2016,CN_BRFS_C_BNP,Children using a bottle with a nipple,I,44.7,0.12915665910286836,363,363,0-5,Age in months (other groupings),Child Feeding & Breastfeeding,Children,5.853438878795743,NA
+2016,CN_BFDR_C_MDA,Median duration of any breastfeeding,I,10.7,-1.1238807080689277,363,386,Total,Total,Child Feeding & Breastfeeding,Children,5.853438878795743,NA
+2016,CN_IYCF_C_BTB,Breastfed children 6-23 months fed both 4+ food groups and the minimum meal frequency,I,11.2,-1.10545368796346,363,386,Total,Total,Child Nutrition / Feeding Practices,Children,5.853438878795743,NA
+2016,CN_IYCF_C_MKN,Non-breastfed children 6-23 months fed milk or milk products,I,68.4,1.002597412102032,504,491,Total,Total,Child Nutrition / Feeding Practices,Children,5.853438878795743,NA
+2016,CN_IYCF_C_3PN,Non-breastfed children 6-23 months with 3 IYCF practices,I,30.6,-0.3904853078713176,504,491,Total,Total,Child Nutrition / Feeding Practices,Children,5.853438878795743,NA
+2016,CN_IYCF_C_4FA,Children 6-23 months fed 5+ food groups,I,39.9,-0.04774273390962061,867,877,Total,Total,Child Nutrition / Feeding Practices,Children,5.853438878795743,NA
+2016,CN_IYCF_C_MNA,Children 6-23 months fed the minimum meal frequency,I,50.2,0.3318538802630118,867,877,Total,Total,Child Nutrition / Feeding Practices,Children,5.853438878795743,NA
+2016,CN_IYCF_C_3PA,Children 6-23 months with 3 IYCF practices,I,22.5,-0.6890030335798926,867,877,Total,Total,Child Nutrition / Feeding Practices,Children,5.853438878795743,NA

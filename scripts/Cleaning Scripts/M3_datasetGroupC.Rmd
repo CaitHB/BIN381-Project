@@ -27,7 +27,7 @@ file_paths <- c(
 
 # Columns to keep
 keep_cols <- c(
-  "SurveyYear", "IndicatorId", "Indicator", "IndicatorType", "Value", "ValueType", "Value_zscore",
+  "SurveyYear", "IndicatorId", "Indicator", "IndicatorType", "Value", "Value_zscore",
   "DenominatorWeighted", "DenominatorUnweighted",
   "CharacteristicLabel", "CharacteristicCategory"
 )
@@ -71,7 +71,7 @@ raw_merged_data <- group_dfs$GroupC_Nutrition
 ```
 
 ```{r}
-# Assign high-level indicator categories
+# Compute weighted scores and save
 merged_data <- raw_merged_data %>%
   mutate(
     IndicatorCategoryHigh = case_when(
@@ -81,45 +81,60 @@ merged_data <- raw_merged_data %>%
       str_detect(IndicatorId, "^CN_NUTS_C_WHP|^CN_NUTS_C_WAP|^CN_IYCF") ~ "Child Nutrition / Feeding Practices",
       str_detect(IndicatorId, "^CN_BRFI|^CN_BRFS|^CN_BFDR") ~ "Child Feeding & Breastfeeding",
       str_detect(IndicatorId, "^AN_NUTS_W_BMI|^AN_NUTS_M_BMI") ~ "Adult BMI",
-      str_detect(IndicatorId, "^AN_NUTS_W_TH|^AN_NUTS_W_OWT|^AN_NUTS_W_OBS|^AN_NUTS_M_TH|^AN_NUTS_M_OWT|^AN_NUTS_M_OBS") ~ "Adult Nutrition Status",
+      str_detect(IndicatorId, "^AN_NUTS_W_TH|^AN_NUTS_W_OWT|^AN_NUTS_W_OBS|
+                          ^AN_NUTS_M_TH|^AN_NUTS_M_OWT|^AN_NUTS_M_OBS") ~ "Adult Nutrition Status",
       str_detect(IndicatorId, "^AN_NUTS_W_SHT|^AN_NUTS_M_SHT") ~ "Adult Height",
       IndicatorType %in% c("D", "U") ~ "Counts / Population",
       TRUE ~ "Other Health Metrics"
-    )
-  ) %>%
-  # Assign population groups
-  mutate(
+    ),
     PopulationGroup = case_when(
       str_detect(IndicatorId, "^CN_NUTS_C_|^CN_BRFI|^CN_BRFS|^CN_BFDR|^CN_IYCF") ~ "Children",
       str_detect(CharacteristicLabel, "Total 15-49") ~ "Adults",
       TRUE ~ "All"
     )
-  )
-
-# Compute ChildNutritionScore and AdultBMIScore at SurveyYear level
-# Child Nutrition Score
-child_scores <- merged_data %>%
-  filter(PopulationGroup == "Children",
-         IndicatorCategoryHigh %in% c(
-           "Child Growth (Height for Age)",
-           "Child Growth (Weight for Age)",
-           "Child Growth (Weight for Height)"
-         )) %>%
-  group_by(SurveyYear) %>%
-  summarise(ChildNutritionScore = mean(Value, na.rm = TRUE))
-
-# Adult BMI Score
-adult_scores <- merged_data %>%
-  filter(PopulationGroup == "Adults",
-         IndicatorCategoryHigh == "Adult BMI") %>%
-  group_by(SurveyYear) %>%
-  summarise(AdultBMIScore = mean(Value, na.rm = TRUE))
-
-# Join scores back to merged_data
-merged_data <- merged_data %>%
-  left_join(child_scores, by = "SurveyYear") %>%
-  left_join(adult_scores, by = "SurveyYear")
-
+  ) %>%
+  group_by(SurveyYear, PopulationGroup) %>%
+  mutate(
+    ChildNutritionScore = if_else(
+      PopulationGroup == "Children",
+      sum(
+        Value[IndicatorCategoryHigh %in% c(
+          "Child Growth (Height for Age)",
+          "Child Growth (Weight for Age)",
+          "Child Growth (Weight for Height)"
+        )] *
+        DenominatorWeighted[IndicatorCategoryHigh %in% c(
+          "Child Growth (Height for Age)",
+          "Child Growth (Weight for Age)",
+          "Child Growth (Weight for Height)"
+        )],
+        na.rm = TRUE
+      ) /
+      sum(
+        DenominatorWeighted[IndicatorCategoryHigh %in% c(
+          "Child Growth (Height for Age)",
+          "Child Growth (Weight for Age)",
+          "Child Growth (Weight for Height)"
+        )],
+        na.rm = TRUE
+      ),
+      NA_real_
+    ),
+    AdultBMIScore = if_else(
+      PopulationGroup == "Adults",
+      sum(
+        Value[IndicatorCategoryHigh == "Adult BMI"] *
+        DenominatorWeighted[IndicatorCategoryHigh == "Adult BMI"],
+        na.rm = TRUE
+      ) /
+      sum(
+        DenominatorWeighted[IndicatorCategoryHigh == "Adult BMI"],
+        na.rm = TRUE
+      ),
+      NA_real_
+    )
+  ) %>%
+  ungroup()
 
 # Save processed dataset
 write_csv(merged_data, here("cleaned_data", "Group_C_nutrition_merged.csv"))
