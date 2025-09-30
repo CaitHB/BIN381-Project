@@ -93,6 +93,16 @@ icy_df <- icy_df %>%
     DenominatorWeighted = as.numeric(DenominatorWeighted),
     DenominatorUnweighted = as.numeric(DenominatorUnweighted),
   )
+# Add ValueType column (using IndicatorType as the classifier)
+icy_df <- icy_df %>%
+  mutate(ValueType = IndicatorType)
+
+# Standardize Value separately within each ValueType
+icy_df <- icy_df %>%
+  group_by(ValueType) %>%
+  mutate(Value_zscore = (Value - mean(Value, na.rm = TRUE)) / sd(Value, na.rm = TRUE)) %>%
+  ungroup()
+
 ```
 ## check for unique values
 ```{r}

@@ -96,6 +96,16 @@ ant_df <- ant_df %>%
     DenominatorWeighted = as.numeric(DenominatorWeighted),
     DenominatorUnweighted = as.numeric(DenominatorUnweighted),
   )
+# Add ValueType column (using IndicatorType as the classifier)
+ant_df <- ant_df %>%
+  mutate(ValueType = IndicatorType)
+
+# Standardize Value separately within each ValueType
+ant_df <- ant_df %>%
+  group_by(ValueType) %>%
+  mutate(Value_zscore = (Value - mean(Value, na.rm = TRUE)) / sd(Value, na.rm = TRUE)) %>%
+  ungroup()
+
 ```
 ##check for unique values
 ```{r, results='markup'}
