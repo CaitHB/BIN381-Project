@@ -295,30 +295,35 @@ xgb_model <- xgb.train(
 ```
 ## Predictions
 ```{r}
-pred_test <- predict(xgb_model, newdata = dtest)
+pred_xgb <- predict(xgb_model, newdata = dtest)
 
-# --- Evaluate performance ---
-rmse <- sqrt(mean((y_test - pred_test)^2))
-mae <- mean(abs(y_test - pred_test))
-r2 <- cor(y_test, pred_test)^2
+# Evaluate performance using standard metrics
+eval_metrics <- function(actual, predicted) {
+  rmse <- sqrt(mean((actual - predicted)^2))
+  mae <- mean(abs(actual - predicted))
+  r2 <- cor(actual, predicted)^2
+  data.frame(RMSE = rmse, MAE = mae, R2 = r2)
+}
 
-data.frame(RMSE = rmse, MAE = mae, R2 = r2)
+eval_xgb <- eval_metrics(y_test, pred_xgb)
+eval_xgb
 ```
 
 
 ## preicted vs actual plot
 ```{r}
-ggplot(data = NULL, aes(x = y_test, y = pred_test)) +
+ggplot(data = NULL, aes(x = y_test, y = pred_xgb)) +
   geom_point(alpha = 0.7, color = "orange") +
   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
   theme_minimal(base_size = 14) +
   labs(title = "XGBoost: Predicted vs Actual Values",
        x = "Actual Value", y = "Predicted Value")
+
 ```
 ## Residual Analysis
 
 ```{r}
-residuals_xgb <- y_test - pred_test
+residuals_xgb <- y_test - pred_xgb
 ggplot(data = NULL, aes(x = pred_test, y = residuals_xgb)) +
   geom_point(alpha = 0.7, color = "purple") +
   geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
@@ -330,7 +335,7 @@ ggplot(data = NULL, aes(x = pred_test, y = residuals_xgb)) +
 
 ```{r}
 par(mfrow = c(2,2))
-plot(pred_test, residuals_xgb,
+plot(pred_xgb, residuals_xgb,
      main = "Residuals vs Predicted",
      xlab = "Predicted", ylab = "Residuals", pch = 19, col = "blue")
 abline(h = 0, col = "red", lty = 2)
