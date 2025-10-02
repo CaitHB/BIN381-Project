@@ -2,11 +2,12 @@
 title: "CL_Access_To_Healthcare_01"
 author: "Group K"
 date: "`r Sys.Date()`"
-output: word_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,   results = "hide",  message = FALSE,   # hide package messages
+  warning = FALSE)
 ```
 #Loading Libraries
 ```{r}
@@ -20,25 +21,25 @@ library(ggplot2)
 getwd()
 list.files("data/raw_data")
 ```
-#Load Dataset 
+
 ```{r}
 acc_df <- read_csv(here("raw_data", "access-to-health-care_national_zaf.csv"))
 ```
 
-#Display Dataset content
-```{r}
-head(acc_df)
+## Display Dataset content
+```{r, results='hold'}
+head(acc_df, 5)
 ```
 
-#Remove the first row(meta data)
-```{r}
+## Remove the first row(meta data)
+```{r, echo=TRUE}
 acc_df <- acc_df[-1, ]
 ```
-#dimensions 
+ 
 ```{r}
 dim(acc_df)
 ```
-#Inspect Duplicated rows
+
 ```{r}
 dup_check <- acc_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
@@ -53,7 +54,7 @@ acc_df <- acc_df %>%
   distinct(Indicator, SurveyYear, CharacteristicId, Value, .keep_all = TRUE)
 
 ```
-#Percentage Missing Values
+
 ```{r}
 
 data.frame(
@@ -70,21 +71,21 @@ data.frame(
   )
 ```
 
-#check data types
-```{r}
+## Check data types
+```{r, results='hold'}
 data.frame(
   Column = names(acc_df),
   paste0(sapply(acc_df, typeof))
 )
 
 ```
-#Check The structure of the dataset 
+
 ```{r}
 str(acc_df)
 
 ```
-#Convert Data Types
-```{r}
+## Convert Data Types
+```{r, echo=TRUE}
 acc_df <- acc_df %>%
   mutate(
         Value = as.numeric(Value),
@@ -100,8 +101,8 @@ acc_df <- acc_df %>%
     DenominatorUnweighted = as.numeric(DenominatorUnweighted),
   )
 ```
-#check for unique values
-```{r}
+## Check for unique values
+```{r, results='hold'}
 library(dplyr)
 library(purrr)
 
@@ -120,7 +121,7 @@ summary_tbl
 
 ```
 
-#Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
+#Drop the countries only one unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 acc_df <- acc_df %>%
  select(
@@ -172,7 +173,7 @@ ggplot(acc_df, aes(y = DenominatorWeighted)) +
 
 
 ```
-#save cleaned data
+
 
 ```{r}
 dim(acc_df)

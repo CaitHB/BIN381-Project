@@ -1,0 +1,142 @@
+---
+title: "M3_datasetGroupC"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(readr)
+library(here)
+library(purrr)
+
+```
+
+```{r}
+# File paths
+file_paths <- c(
+  "Anthro_11" = here("cleaned_data", "anthropometry_cleaned.csv"),
+  "IYCF_12"   = here("cleaned_data", "iycf_cleaned.csv")
+)
+
+# Columns to keep
+keep_cols <- c(
+  "SurveyYear", "IndicatorId", "Indicator", "IndicatorType", "Value", "Value_zscore",
+  "DenominatorWeighted", "DenominatorUnweighted",
+  "CharacteristicLabel", "CharacteristicCategory"
+)
+
+# Read and clean function
+read_clean <- function(path) {
+  df <- read_csv(path, show_col_types = FALSE)
+  df %>% select(any_of(keep_cols))
+}
+
+# Define groups
+groups <- list(
+  GroupC_Nutrition = c("Anthro_11", "IYCF_12")
+)
+
+# Combine datasets in each group
+group_dfs <- map(groups, function(group) {
+  dfs <- map(file_paths[group], read_clean)
+  bind_rows(dfs)
+})
+```
+
+```{r}
+#Pivot each dataset wide
+##too many NAs
+
+
+
+```
+
+```{r}
+
+## Save each group separately
+walk2(group_dfs, names(group_dfs), ~ {
+  write_csv(.x, here("merged datasets", paste0(.y, "_merged.csv")))
+})
+
+# Get raw merged data
+raw_merged_data <- group_dfs$GroupC_Nutrition
+
+```
+
+```{r}
+# Compute weighted scores and save
+merged_data <- raw_merged_data %>%
+  mutate(
+    IndicatorCategoryHigh = case_when(
+      str_detect(IndicatorId, "^CN_NUTS_C_HA") ~ "Child Growth (Height for Age)",
+      str_detect(IndicatorId, "^CN_NUTS_C_WA") ~ "Child Growth (Weight for Age)",
+      str_detect(IndicatorId, "^CN_NUTS_C_WH") ~ "Child Growth (Weight for Height)",
+      str_detect(IndicatorId, "^CN_NUTS_C_WHP|^CN_NUTS_C_WAP|^CN_IYCF") ~ "Child Nutrition / Feeding Practices",
+      str_detect(IndicatorId, "^CN_BRFI|^CN_BRFS|^CN_BFDR") ~ "Child Feeding & Breastfeeding",
+      str_detect(IndicatorId, "^AN_NUTS_W_BMI|^AN_NUTS_M_BMI") ~ "Adult BMI",
+      str_detect(IndicatorId, "^AN_NUTS_W_TH|^AN_NUTS_W_OWT|^AN_NUTS_W_OBS|
+                          ^AN_NUTS_M_TH|^AN_NUTS_M_OWT|^AN_NUTS_M_OBS") ~ "Adult Nutrition Status",
+      str_detect(IndicatorId, "^AN_NUTS_W_SHT|^AN_NUTS_M_SHT") ~ "Adult Height",
+      IndicatorType %in% c("D", "U") ~ "Counts / Population",
+      TRUE ~ "Other Health Metrics"
+    ),
+    PopulationGroup = case_when(
+      str_detect(IndicatorId, "^CN_NUTS_C_|^CN_BRFI|^CN_BRFS|^CN_BFDR|^CN_IYCF") ~ "Children",
+      str_detect(CharacteristicLabel, "Total 15-49") ~ "Adults",
+      TRUE ~ "All"
+    )
+  ) %>%
+  group_by(SurveyYear, PopulationGroup) %>%
+  mutate(
+    ChildNutritionScore = if_else(
+      PopulationGroup == "Children",
+      sum(
+        Value[IndicatorCategoryHigh %in% c(
+          "Child Growth (Height for Age)",
+          "Child Growth (Weight for Age)",
+          "Child Growth (Weight for Height)"
+        )] *
+        DenominatorWeighted[IndicatorCategoryHigh %in% c(
+          "Child Growth (Height for Age)",
+          "Child Growth (Weight for Age)",
+          "Child Growth (Weight for Height)"
+        )],
+        na.rm = TRUE
+      ) /
+      sum(
+        DenominatorWeighted[IndicatorCategoryHigh %in% c(
+          "Child Growth (Height for Age)",
+          "Child Growth (Weight for Age)",
+          "Child Growth (Weight for Height)"
+        )],
+        na.rm = TRUE
+      ),
+      NA_real_
+    ),
+    AdultBMIScore = if_else(
+      PopulationGroup == "Adults",
+      sum(
+        Value[IndicatorCategoryHigh == "Adult BMI"] *
+        DenominatorWeighted[IndicatorCategoryHigh == "Adult BMI"],
+        na.rm = TRUE
+      ) /
+      sum(
+        DenominatorWeighted[IndicatorCategoryHigh == "Adult BMI"],
+        na.rm = TRUE
+      ),
+      NA_real_
+    )
+  ) %>%
+  ungroup()
+
+# Save processed dataset
+write_csv(merged_data, here("cleaned_data", "Group_C_nutrition_merged.csv"))
+
+```

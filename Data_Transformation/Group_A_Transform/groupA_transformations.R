@@ -1,0 +1,62 @@
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+data <- read_csv("~/GitHub/BIN381-Project/merged datasets/GroupA_Health_merged.csv")
+
+# Filter 
+data <- data %>% 
+  filter(IndicatorId %in% c("RH_ANCP_W_DOC", "RH_ANCP_W_NRS"))
+
+# Transform (encode, scale, create new features)
+data <- data %>%
+  mutate(
+    IndicatorId_orig = IndicatorId, # OG IndicatorId for later use
+    IndicatorType = as.numeric(factor(IndicatorType)),
+    IndicatorId = as.numeric(factor(IndicatorId)),
+    Value_scaled = scale(Value),
+    DenominatorWeighted_scaled = scale(DenominatorWeighted),
+    DenominatorUnweighted_scaled = scale(DenominatorUnweighted),
+    Weighted_Proportion = DenominatorWeighted / DenominatorUnweighted,
+    SurveyYearFactor = as.factor(SurveyYear)
+  )
+
+# Aggregation
+#  Group by SurveyYear and IndicatorId_orig to calculate average Value and total DenominatorWeighted
+#  This helps in summarizing the data for visualization
+agg_data <- data %>%
+  group_by(SurveyYear, IndicatorId_orig) %>%
+  summarise(
+    Avg_Value = mean(Value, na.rm = TRUE),
+    Total_Weighted = sum(DenominatorWeighted, na.rm = TRUE)
+  )
+
+# Visualization 1: Line chart of Avg_Value
+#  Using color and group aesthetics to differentiate lines by IndicatorId
+#  This helps in visualizing trends over years for each indicator
+ggplot(agg_data, aes(x=SurveyYear, y=Avg_Value, color=IndicatorId_orig, group=IndicatorId_orig)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  labs(
+    title="Average Indicator Value by Year",
+    x="Survey Year",
+    y="Average Value",
+    color="Indicator"
+  ) +
+  theme_minimal()
+
+#  Visualization 2: Bar chart of Total Weighted
+#  Using dodge position to separate bars by IndicatorId
+#  This helps in comparing the total weighted counts for each indicator across years
+
+ggplot(agg_data, aes(x=SurveyYear, y=Total_Weighted, fill=IndicatorId_orig)) +
+  geom_col(position = "dodge") +
+  labs(
+    title="Total Weighted Count by Indicator and Year",
+    x="Survey Year",
+    y="Total Weighted Count",
+    fill="Indicator"
+  ) +
+  theme_minimal()
+

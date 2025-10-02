@@ -6,9 +6,9 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,   results = "hide",  message = FALSE,   # hide package messages
+  warning = FALSE)
 ```
-#Loading Libraries
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -16,29 +16,24 @@ library(stringr)
 library(readr)
 library(here)
 library(ggplot2)
-
+library(purrr)
 getwd()
 list.files("data/raw_data")
 ```
-#Load Dataset 
 ```{r}
 icy_df <- read_csv(here("raw_data", "iycf_national_zaf.csv"))
 ```
-
-#Display Dataset content
-```{r}
-head(icy_df)
+# Firts 5 rows
+```{r, results='markup'}
+head(icy_df, 5)
 ```
 
-#Remove the first row(meta data)
 ```{r}
 icy_df <- icy_df[-1, ]
 ```
-#dimensions 
 ```{r}
 dim(icy_df)
 ```
-#Inspect Duplicated rows
 ```{r}
 dup_check <- icy_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
@@ -53,7 +48,7 @@ icy_df <- icy_df %>%
   distinct(Indicator, SurveyYear, CharacteristicId, Value, .keep_all = TRUE)
 
 ```
-#Percentage Missing Values
+
 ```{r}
 
 data.frame(
@@ -70,7 +65,6 @@ data.frame(
   )
 ```
 
-#check data types
 ```{r}
 data.frame(
   Column = names(icy_df),
@@ -78,13 +72,13 @@ data.frame(
 )
 
 ```
-#Check The structure of the dataset 
+
 ```{r}
 str(icy_df)
 
 ```
-#Convert Data Types
-```{r}
+## Convert Data Types
+```{r, echo=TRUE}
 icy_df <- icy_df %>%
   mutate(
         Value = as.numeric(Value),
@@ -99,11 +93,20 @@ icy_df <- icy_df %>%
     DenominatorWeighted = as.numeric(DenominatorWeighted),
     DenominatorUnweighted = as.numeric(DenominatorUnweighted),
   )
+# Add ValueType column (using IndicatorType as the classifier)
+icy_df <- icy_df %>%
+  mutate(ValueType = IndicatorType)
+
+# Standardize Value separately within each ValueType
+icy_df <- icy_df %>%
+  group_by(ValueType) %>%
+  mutate(Value_zscore = (Value - mean(Value, na.rm = TRUE)) / sd(Value, na.rm = TRUE)) %>%
+  ungroup()
+
 ```
-#check for unique values
+## check for unique values
 ```{r}
-library(dplyr)
-library(purrr)
+
 
 # Summary table: column name, number of unique values, sample of unique values
 n_sample <- 3
@@ -120,7 +123,7 @@ summary_tbl
 
 ```
 
-#Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
+## Drop the countries only one unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 icy_df <- icy_df %>%
   select(
@@ -139,7 +142,7 @@ icy_df <- icy_df %>%
   )
 ```
 
-#Assumed pattern, the missing values can be filled with the previous non missing value in the opposite attribute
+## Assumed pattern, the missing values can be filled with the previous non missing value in the opposite attribute
 ```{r}
 
 
@@ -173,8 +176,8 @@ ggplot(icy_df, aes(y = DenominatorWeighted)) +
 ```{r}
 dim(icy_df)
 ```
-#Outlier Handling
-```{r}
+## Outlier Handling
+```{r, echo=TRUE}
 # Calculate IQR boundaries
 Q1_w <- quantile(icy_df$DenominatorWeighted, 0.25, na.rm = TRUE)
 Q3_w <- quantile(icy_df$DenominatorWeighted, 0.75, na.rm = TRUE)
@@ -197,7 +200,6 @@ icy_df <- icy_df %>%
 
 
 ```
-#save cleaned data
 ```{r}
 write_csv(icy_df, here("cleaned_data", "iycf_cleaned.csv"))
 ```

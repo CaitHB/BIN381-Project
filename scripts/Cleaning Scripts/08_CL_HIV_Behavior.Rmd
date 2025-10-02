@@ -6,9 +6,10 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,   results = "hide",  message = FALSE,   # hide package messages
+  warning = FALSE)
 ```
-#Loading Libraries
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -16,29 +17,29 @@ library(stringr)
 library(readr)
 library(here)
 library(ggplot2)
-
+library(purrr)
 getwd()
 list.files("data/raw_data")
 ```
-#Load Dataset 
+
 ```{r}
 hiv_df <- read_csv(here("raw_data", "hiv-behavior_national_zaf.csv"))
 ```
 
-#Display Dataset content
-```{r}
-head(hiv_df)
+## Display Dataset content
+```{r, results='hold'}
+head(hiv_df, 5)
 ```
 
 #Remove the first row(meta data)
-```{r}
+```{r echo=TRUE}
 hiv_df <- hiv_df[-1, ]
 ```
-#dimensions 
+ 
 ```{r}
 dim(hiv_df)
 ```
-#Inspect Duplicated rows
+
 ```{r}
 dup_check <- hiv_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
@@ -53,7 +54,7 @@ hiv_df <- hiv_df %>%
   distinct(Indicator, SurveyYear, CharacteristicId, Value, .keep_all = TRUE)
 
 ```
-#Percentage Missing Values
+
 ```{r}
 
 data.frame(
@@ -70,15 +71,15 @@ data.frame(
   )
 ```
 
-#check data types
-```{r}
+## check data types
+```{r, results='hold'}
 data.frame(
   Column = names(hiv_df),
   paste0(sapply(hiv_df, typeof))
 )
 
 ```
-#Check The structure of the dataset 
+
 ```{r}
 str(hiv_df)
 
@@ -100,10 +101,9 @@ hiv_df <- hiv_df %>%
     DenominatorUnweighted = as.numeric(DenominatorUnweighted),
   )
 ```
-#check for unique values
-```{r}
-library(dplyr)
-library(purrr)
+## check for unique values
+```{r, results='hold'}
+
 
 # Summary table: column name, number of unique values, sample of unique values
 n_sample <- 3
@@ -120,7 +120,7 @@ summary_tbl
 
 ```
 
-#Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
+#Drop the countries only one unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 hiv_df <- hiv_df %>%
 
@@ -140,7 +140,7 @@ hiv_df <- hiv_df %>%
 ```
 
 #Assumed pattern, the missing values can be filled with the previous non missing value in the opposite attribute
-```{r}
+```{r, echo=TRUE}
 
 
 library(dplyr)
@@ -184,7 +184,7 @@ dim(hiv_df)
 ```
 
 #Outlier Handling
-```{r}
+```{r, echo=TRUE}
 # Calculate IQR boundaries
 Q1_w <- quantile(hiv_df$DenominatorWeighted, 0.25, na.rm = TRUE)
 Q3_w <- quantile(hiv_df$DenominatorWeighted, 0.75, na.rm = TRUE)
@@ -207,7 +207,7 @@ hiv_df <- hiv_df %>%
 
 
 ```
-#save cleaned data
+
 ```{r}
 write_csv(hiv_df, here("cleaned_data", "hiv-behavior_cleaned.csv"))
 ```

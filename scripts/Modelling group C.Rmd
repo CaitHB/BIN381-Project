@@ -1,0 +1,345 @@
+---
+title: "Modelling Group C"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(reshape2)
+library(corrplot)
+library(here)
+library(caret)
+library(randomForest)
+library(gridExtra)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r load}
+
+merged_data <- read.csv(here("cleaned_Data/Group_C_nutrition_merged.csv"))
+
+plot_data <- merged_data %>%
+  filter(!is.na(Value_zscore))
+```
+
+
+## 1. Boxplot of Value_zscore by Indicator Category
+
+```{r}
+ggplot(plot_data, aes(x = IndicatorCategoryHigh, y = Value_zscore)) +
+  geom_boxplot(fill = "skyblue", outlier.color = "red") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Distribution of Standardized Values by Indicator Category",
+       x = "Indicator Category", y = "Z-score of Value")
+```
+## 2. Boxplot of Value_zscore by Population Group
+
+```{r}
+ggplot(plot_data, aes(x = PopulationGroup, y = Value_zscore, fill = PopulationGroup)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Distribution of Standardized Values by Population Group",
+       x = "Population Group", y = "Z-score of Value")
+```
+## 3. Histogram of Standardized Values
+
+```{r histogram_facets_resized, fig.width=14, fig.height=10, fig.align='center'}
+ggplot(plot_data, aes(x = Value_zscore)) +
+  geom_histogram(binwidth = 0.5, fill = "steelblue", color = "black") +
+  facet_wrap(~IndicatorCategoryHigh, scales = "free") +
+  theme_minimal() +
+  labs(title = "Histogram of Z-scores by Indicator Category",
+       x = "Z-score of Value", y = "Frequency")
+
+
+```
+## 4. Scatterplot Matrix of Selected Indicators
+
+```{r scatterplot_improved, fig.width=12, fig.height=8}
+library(ggplot2)
+library(dplyr)
+
+# Remove rows with missing values in x or y
+scatter_data <- plot_data %>%
+  filter(!is.na(Value_zscore), !is.na(DenominatorWeighted))
+
+# Scatterplot colored by IndicatorCategoryHigh
+ggplot(scatter_data, aes(x = DenominatorWeighted, y = Value_zscore, color = IndicatorCategoryHigh)) +
+  geom_point(alpha = 0.7, size = 3) +   # semi-transparent points
+  geom_smooth(method = "loess", se = FALSE, color = "black") + # trend line
+  facet_wrap(~IndicatorCategoryHigh, scales = "free") +       # separate plots
+  theme_minimal(base_size = 14) +
+  labs(title = "Scatterplot of Z-scores vs Weighted Denominator by Indicator Category",
+       x = "Weighted Denominator", y = "Z-score of Value",
+       color = "Indicator Category") +
+  theme(legend.position = "bottom")
+
+```
+
+## Modeling
+
+```{r}
+# Filter out NAs for the target variable
+model_data <- plot_data %>%
+  filter(!is.na(Value), !is.na(Value_zscore))
+
+# Convert categorical variables to factors
+model_data <- model_data %>%
+  mutate(
+    IndicatorCategoryHigh = as.factor(IndicatorCategoryHigh),
+    IndicatorType = as.factor(IndicatorType),
+    CharacteristicCategory = as.factor(CharacteristicCategory),
+    PopulationGroup = as.factor(PopulationGroup)
+  )
+
+# Select features for modeling
+features <- c("IndicatorType", "DenominatorWeighted", "DenominatorUnweighted", 
+              "CharacteristicCategory", "PopulationGroup", "SurveyYear")
+target <- "Value"
+ 
+# --- Remove columns not needed for modeling ---
+cols_to_remove <- c("ChildNutritionScore", "AdultBMIScore")
+model_data <- model_data %>% select(-all_of(cols_to_remove))
+```
+
+
+##train test split 
+
+```{r}
+# 75% training, 20% testing, 5% validation
+train_index <- createDataPartition(model_data$Value, p = 0.8, list = FALSE)
+train_data <- model_data[train_index, ]
+test_data <- model_data[-train_index, ]  
+```
+
+```{r}
+# --- Ensure factor levels match training set ---
+categorical_vars <- c("IndicatorType", "CharacteristicCategory", "PopulationGroup")
+for (var in categorical_vars) {
+  test_data[[var]] <- factor(test_data[[var]], levels = levels(train_data[[var]]))
+  validation_data[[var]] <- factor(validation_data[[var]], levels = levels(train_data[[var]]))
+}
+
+
+```
+## Random forest
+```{r}
+# --- Subset to features + target for modeling ---
+train_data_model <- train_data[, c(features, target)]
+test_data_model  <- test_data[, c(features, target)]
+validation_data_model <- validation_data[, c(features, target)]
+
+# --- Train baseline random forest ---
+rf_model <- randomForest(Value ~ ., data = train_data_model, ntree = 500, mtry = 3, importance = TRUE)
+print(rf_model)
+
+```
+
+## Tune hyperparameters
+```{r}
+#tuning grid 
+tune_grid <- expand.grid(.mtry = 2:7)
+
+# 5-fold cross-validation
+train_control <- trainControl(method = "cv", number = 5)
+
+# Train tuned random forest
+rf_tuned <- train(
+  rf_formula, data = train_data,
+  method = "rf",
+  tuneGrid = tune_grid,
+  trControl = train_control,
+  ntree = 1000,             
+  importance = TRUE
+)
+
+# Show best parameters
+rf_tuned$bestTune
+
+# Final model
+rf_model_final <- rf_tuned$finalModel
+```
+
+```{r}
+
+# Predict on test set
+pred_test <- predict(rf_tuned, newdata = test_data)
+
+# Check predictions
+head(pred_test)
+
+
+```
+## Model evaluation
+```{r}
+
+
+# Evaluation metrics
+eval_metrics <- function(actual, predicted) {
+  rmse <- sqrt(mean((actual - predicted)^2))
+  mae <- mean(abs(actual - predicted))
+  r2 <- cor(actual, predicted)^2
+  return(data.frame(RMSE = rmse, MAE = mae, R2 = r2))
+}
+
+# Evaluate on test set
+eval_test <- eval_metrics(test_data$Value, pred_test)
+eval_test
+
+```
+
+```{r  fig.width=9, fig.height=5}
+varImpPlot(rf_model_final, main = "Random Forest Variable Importance")
+```
+
+```{r}
+ggplot(test_data, aes(x = Value, y = pred_test)) +
+  geom_point(alpha = 0.7, color = "steelblue") +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+  theme_minimal(base_size = 14) +
+  labs(title = "Predicted vs Actual Values",
+       x = "Actual Value", y = "Predicted Value")
+
+```
+
+## REsidual analysis
+```{r}
+residuals <- test_data$Value - pred_test
+ggplot(test_data, aes(x = pred_test, y = residuals)) +
+  geom_point(alpha = 0.7, color = "darkgreen") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  theme_minimal(base_size = 14) +
+  labs(title = "Residuals vs Predicted Values",
+       x = "Predicted Value", y = "Residuals")
+
+```
+
+# Second model
+
+
+```{r linear_regression_setup, include=FALSE}
+library(xgboost)
+library(Matrix)
+
+```
+# Training
+```{r}
+categorical_vars <- c("IndicatorType", "CharacteristicCategory", "PopulationGroup")
+numeric_vars <- c("DenominatorWeighted", "DenominatorUnweighted", "SurveyYear")
+target_var <- "Value"
+
+#Impute missing values ---
+impute_mode <- function(x) {
+  ux <- unique(x[!is.na(x)])
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+impute_data <- function(df) {
+  df %>%
+    mutate(across(all_of(numeric_vars), ~ifelse(is.na(.), median(., na.rm = TRUE), .))) %>%
+    mutate(across(all_of(categorical_vars), ~ifelse(is.na(.), impute_mode(.), .)))
+}
+
+train_data_clean <- impute_data(train_data)
+test_data_clean <- impute_data(test_data)
+```
+
+```{r}
+#One-hot encode categorical variables ---
+dummies <- dummyVars(~ IndicatorType + CharacteristicCategory + PopulationGroup, data = train_data_clean)
+train_cat <- predict(dummies, newdata = train_data_clean)
+test_cat <- predict(dummies, newdata = test_data_clean)
+
+# --- Combine numeric and encoded categorical features ---
+x_train <- cbind(train_cat, as.matrix(train_data_clean[, numeric_vars]))
+y_train <- train_data_clean[[target_var]]
+
+x_test <- cbind(test_cat, as.matrix(test_data_clean[, numeric_vars]))
+y_test <- test_data_clean[[target_var]]
+
+# --- Convert to DMatrix for XGBoost ---
+dtrain <- xgb.DMatrix(data = x_train, label = y_train)
+dtest <- xgb.DMatrix(data = x_test, label = y_test)
+
+```
+
+## XGBoost Parameters
+```{r}
+params <- list(
+  objective = "reg:squarederror",
+  eval_metric = "rmse",
+  eta = 0.1,
+  max_depth = 6,
+  subsample = 0.8,
+  colsample_bytree = 0.8
+)
+
+# --- Train XGBoost ---
+set.seed(123)
+xgb_model <- xgb.train(
+  params = params,
+  data = dtrain,
+  nrounds = 500,
+  watchlist = list(train = dtrain, test = dtest),
+  early_stopping_rounds = 20,
+  print_every_n = 10
+)
+
+```
+## Predictions
+```{r}
+pred_xgb <- predict(xgb_model, newdata = dtest)
+
+# Evaluate performance using standard metrics
+eval_metrics <- function(actual, predicted) {
+  rmse <- sqrt(mean((actual - predicted)^2))
+  mae <- mean(abs(actual - predicted))
+  r2 <- cor(actual, predicted)^2
+  data.frame(RMSE = rmse, MAE = mae, R2 = r2)
+}
+
+eval_xgb <- eval_metrics(y_test, pred_xgb)
+eval_xgb
+```
+
+
+## preicted vs actual plot
+```{r}
+ggplot(data = NULL, aes(x = y_test, y = pred_xgb)) +
+  geom_point(alpha = 0.7, color = "orange") +
+  geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+  theme_minimal(base_size = 14) +
+  labs(title = "XGBoost: Predicted vs Actual Values",
+       x = "Actual Value", y = "Predicted Value")
+
+```
+## Residual Analysis
+
+```{r}
+residuals_xgb <- y_test - pred_xgb
+ggplot(data = NULL, aes(x = pred_test, y = residuals_xgb)) +
+  geom_point(alpha = 0.7, color = "purple") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  theme_minimal(base_size = 14) +
+  labs(title = "XGBoost: Residuals vs Predicted Values",
+       x = "Predicted Value", y = "Residuals")
+```
+6. Diagnostic Plots
+
+```{r}
+par(mfrow = c(2,2))
+plot(pred_xgb, residuals_xgb,
+     main = "Residuals vs Predicted",
+     xlab = "Predicted", ylab = "Residuals", pch = 19, col = "blue")
+abline(h = 0, col = "red", lty = 2)
+hist(residuals_xgb, main = "Histogram of Residuals", xlab = "Residuals", col = "lightblue")
+qqnorm(residuals_xgb); qqline(residuals_xgb, col = "red")
+par(mfrow = c(1,1))
+```

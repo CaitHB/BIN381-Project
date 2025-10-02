@@ -5,9 +5,10 @@ date: "`r Sys.Date()`"
 output: pdf_document
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,   results = "hide",  message = FALSE,   # hide package messages
+  warning = FALSE)
 ```
-#Loading Libraries
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -15,29 +16,27 @@ library(stringr)
 library(readr)
 library(here)
 library(ggplot2)
-
+library(purrr)
 getwd()
 list.files("data/raw_data")
 ```
-#Load Dataset 
+
 ```{r}
 t_df <- read_csv(here("raw_data","toilet-facilities_national_zaf.csv"))
 ```
 
 #Display Dataset content
-```{r}
+```{r, results='hold'}
 head(t_df)
 ```
 
-#Remove the first row(meta data)
 ```{r}
 t_df <- t_df[-1, ]
 ```
-#dimensions 
+
 ```{r}
 dim(t_df)
 ```
-#Inspect Duplicated rows
 ```{r}
 dup_check <- t_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
@@ -47,7 +46,7 @@ dup_check
 
 ```
 
-#Percentage Missing Values
+
 ```{r}
 
 data.frame(
@@ -64,7 +63,7 @@ data.frame(
   )
 ```
 
-#check data types
+
 ```{r}
 data.frame(
   Column = names(t_df),
@@ -72,12 +71,12 @@ data.frame(
 )
 
 ```
-#Check The structure of the dataset 
+
 ```{r}
 str(t_df)
 
 ```
-#Convert Data Types
+
 ```{r}
 t_df <- t_df %>%
   mutate(
@@ -95,9 +94,8 @@ t_df <- t_df %>%
   )
 ```
 #check for unique values
-```{r}
-library(dplyr)
-library(purrr)
+```{r, results='hold'}
+
 
 # Summary table: column name, number of unique values, sample of unique values
 n_sample <- 3
@@ -114,7 +112,7 @@ summary_tbl
 
 ```
 
-#Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
+## Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 t_df <- t_df %>%
 
@@ -133,7 +131,7 @@ t_df <- t_df %>%
   )
 ```
 
-#Assumed pattern, the missing values can be filled with the previous non missing value in the opposite attribute
+## Assumed pattern, the missing values can be filled with the previous non missing value in the opposite attribute
 ```{r}
 
 
@@ -168,7 +166,7 @@ ggplot(t_df, aes(y = DenominatorWeighted)) +
 dim(t_df)
 ```
 
-#Outlier Handling
+
 ```{r}
 # Calculate IQR boundaries
 Q1_w <- quantile(t_df$DenominatorWeighted, 0.25, na.rm = TRUE)
@@ -192,7 +190,7 @@ t_df <- t_df %>%
 
 
 ```
-#save cleaned data
+
 ```{r}
 write_csv(t_df, here("cleaned_data", "toilet_cleaned.csv"))
 ```

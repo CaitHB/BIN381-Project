@@ -6,9 +6,10 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,   results = "hide",  message = FALSE,   # hide package messages
+  warning = FALSE)
 ```
-#Loading Libraries
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -17,28 +18,29 @@ library(readr)
 library(here)
 library(ggplot2)
 
+library(purrr)
 getwd()
 list.files("data/raw_data")
 ```
-#Load Dataset 
+ 
 ```{r}
 ari_df <- read_csv(here("raw_data", "symptoms-of-acute-respiratory-infection-ari_national_zaf.csv"))
 ```
 
-#Display Dataset content
+## Display Dataset content
 ```{r}
 head(ari_df)
 ```
 
-#Remove the first row(meta data)
+
 ```{r}
 ari_df <- ari_df[-1, ]
 ```
-#dimensions 
+ 
 ```{r}
 dim(ari_df)
 ```
-#Inspect Duplicated rows
+
 ```{r}
 dup_check <- ari_df %>%
   group_by(Indicator, SurveyYear, CharacteristicId, Value) %>%
@@ -47,7 +49,7 @@ dup_check <- ari_df %>%
 dup_check
 
 ```
-#Percentage Missing Values
+
 ```{r}
 
 data.frame(
@@ -64,7 +66,7 @@ data.frame(
   )
 ```
 
-#check data types
+
 ```{r}
 data.frame(
   Column = names(ari_df),
@@ -72,12 +74,12 @@ data.frame(
 )
 
 ```
-#Check The structure of the dataset 
+ 
 ```{r}
 str(ari_df)
 
 ```
-#Convert Data Types
+
 ```{r}
 ari_df <- ari_df %>%
   mutate(
@@ -95,9 +97,8 @@ ari_df <- ari_df %>%
   )
 ```
 #check for unique values
-```{r}
-library(dplyr)
-library(purrr)
+```{r, results='hold'}
+
 
 # Summary table: column name, number of unique values, sample of unique values
 n_sample <- 3
@@ -114,7 +115,7 @@ summary_tbl
 
 ```
 
-#Drop the countries only onw unqiue value: reason, there is no useful information - county is also always za
+## Drop the countries only one unqiue value: reason, there is no useful information - county is also always za
 ```{r}
 ari_df <- ari_df %>%
 
@@ -133,12 +134,10 @@ ari_df <- ari_df %>%
   )
 ```
 
-#Assumed pattern, the missing values can be filled with the non missing value in the opposite attribute
-```{r}
+## Assumed pattern, the missing values can be filled with the non missing value in the opposite attribute
+```{r, echo=TRUE}
 
 
-library(dplyr)
-library(tidyr)
 
 
 ari_df <- ari_df %>%
@@ -271,7 +270,6 @@ ggplot(ari_df, aes(y = DenominatorWeighted)) +
 ```{r}
 dim(ari_df)
 ```
-#save cleaned data
 ```{r}
 write_csv(ari_df, here("cleaned_data", "symptoms-of-acute-respiratory-infection-ari_cleaned.csv"))
 ```
