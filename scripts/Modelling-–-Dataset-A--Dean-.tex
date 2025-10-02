@@ -1,0 +1,600 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Modelling -- Dataset A (Dean)},
+  pdfauthor={Group K},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Modelling -- Dataset A (Dean)}
+\author{Group K}
+\date{2025-10-02}
+
+\begin{document}
+\maketitle
+
+\begin{verbatim}
+## Rows: 633 Columns: 10
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (5): Dataset, CharacteristicCategory, CharacteristicLabel, IndicatorId, ...
+## dbl (5): SurveyYear, CharacteristicId, Value, DenominatorWeighted, Denominat...
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1404}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0643}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0994}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1345}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1170}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0819}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0819}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0351}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1170}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1287}}@{}}
+\caption{First few rows of Dataset A (Health)}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+SurveyYear
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+CharacteristicId
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+CharacteristicCategory
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+CharacteristicLabel
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+IndicatorId
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+IndicatorType
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+DenominatorWeighted
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+DenominatorUnweighted
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+SurveyYear
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+CharacteristicId
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+CharacteristicCategory
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+CharacteristicLabel
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+IndicatorId
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+IndicatorType
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+DenominatorWeighted
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+DenominatorUnweighted
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_DOC & I & 28.5 & 2871 & 2903 \\
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_DOC & I & 30.0 & 4122 & 4148 \\
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_DOC & I & 27.3 & 2010 & 2041 \\
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_NRS & I & 66.6 & 2871 & 2903 \\
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_NRS & I & 65.0 & 4122 & 4148 \\
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_NRS & I & 68.4 & 2010 & 2041 \\
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1404}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0643}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0994}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1345}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1170}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0819}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0819}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0351}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1170}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1287}}@{}}
+\caption{Filtered Health (I) -- head()}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+SurveyYear
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+CharacteristicId
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+CharacteristicCategory
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+CharacteristicLabel
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+IndicatorId
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+IndicatorType
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+DenominatorWeighted
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+DenominatorUnweighted
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+SurveyYear
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+CharacteristicId
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+CharacteristicCategory
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+CharacteristicLabel
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+IndicatorId
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+IndicatorType
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+DenominatorWeighted
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+DenominatorUnweighted
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_DOC & I & 28.5 & 2871 & 2903 \\
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_DOC & I & 30.0 & 4122 & 4148 \\
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_DOC & I & 27.3 & 2010 & 2041 \\
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_NRS & I & 66.6 & 2871 & 2903 \\
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_NRS & I & 65.0 & 4122 & 4148 \\
+Access\_To\_Healthcare\_01 & 1998 & 1000 & Total & Total &
+RH\_ANCP\_W\_NRS & I & 68.4 & 2010 & 2041 \\
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+\NormalTok{idx }\OtherTok{\textless{}{-}}\NormalTok{ caret}\SpecialCharTok{::}\FunctionTok{createDataPartition}\NormalTok{(model\_df}\SpecialCharTok{$}\NormalTok{HighValue, }\AttributeTok{p =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{list =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{train\_df }\OtherTok{\textless{}{-}}\NormalTok{ model\_df[idx, ]  }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}
+  \AttributeTok{SurveyYear  =}\NormalTok{ forcats}\SpecialCharTok{::}\FunctionTok{fct\_drop}\NormalTok{(SurveyYear),}
+  \AttributeTok{IndicatorId =}\NormalTok{ forcats}\SpecialCharTok{::}\FunctionTok{fct\_drop}\NormalTok{(IndicatorId)}
+\NormalTok{)}
+\NormalTok{test\_df  }\OtherTok{\textless{}{-}}\NormalTok{ model\_df[}\SpecialCharTok{{-}}\NormalTok{idx, ] }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}
+  \AttributeTok{SurveyYear  =} \FunctionTok{factor}\NormalTok{(SurveyYear,  }\AttributeTok{levels =} \FunctionTok{levels}\NormalTok{(train\_df}\SpecialCharTok{$}\NormalTok{SurveyYear)),}
+  \AttributeTok{IndicatorId =} \FunctionTok{factor}\NormalTok{(IndicatorId, }\AttributeTok{levels =} \FunctionTok{levels}\NormalTok{(train\_df}\SpecialCharTok{$}\NormalTok{IndicatorId))}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Setting direction: controls < cases
+\end{verbatim}
+
+\begin{verbatim}
+## pdf 
+##   2
+\end{verbatim}
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1059}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0706}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1647}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1647}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1529}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1765}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1647}}@{}}
+\caption{Logistic Regression -- Overall Metrics (Test)}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Accuracy
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Kappa
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyLower
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyUpper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyNull
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyPValue
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+McnemarPValue
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Accuracy
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Kappa
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyLower
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyUpper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyNull
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyPValue
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+McnemarPValue
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0.667 & 0.333 & 0.516 & 0.796 & 0.5 & 0.015 & 0.803 \\
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0851}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0851}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.1064}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.1064}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0709}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0496}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0355}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0780}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.1064}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.1489}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.1277}}@{}}
+\caption{Logistic Regression -- Class Metrics (Test)}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Sensitivity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Specificity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Pos Pred Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Neg Pred Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Precision
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Recall
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+F1
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Prevalence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Detection Rate
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Detection Prevalence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Balanced Accuracy
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Sensitivity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Specificity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Pos Pred Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Neg Pred Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Precision
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Recall
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+F1
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Prevalence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Detection Rate
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Detection Prevalence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Balanced Accuracy
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0.708 & 0.625 & 0.654 & 0.682 & 0.654 & 0.708 & 0.68 & 0.5 & 0.354 &
+0.542 & 0.667 \\
+\end{longtable}
+
+\begin{verbatim}
+## Setting direction: controls < cases
+\end{verbatim}
+
+\begin{verbatim}
+## pdf 
+##   2
+\end{verbatim}
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1059}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0706}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1647}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1647}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1529}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1765}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1647}}@{}}
+\caption{Decision Tree -- Overall Metrics (Test)}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Accuracy
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Kappa
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyLower
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyUpper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyNull
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyPValue
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+McnemarPValue
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Accuracy
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Kappa
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyLower
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyUpper
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyNull
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+AccuracyPValue
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+McnemarPValue
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0.708 & 0.417 & 0.559 & 0.83 & 0.5 & 0.003 & 0.423 \\
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0845}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0845}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.1056}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.1056}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0704}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0493}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0423}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.0775}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.1056}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.1479}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 20\tabcolsep) * \real{0.1268}}@{}}
+\caption{Decision Tree -- Class Metrics (Test)}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Sensitivity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Specificity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Pos Pred Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Neg Pred Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Precision
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Recall
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+F1
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Prevalence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Detection Rate
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Detection Prevalence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Balanced Accuracy
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedleft
+Sensitivity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Specificity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Pos Pred Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Neg Pred Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Precision
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Recall
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+F1
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Prevalence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Detection Rate
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Detection Prevalence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Balanced Accuracy
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0.792 & 0.625 & 0.679 & 0.75 & 0.679 & 0.792 & 0.731 & 0.5 & 0.396 &
+0.583 & 0.708 \\
+\end{longtable}
+
+\begin{longtable}[]{@{}lrl@{}}
+\caption{Decision Tree -- Top 10 Feature Importance}\tabularnewline
+\toprule\noalign{}
+& Overall & Feature \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+& Overall & Feature \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+IndicatorId & 15.976471 & IndicatorId \\
+DW\_log & 11.799693 & DW\_log \\
+SurveyYear & 0.704405 & SurveyYear \\
+\end{longtable}
+
+\begin{longtable}[]{@{}lrrrrr@{}}
+\caption{Model Performance Comparison (Test Set)}\tabularnewline
+\toprule\noalign{}
+Model & Accuracy & Kappa & Sensitivity & Specificity & AUC \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Model & Accuracy & Kappa & Sensitivity & Specificity & AUC \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Logistic Regression & 0.667 & 0.333 & 0.708 & 0.625 & 0.832 \\
+Decision Tree & 0.708 & 0.417 & 0.792 & 0.625 & 0.786 \\
+\end{longtable}
+
+\begin{verbatim}
+## **Summary:** We trained two models on Dataset A’s health indicators (binary target: HighValue ≥ median(Value)). Both achieved reasonable discrimination. The comparison table above shows test-set metrics. Based on AUC (primary) and Accuracy (secondary), the better model in this run is: **Logistic Regression** (AUC = 0.832, Accuracy = 0.667). We also saved ROC curves, tree plot, metrics, and variable importance in ../outputs/ .
+\end{verbatim}
+
+\end{document}
