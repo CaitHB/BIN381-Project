@@ -1,0 +1,261 @@
+---
+title: "Modelling – Dataset A (Dean)"
+author: "Group K"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: true
+    df_print: default
+fontsize: 11pt
+geometry: margin=1in
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{pdflscape}
+  - \usepackage{caption}
+  - \captionsetup[table]{skip=6pt}
+  - \setlength{\LTcapwidth}{\textwidth}
+  - \renewcommand{\arraystretch}{1.12}
+---
+
+
+
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, fig.align = "center",
+  fig.width = 7, fig.height = 5,
+  message = FALSE, warning = FALSE,
+  results = "asis"
+)
+knitr::opts_knit$set(kable.force.latex = TRUE)
+
+suppressPackageStartupMessages({
+  library(tidyverse); library(readr); library(knitr); library(dplyr)
+  library(caret); library(pROC); library(rpart); library(rpart.plot); library(forcats)
+})
+
+has_kx <- requireNamespace("kableExtra", quietly = TRUE)
+if (has_kx) {
+  library(kableExtra)
+  options(kableExtra.latex.load_packages = TRUE)
+}
+
+# ---- SAFE table printer: no scale_down/longtabu, optional landscape + smaller font
+print_tbl <- function(df, caption = NULL, digits = 3) {
+  if (!has_kx) {
+    return(kable(df, format = "latex", booktabs = TRUE, longtable = TRUE,
+                 caption = caption, digits = digits, align = "l"))
+  }
+  # base table
+  tab <- kbl(df, format = "latex", booktabs = TRUE, longtable = TRUE,
+             caption = caption, digits = digits, align = "l")
+  # styling: keep natural width to avoid longtabu; repeat header for longtable
+  tab <- kable_styling(tab,
+                       full_width = FALSE,
+                       latex_options = c("hold_position", "repeat_header", "striped"),
+                       font_size = if (ncol(df) > 7) 9 else 11)
+  # rotate very wide tables (no scale_down)
+  if (ncol(df) > 7) tab <- landscape(tab)
+  tab
+}
+
+# (Optional) Ensure these LaTeX packages exist; quiet & harmless if already present
+if (requireNamespace("tinytex", quietly = TRUE)) {
+  try(tinytex::tlmgr_install(c("booktabs","multirow","wrapfig","colortbl","pdflscape","caption","float")), silent = TRUE)
+}
+
+dir.create("../outputs/visuals", recursive = TRUE, showWarnings = FALSE)
+dir.create("../outputs/summary_tables", recursive = TRUE, showWarnings = FALSE)
+dir.create("../outputs/dictionary", recursive = TRUE, showWarnings = FALSE)
+
+
+```
+
+```{r echo = FALSE}
+dataA <- read_csv("C:/Belgium Campus/PRG282_Project/BIN381-Project/merged datasets/GroupA_Health_merged.csv",
+                  show_col_types = FALSE)
+print_tbl(head(dataA, 10), "First 10 rows of Dataset A (Health)")
+
+
+
+```
+
+
+```{r echo = FALSE}
+health_i <- dataA %>%
+  filter(
+    Dataset == "Access_To_Healthcare_01",
+    CharacteristicCategory == "Total",
+    CharacteristicLabel == "Total",
+    IndicatorType == "I"
+  ) %>%
+  mutate(
+    SurveyYear   = as.factor(SurveyYear),
+    IndicatorId  = as.factor(IndicatorId),
+    Value        = as.numeric(Value),
+    DenominatorWeighted   = as.numeric(DenominatorWeighted),
+    DenominatorUnweighted = as.numeric(DenominatorUnweighted)
+  ) %>%
+  drop_na(Value, DenominatorWeighted, DenominatorUnweighted)
+
+print_tbl(head(health_i, 10), "Filtered Health (I) – head(10)")
+
+med_val <- median(health_i$Value, na.rm = TRUE)
+model_df <- health_i %>%
+  mutate(
+    HighValue = factor(if_else(Value >= med_val, "Yes", "No"), levels = c("No","Yes")),
+    DW_log = log1p(DenominatorWeighted),
+    DU_log = log1p(DenominatorUnweighted),
+    IndicatorId = forcats::fct_lump_n(IndicatorId, n = 5, other_level = "Other")
+  )
+
+print_tbl(as.data.frame(table(model_df$HighValue)),
+          "Class balance: HighValue (No/Yes)")
+
+```
+
+
+
+```{r}
+set.seed(42)
+idx <- caret::createDataPartition(model_df$HighValue, p = 0.7, list = FALSE)
+train_df <- model_df[idx, ]  %>% mutate(
+  SurveyYear  = forcats::fct_drop(SurveyYear),
+  IndicatorId = forcats::fct_drop(IndicatorId)
+)
+test_df  <- model_df[-idx, ] %>% mutate(
+  SurveyYear  = factor(SurveyYear,  levels = levels(train_df$SurveyYear)),
+  IndicatorId = factor(IndicatorId, levels = levels(train_df$IndicatorId))
+)
+
+print_tbl(tibble(Split = c("Train","Test"),
+                 Rows = c(nrow(train_df), nrow(test_df))),
+          "Train/Test split sizes")
+
+
+```
+
+```{r echo = FALSE}
+factor_preds   <- c("SurveyYear","IndicatorId")
+valid_factors  <- factor_preds[sapply(train_df[factor_preds], function(x) nlevels(x) >= 2)]
+num_preds      <- c("DW_log")   # avoid collinearity with DU_log
+all_preds      <- c(valid_factors, num_preds)
+logit_formula  <- reformulate(termlabels = all_preds, response = "HighValue")
+
+logit_fit <- glm(logit_formula, data = train_df, family = binomial(),
+                 control = list(maxit = 100))
+
+logit_prob <- predict(logit_fit, newdata = test_df, type = "response")
+logit_pred <- factor(if_else(logit_prob >= 0.5, "Yes", "No"), levels = c("No","Yes"))
+
+cm_logit <- caret::confusionMatrix(logit_pred, test_df$HighValue, positive = "Yes")
+
+roc_logit <- pROC::roc(response = test_df$HighValue,
+                       predictor = as.numeric(logit_prob),
+                       levels = c("No","Yes"), quiet = TRUE)
+auc_logit <- pROC::auc(roc_logit)
+
+png("../outputs/visuals/roc_logit.png", width = 900, height = 650)
+plot.roc(roc_logit, main = sprintf("ROC – Logistic Regression (AUC = %.3f)", as.numeric(auc_logit)))
+dev.off()
+
+print_tbl(as.data.frame(t(cm_logit$overall)) |> mutate(across(everything(), as.numeric)),
+          "Logistic Regression – Overall Metrics (Test)", digits = 3)
+print_tbl(as.data.frame(t(cm_logit$byClass))  |> mutate(across(everything(), as.numeric)),
+          "Logistic Regression – Class Metrics (Test)", digits = 3)
+
+logit_metrics <- tibble(
+  Metric = c("Accuracy","Kappa","Sensitivity","Specificity","AUC"),
+  Value  = c(as.numeric(cm_logit$overall["Accuracy"]),
+             as.numeric(cm_logit$overall["Kappa"]),
+             as.numeric(cm_logit$byClass["Sensitivity"]),
+             as.numeric(cm_logit$byClass["Specificity"]),
+             as.numeric(auc_logit))
+)
+readr::write_csv(logit_metrics, "../outputs/summary_tables/logit_metrics.csv")
+
+tree_formula <- reformulate(termlabels = all_preds, response = "HighValue")
+tree_fit <- rpart::rpart(
+  tree_formula, data = train_df, method = "class",
+  control = rpart.control(cp = 0.01, minsplit = 10, maxdepth = 6)
+)
+
+png("../outputs/visuals/tree_plot.png", width = 1000, height = 700)
+rpart.plot::rpart.plot(tree_fit, cex = 0.75, type = 2, extra = 104, under = TRUE,
+                       main = "Decision Tree – HighValue")
+dev.off()
+
+tree_prob <- predict(tree_fit, newdata = test_df, type = "prob")[, "Yes"]
+tree_pred <- factor(if_else(tree_prob >= 0.5, "Yes", "No"), levels = c("No","Yes"))
+
+cm_tree <- caret::confusionMatrix(tree_pred, test_df$HighValue, positive = "Yes")
+
+roc_tree <- pROC::roc(response = test_df$HighValue,
+                      predictor = as.numeric(tree_prob),
+                      levels = c("No","Yes"), quiet = TRUE)
+auc_tree <- pROC::auc(roc_tree)
+
+png("../outputs/visuals/roc_tree.png", width = 900, height = 650)
+plot.roc(roc_tree, main = sprintf("ROC – Decision Tree (AUC = %.3f)", as.numeric(auc_tree)))
+dev.off()
+
+print_tbl(as.data.frame(t(cm_tree$overall)) |> mutate(across(everything(), as.numeric)),
+          "Decision Tree – Overall Metrics (Test)", digits = 3)
+print_tbl(as.data.frame(t(cm_tree$byClass)) |> mutate(across(everything(), as.numeric)),
+          "Decision Tree – Class Metrics (Test)", digits = 3)
+
+varimp <- as.data.frame(varImp(tree_fit))
+varimp$Feature <- rownames(varimp)
+varimp <- varimp %>% arrange(desc(Overall))
+print_tbl(head(varimp, 10), "Decision Tree – Top 10 Feature Importance")
+
+readr::write_csv(
+  tibble(Metric=c("Accuracy","Kappa","Sensitivity","Specificity","AUC"),
+         Value=c(as.numeric(cm_tree$overall["Accuracy"]),
+                 as.numeric(cm_tree$overall["Kappa"]),
+                 as.numeric(cm_tree$byClass["Sensitivity"]),
+                 as.numeric(cm_tree$byClass["Specificity"]),
+                 as.numeric(auc_tree))),
+  "../outputs/summary_tables/tree_metrics.csv"
+)
+readr::write_csv(varimp, "../outputs/summary_tables/tree_variable_importance.csv")
+
+```
+
+```{r echo = FALSE}
+perf_tbl <- tibble(
+  Model = c("Logistic Regression", "Decision Tree"),
+  Accuracy = c(cm_logit$overall["Accuracy"], cm_tree$overall["Accuracy"]) %>% as.numeric(),
+  Kappa    = c(cm_logit$overall["Kappa"],    cm_tree$overall["Kappa"]) %>% as.numeric(),
+  Sensitivity = c(cm_logit$byClass["Sensitivity"], cm_tree$byClass["Sensitivity"]) %>% as.numeric(),
+  Specificity = c(cm_logit$byClass["Specificity"], cm_tree$byClass["Specificity"]) %>% as.numeric(),
+  AUC = c(as.numeric(auc_logit), as.numeric(auc_tree))
+)
+print_tbl(perf_tbl, "Model Performance Comparison (Test Set)", digits = 3)
+readr::write_csv(perf_tbl, "../outputs/summary_tables/model_performance_comparison.csv")
+
+
+
+
+
+
+```
+
+
+```{r echo = FALSE}
+
+
+best <- perf_tbl %>% arrange(desc(AUC), desc(Accuracy)) %>% slice(1)
+cat("**Summary.** We trained two models on Dataset A’s health indicators (binary target: HighValue ",
+    "\\(\\geq\\) median(Value)). The table above shows test-set metrics. ",
+    "Based on AUC (primary) and Accuracy (secondary), the better model in this run is ",
+    sprintf("**%s** (AUC = %.3f, Accuracy = %.3f). ",
+            best$Model, best$AUC, best$Accuracy),
+    "We also saved ROC curves, a tree plot, and CSV metrics in `../outputs/`.",
+    sep = "")
+```
