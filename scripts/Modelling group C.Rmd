@@ -1,10 +1,9 @@
 ---
-title: "Modelling Group C"
+title: "Modelling Nutritional Dataset(Group C)"
 author: "Group K"
 date: "`r Sys.Date()`"
 output: pdf_document
 ---
-
 ```{r setup, include=FALSE}
 library(dplyr)
 library(ggplot2)
@@ -18,20 +17,16 @@ library(gridExtra)
 
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-
 ```{r load}
-
+#load the data and remove na
 merged_data <- read.csv(here("cleaned_Data/Group_C_nutrition_merged.csv"))
 
 plot_data <- merged_data %>%
   filter(!is.na(Value_zscore))
 ```
-
-
 ## 1. Boxplot of Value_zscore by Indicator Category
 
-```{r}
+```{r , fig.width=10, fig.height=6}
 ggplot(plot_data, aes(x = IndicatorCategoryHigh, y = Value_zscore)) +
   geom_boxplot(fill = "skyblue", outlier.color = "red") +
   theme_minimal() +
@@ -39,30 +34,13 @@ ggplot(plot_data, aes(x = IndicatorCategoryHigh, y = Value_zscore)) +
   labs(title = "Distribution of Standardized Values by Indicator Category",
        x = "Indicator Category", y = "Z-score of Value")
 ```
-## 2. Boxplot of Value_zscore by Population Group
 
-```{r}
-ggplot(plot_data, aes(x = PopulationGroup, y = Value_zscore, fill = PopulationGroup)) +
-  geom_boxplot() +
-  theme_minimal() +
-  labs(title = "Distribution of Standardized Values by Population Group",
-       x = "Population Group", y = "Z-score of Value")
-```
-## 3. Histogram of Standardized Values
-
-```{r histogram_facets_resized, fig.width=14, fig.height=10, fig.align='center'}
-ggplot(plot_data, aes(x = Value_zscore)) +
-  geom_histogram(binwidth = 0.5, fill = "steelblue", color = "black") +
-  facet_wrap(~IndicatorCategoryHigh, scales = "free") +
-  theme_minimal() +
-  labs(title = "Histogram of Z-scores by Indicator Category",
-       x = "Z-score of Value", y = "Frequency")
+### Most categories have a median close to zero, indicating that central values are similar, but the visible range and presence of outliers across categories suggest the possibility of nonlinear patterns and feature interactions that tree-based models can automatically capture.
 
 
-```
-## 4. Scatterplot Matrix of Selected Indicators
+## 2. Scatterplot Matrix of Selected Indicators
 
-```{r scatterplot_improved, fig.width=12, fig.height=8}
+```{r scatterplot_improved, fig.width=12, fig.height=8, warning=FALSE}
 library(ggplot2)
 library(dplyr)
 
@@ -71,7 +49,8 @@ scatter_data <- plot_data %>%
   filter(!is.na(Value_zscore), !is.na(DenominatorWeighted))
 
 # Scatterplot colored by IndicatorCategoryHigh
-ggplot(scatter_data, aes(x = DenominatorWeighted, y = Value_zscore, color = IndicatorCategoryHigh)) +
+ggplot(scatter_data, aes(x = DenominatorWeighted,
+                         y = Value_zscore, color = IndicatorCategoryHigh)) +
   geom_point(alpha = 0.7, size = 3) +   # semi-transparent points
   geom_smooth(method = "loess", se = FALSE, color = "black") + # trend line
   facet_wrap(~IndicatorCategoryHigh, scales = "free") +       # separate plots
@@ -80,10 +59,12 @@ ggplot(scatter_data, aes(x = DenominatorWeighted, y = Value_zscore, color = Indi
        x = "Weighted Denominator", y = "Z-score of Value",
        color = "Indicator Category") +
   theme(legend.position = "bottom")
-
 ```
 
-## Modeling
+### Several indicator categories like "Child Feeding & Breastfeeding," "Child Nutrition / Feeding Practices” and "Counts / Population" show curved or complex nonlinear relationships between Z-scores and the weighted denominator. These patterns are not well captured by linear models but are naturally handled by decision trees and random forest models, which are capable of modeling complex, nonlinear trends.
+
+# A. Random Forrest
+## Feature selection
 
 ```{r}
 # Filter out NAs for the target variable
@@ -109,43 +90,39 @@ cols_to_remove <- c("ChildNutritionScore", "AdultBMIScore")
 model_data <- model_data %>% select(-all_of(cols_to_remove))
 ```
 
-
-##train test split 
+Train test split 
 
 ```{r}
-# 75% training, 20% testing, 5% validation
+# 80% training, 20% testing
 train_index <- createDataPartition(model_data$Value, p = 0.8, list = FALSE)
 train_data <- model_data[train_index, ]
 test_data <- model_data[-train_index, ]  
 ```
 
 ```{r}
-# --- Ensure factor levels match training set ---
+# Make sure the factor levels match training set
 categorical_vars <- c("IndicatorType", "CharacteristicCategory", "PopulationGroup")
 for (var in categorical_vars) {
   test_data[[var]] <- factor(test_data[[var]], levels = levels(train_data[[var]]))
-  validation_data[[var]] <- factor(validation_data[[var]], levels = levels(train_data[[var]]))
 }
-
-
 ```
-## Random forest
 ```{r}
-# --- Subset to features + target for modeling ---
+# Subset to features + target for modeling
 train_data_model <- train_data[, c(features, target)]
 test_data_model  <- test_data[, c(features, target)]
-validation_data_model <- validation_data[, c(features, target)]
 
-# --- Train baseline random forest ---
-rf_model <- randomForest(Value ~ ., data = train_data_model, ntree = 500, mtry = 3, importance = TRUE)
+
+# Train baseline
+rf_model <- randomForest(Value ~ ., data = train_data_model, 
+                         ntree = 500, mtry = 3, importance = TRUE)
 print(rf_model)
-
 ```
+### The model explains about 87.29% of the variation in the target variable (Value), and saves feature importance scores for later analysis.
 
 ## Tune hyperparameters
 ```{r}
-#tuning grid 
 tune_grid <- expand.grid(.mtry = 2:7)
+rf_formula <- as.formula(paste(target, "~", paste(features, collapse = " + ")))
 
 # 5-fold cross-validation
 train_control <- trainControl(method = "cv", number = 5)
@@ -166,7 +143,7 @@ rf_tuned$bestTune
 # Final model
 rf_model_final <- rf_tuned$finalModel
 ```
-
+## Predictions
 ```{r}
 
 # Predict on test set
@@ -174,14 +151,10 @@ pred_test <- predict(rf_tuned, newdata = test_data)
 
 # Check predictions
 head(pred_test)
-
-
 ```
 ## Model evaluation
 ```{r}
 
-
-# Evaluation metrics
 eval_metrics <- function(actual, predicted) {
   rmse <- sqrt(mean((actual - predicted)^2))
   mae <- mean(abs(actual - predicted))
@@ -189,27 +162,29 @@ eval_metrics <- function(actual, predicted) {
   return(data.frame(RMSE = rmse, MAE = mae, R2 = r2))
 }
 
-# Evaluate on test set
+# evauate on test set
 eval_test <- eval_metrics(test_data$Value, pred_test)
 eval_test
 
 ```
 
+### R^2 indicates that the Random Forest model explains about 99% of the variance in the target variable (Value). On average, predictions deviate from actual values by about 110 units. Lower RMSE is better, but it should be interpreted relative to the range of Value.A value of 63.3 indicates that, on average, predictions are off by 63 units.
 ```{r  fig.width=9, fig.height=5}
 varImpPlot(rf_model_final, main = "Random Forest Variable Importance")
 ```
 
-```{r}
+```{r, fig.height=4, fig.width=5}
 ggplot(test_data, aes(x = Value, y = pred_test)) +
   geom_point(alpha = 0.7, color = "steelblue") +
   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
   theme_minimal(base_size = 14) +
   labs(title = "Predicted vs Actual Values",
        x = "Actual Value", y = "Predicted Value")
-
 ```
 
-## REsidual analysis
+### Predicted versus actual plots show that the model performed consistently well across the range of observed values.
+
+## Residual analysis
 ```{r}
 residuals <- test_data$Value - pred_test
 ggplot(test_data, aes(x = pred_test, y = residuals)) +
@@ -218,24 +193,22 @@ ggplot(test_data, aes(x = pred_test, y = residuals)) +
   theme_minimal(base_size = 14) +
   labs(title = "Residuals vs Predicted Values",
        x = "Predicted Value", y = "Residuals")
-
 ```
 
-# Second model
+### The residual plots confirm that prediction errors are roughly evenly distributed around zero, suggesting minimal bias. It confirmed the lack of systematic error patterns, reinforcing confidence in the model’s unbiased nature. 
 
-
+# B. XGBoost
 ```{r linear_regression_setup, include=FALSE}
 library(xgboost)
 library(Matrix)
-
 ```
-# Training
+## Feature selection
 ```{r}
 categorical_vars <- c("IndicatorType", "CharacteristicCategory", "PopulationGroup")
 numeric_vars <- c("DenominatorWeighted", "DenominatorUnweighted", "SurveyYear")
 target_var <- "Value"
 
-#Impute missing values ---
+#Impute missing values
 impute_mode <- function(x) {
   ux <- unique(x[!is.na(x)])
   ux[which.max(tabulate(match(x, ux)))]
@@ -252,19 +225,18 @@ test_data_clean <- impute_data(test_data)
 ```
 
 ```{r}
-#One-hot encode categorical variables ---
+#One-hot encode categorical variables
 dummies <- dummyVars(~ IndicatorType + CharacteristicCategory + PopulationGroup, data = train_data_clean)
 train_cat <- predict(dummies, newdata = train_data_clean)
 test_cat <- predict(dummies, newdata = test_data_clean)
 
-# --- Combine numeric and encoded categorical features ---
 x_train <- cbind(train_cat, as.matrix(train_data_clean[, numeric_vars]))
 y_train <- train_data_clean[[target_var]]
 
 x_test <- cbind(test_cat, as.matrix(test_data_clean[, numeric_vars]))
 y_test <- test_data_clean[[target_var]]
 
-# --- Convert to DMatrix for XGBoost ---
+#DMatrix necessary for XGBoost
 dtrain <- xgb.DMatrix(data = x_train, label = y_train)
 dtest <- xgb.DMatrix(data = x_test, label = y_test)
 
@@ -280,8 +252,6 @@ params <- list(
   subsample = 0.8,
   colsample_bytree = 0.8
 )
-
-# --- Train XGBoost ---
 set.seed(123)
 xgb_model <- xgb.train(
   params = params,
@@ -291,7 +261,6 @@ xgb_model <- xgb.train(
   early_stopping_rounds = 20,
   print_every_n = 10
 )
-
 ```
 ## Predictions
 ```{r}
@@ -308,21 +277,21 @@ eval_metrics <- function(actual, predicted) {
 eval_xgb <- eval_metrics(y_test, pred_xgb)
 eval_xgb
 ```
-
-
-## preicted vs actual plot
-```{r}
+## Preicted vs actual plot
+```{r, fig.height=4, fig.width=5}
 ggplot(data = NULL, aes(x = y_test, y = pred_xgb)) +
   geom_point(alpha = 0.7, color = "orange") +
   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
   theme_minimal(base_size = 14) +
   labs(title = "XGBoost: Predicted vs Actual Values",
        x = "Actual Value", y = "Predicted Value")
-
 ```
+
+### There is tight clustering around the diagonal reference line, and these plots confirm balanced error distribution across the prediction range.
+
 ## Residual Analysis
 
-```{r}
+```{r,fig.height=4, fig.width=5}
 residuals_xgb <- y_test - pred_xgb
 ggplot(data = NULL, aes(x = pred_test, y = residuals_xgb)) +
   geom_point(alpha = 0.7, color = "purple") +
@@ -331,15 +300,19 @@ ggplot(data = NULL, aes(x = pred_test, y = residuals_xgb)) +
   labs(title = "XGBoost: Residuals vs Predicted Values",
        x = "Predicted Value", y = "Residuals")
 ```
-6. Diagnostic Plots
 
-```{r}
-par(mfrow = c(2,2))
-plot(pred_xgb, residuals_xgb,
-     main = "Residuals vs Predicted",
-     xlab = "Predicted", ylab = "Residuals", pch = 19, col = "blue")
-abline(h = 0, col = "red", lty = 2)
+### Most residuals are within ±50 units, except a few small predicted values that have slightly larger deviations.This suggests that XGBoost is producing reasonably accurate predictions, though there may be some difficulty modeling the extreme low values or sparse data points.
+
+## Diagnostic Plots
+
+```{r, fig.height=7, fig.width=8}
+par(mfrow = c(1,2))
+
 hist(residuals_xgb, main = "Histogram of Residuals", xlab = "Residuals", col = "lightblue")
 qqnorm(residuals_xgb); qqline(residuals_xgb, col = "red")
 par(mfrow = c(1,1))
 ```
+### The histogram is skewed slightly left (more residuals around -20), which suggests the residuals are not perfectly normal.
+This could affect the validity of confidence intervals and hypothesis tests.In the qqplot we see deviations from the line, especially at the tails, that suggest non-normality.
+
+### Evaluation of each model performance is in the word document.
