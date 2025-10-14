@@ -40,7 +40,7 @@ ggplot(plot_data, aes(x = IndicatorCategoryHigh, y = Value_zscore)) +
 
 ## 2. Scatterplot Matrix of Selected Indicators
 
-```{r scatterplot_improved, fig.width=12, fig.height=8, warning=FALSE}
+```{r scatterplot_improved, fig.width=13, fig.height=8, warning=FALSE}
 library(ggplot2)
 library(dplyr)
 
