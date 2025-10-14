@@ -74,8 +74,8 @@ dir.create("../outputs/dictionary", recursive = TRUE, showWarnings = FALSE)
 ```
 
 ```{r echo = FALSE}
-dataA <- read_csv("C:/Belgium Campus/PRG282_Project/BIN381-Project/merged datasets/GroupA_Health_merged.csv",
-                  show_col_types = FALSE)
+dataA <- read_csv(here("merged datasets","GroupA_Health_merged.csv"))
+                  
 print_tbl(head(dataA, 10), "First 10 rows of Dataset A (Health)")
 
 ```
@@ -298,5 +298,16 @@ cat("**Summary.** We trained two models on Dataset A’s health indicators (bina
     "We also saved ROC curves, a tree plot, and CSV metrics in `../outputs/`.",
     sep = "")
 
+
+```
+
+```{r}
+# Save logistic regression Model for Shiny Deployment
+
+logit_final_model <- logit_fit
+
+saveRDS(logit_final_model, file = "logit_healthA_model.rds")
+
+cat("✅ Logistic Regression model saved successfully as ../outputs/models/logit_health_model.rds\n")
 
 ```

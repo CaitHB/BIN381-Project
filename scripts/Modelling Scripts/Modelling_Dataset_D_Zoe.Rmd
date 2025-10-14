@@ -17,15 +17,16 @@ library(rpart.plot)
 library(randomForest)
 library(tidyr)
 library(broom)
+library(readr)
 
 # Option A (recommended): forward slashes
-csv_path <- "C:/Users/601277/OneDrive - belgiumcampus.ac.za/Desktop/BIN381-Project/merged datasets/GroupD_Social_merged.csv"
+##csv_path <- read.csv(here( "merged datasets","GroupD_Social_merged.csv"))
 
 # Option B: escaped backslashes (either A or B, not both)
 # csv_path <- "C:\\Users\\601277\\OneDrive - belgiumcampus.ac.za\\Desktop\\BIN381-Project\\merged datasets\\GroupD_Social_merged.csv"
 
-# Load Dataset D only
-df <- read.csv(csv_path, stringsAsFactors = FALSE)
+csv_path <- here("merged datasets", "GroupD_Social_merged.csv")
+df <- read.csv(csv_path)
 
 # Minimal, targeted cleaning and typing
 df <- df %>%
@@ -88,6 +89,12 @@ rf_fit <- train(
   importance = TRUE,
   metric = "RMSE"
 )
+
+
+# save for shiny deployment
+
+saveRDS(rf_fit, file = "rf_model_GroupD_Social.rds")
+
 
 # Predict & evaluate
 rf_pred    <- predict(rf_fit, newdata = test)
@@ -164,4 +171,8 @@ if (nrow(joined) >= 20) {
 # 7) Reproducibility
 ```{r}
 sessionInfo()
+```
+
+```{R}
+
 ```

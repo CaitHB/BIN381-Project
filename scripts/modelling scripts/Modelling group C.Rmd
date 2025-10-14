@@ -88,6 +88,8 @@ target <- "Value"
 # --- Remove columns not needed for modeling ---
 cols_to_remove <- c("ChildNutritionScore", "AdultBMIScore")
 model_data <- model_data %>% select(-all_of(cols_to_remove))
+
+print(features)  # From the save_object in your training code
 ```
 
 Train test split 
@@ -193,6 +195,32 @@ ggplot(test_data, aes(x = pred_test, y = residuals)) +
   theme_minimal(base_size = 14) +
   labs(title = "Residuals vs Predicted Values",
        x = "Predicted Value", y = "Residuals")
+```
+```{r}
+
+# Save Final Tuned Random Forest Model for Shiny
+
+rf_model_final <- rf_tuned$finalModel  # Your final model
+
+# Create a list with the model and additional metadata
+save_object <- list(
+  model = rf_model_final,  # The actual model
+  feature_names = c("IndicatorType", "DenominatorWeighted", "DenominatorUnweighted", 
+                    "CharacteristicCategory", "PopulationGroup", "SurveyYear", "IndicatorCategoryHigh"),  # All features
+  levels = list(
+    IndicatorCategoryHigh = levels(model_data$IndicatorCategoryHigh),  # Levels for categorical variables
+    IndicatorType = levels(model_data$IndicatorType),
+    CharacteristicCategory = levels(model_data$CharacteristicCategory),
+    PopulationGroup = levels(model_data$PopulationGroup)
+  
+  )
+)
+
+
+
+# Save the list to RDS
+saveRDS(save_object, file = "rf_nutrition_model.rds")
+cat("Random Forest model saved successfully as rf_nutrition_model.rds")
 ```
 
 ### The residual plots confirm that prediction errors are roughly evenly distributed around zero, suggesting minimal bias. It confirmed the lack of systematic error patterns, reinforcing confidence in the model’s unbiased nature. 

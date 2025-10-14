@@ -422,3 +422,12 @@ cat("- Best performing model:", best_model, "\n")
 cat("- Final R^2 on test set:", round(best_r2, 3), "\n")
 cat("- Model error (RMSE):", round(best_rmse, 2), "\n")
 ```
+
+```{r}
+# Saving Final XGBoost Model for Shiny
+
+saveRDS(xgb_mod, file = "xgb_sanitation_model.rds")
+
+cat("✅ XGBoost model saved successfully as xgb_sanitation_model.rds\n")
+
+```
