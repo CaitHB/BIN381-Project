@@ -1,0 +1,167 @@
+---
+title: "Dataset_D_Model"
+author: "Group_K_"
+date: "2025-10-03"
+output: pdf_document
+---
+
+# 1) Load & Prepare Dataset
+```{r setup, message=FALSE, warning=FALSE}
+set.seed(123)
+
+library(dplyr)
+library(ggplot2)
+library(caret)
+library(rpart)
+library(rpart.plot)
+library(randomForest)
+library(tidyr)
+library(broom)
+
+# Option A (recommended): forward slashes
+csv_path <- "C:/Users/601277/OneDrive - belgiumcampus.ac.za/Desktop/BIN381-Project/merged datasets/GroupD_Social_merged.csv"
+
+# Option B: escaped backslashes (either A or B, not both)
+# csv_path <- "C:\\Users\\601277\\OneDrive - belgiumcampus.ac.za\\Desktop\\BIN381-Project\\merged datasets\\GroupD_Social_merged.csv"
+
+# Load Dataset D only
+df <- read.csv(csv_path, stringsAsFactors = FALSE)
+
+# Minimal, targeted cleaning and typing
+df <- df %>%
+  mutate(
+    CharacteristicCategory = as.factor(CharacteristicCategory),
+    CharacteristicLabel    = as.factor(CharacteristicLabel),
+    IndicatorId            = as.factor(IndicatorId),
+    SurveyYear             = as.integer(SurveyYear)
+  ) %>%
+  filter(!is.na(Value))
+
+# Quick outcome overview
+summary(df$Value)  # <- R uses # for comments
+```
+
+# 2) Train/Test Split
+```{r}
+set.seed(123)
+idx   <- createDataPartition(df$Value, p = 0.7, list = FALSE)
+train <- df[idx, ]
+test  <- df[-idx, ]
+```
+
+# 3) Model 1 — Decision Tree (Regression)
+```{r message=FALSE, warning=FALSE, fig.height=4}
+# 10-fold CV
+ctrl <- trainControl(method = "cv", number = 10)
+
+tree_fit <- train(
+  Value ~ CharacteristicCategory + CharacteristicLabel + IndicatorId + SurveyYear,
+  data = train,
+  method = "rpart",
+  trControl = ctrl,
+  tuneLength = 10,
+  metric = "RMSE"
+)
+
+# Plot the final decision tree
+rpart.plot(tree_fit$finalModel, main = "Decision Tree")
+
+# Predict & evaluate
+tree_pred    <- predict(tree_fit, newdata = test)
+tree_metrics <- postResample(tree_pred, test$Value)
+tree_metrics
+```
+
+# 4) Model 2 — Random Forest (Regression)
+```{r message=FALSE, warning=FALSE, fig.height=4}
+# 4) Model 2 — Random Forest (Regression)
+ctrl <- trainControl(method = "cv", number = 10)
+
+# Train Random Forest
+rf_fit <- train(
+  Value ~ CharacteristicCategory + CharacteristicLabel + IndicatorId + SurveyYear,
+  data = train,
+  method = "rf",
+  trControl = ctrl,
+  tuneLength = 5,
+  ntree = 500,
+  importance = TRUE,
+  metric = "RMSE"
+)
+
+# Predict & evaluate
+rf_pred    <- predict(rf_fit, newdata = test)
+rf_metrics <- postResample(rf_pred, test$Value)
+rf_metrics
+
+# ---- Clean variable-importance plot (top 15) ----
+imp <- caret::varImp(rf_fit)$importance
+imp$Variable <- rownames(imp); rownames(imp) <- NULL
+
+imp %>%
+  arrange(desc(Overall)) %>%
+  slice_head(n = 15) %>%
+  mutate(Variable = abbreviate(Variable, minlength = 16)) %>%
+  ggplot(aes(x = reorder(Variable, Overall), y = Overall)) +
+  geom_col() +
+  coord_flip() +
+  labs(title = "Random Forest — Top 15 Variable Importance",
+       x = NULL, y = "Importance (caret Overall)") +
+  theme_minimal(base_size = 12)
+```
+
+# 5) Compare Models
+```{r}
+results <- data.frame(
+  Model = c("Decision Tree", "Random Forest"),
+  RMSE  = c(tree_metrics["RMSE"],     rf_metrics["RMSE"]),
+  R2    = c(tree_metrics["Rsquared"], rf_metrics["Rsquared"])
+)
+
+knitr::kable(results, caption = "Model Performance on Test Set")
+```
+
+# 6) Model 3 — Logistic Regression (Literacy vs Condom Use)
+```{r message=FALSE, warning=FALSE}
+# Select literacy-related rows (IndicatorId contains "lit" or "read")
+literacy_rows <- df %>%
+  filter(grepl("lit|read", IndicatorId, ignore.case = TRUE)) %>%
+  transmute(SurveyYear, CharacteristicCategory, CharacteristicLabel, LiteracyValue = Value)
+
+# Select condom-related rows (IndicatorId contains "condom" or "cond")
+condom_rows <- df %>%
+  filter(grepl("condom|cond", IndicatorId, ignore.case = TRUE)) %>%
+  transmute(SurveyYear, CharacteristicCategory, CharacteristicLabel, CondomValue = Value)
+
+# Join literacy and condom subsets
+joined <- inner_join(
+  literacy_rows, condom_rows,
+  by = c("SurveyYear","CharacteristicCategory","CharacteristicLabel")
+) %>% tidyr::drop_na()
+
+cat("Matched rows (both literacy & condom present):", nrow(joined), "\n")
+
+if (nrow(joined) >= 20) {
+  # Binarize Condom Use by median threshold
+  thr <- median(joined$CondomValue, na.rm = TRUE)
+  joined <- joined %>%
+    mutate(CondomUse = factor(ifelse(CondomValue >= thr, 1, 0)))
+
+  # Fit logistic regression
+  logit_model <- glm(CondomUse ~ LiteracyValue + SurveyYear,
+                     data = joined, family = binomial)
+
+  # Summary
+  summary(logit_model)
+
+  # Odds Ratios with 95% CI
+  exp(cbind(OR = coef(logit_model), confint(logit_model)))
+} else {
+  cat("Not enough matched rows to run logistic regression.\n")
+}
+```
+
+# 7) Reproducibility
+```{r}
+sessionInfo()
+```
