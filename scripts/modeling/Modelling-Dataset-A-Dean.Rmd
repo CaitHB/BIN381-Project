@@ -7,16 +7,17 @@ output:
     latex_engine: xelatex
     number_sections: true
     df_print: default
+  word_document: default
 fontsize: 11pt
 geometry: margin=1in
 header-includes:
-  - \usepackage{booktabs}
-  - \usepackage{longtable}
-  - \usepackage{pdflscape}
-  - \usepackage{caption}
-  - \captionsetup[table]{skip=6pt}
-  - \setlength{\LTcapwidth}{\textwidth}
-  - \renewcommand{\arraystretch}{1.12}
+- \usepackage{booktabs}
+- \usepackage{longtable}
+- \usepackage{pdflscape}
+- \usepackage{caption}
+- \captionsetup[table]{skip=6pt}
+- \setlength{\LTcapwidth}{\textwidth}
+- \renewcommand{\arraystretch}{1.12}
 ---
 
 
@@ -51,20 +52,16 @@ print_tbl <- function(df, caption = NULL, digits = 3) {
     return(kable(df, format = "latex", booktabs = TRUE, longtable = TRUE,
                  caption = caption, digits = digits, align = "l"))
   }
-  # base table
   tab <- kbl(df, format = "latex", booktabs = TRUE, longtable = TRUE,
              caption = caption, digits = digits, align = "l")
-  # styling: keep natural width to avoid longtabu; repeat header for longtable
   tab <- kable_styling(tab,
                        full_width = FALSE,
                        latex_options = c("hold_position", "repeat_header", "striped"),
                        font_size = if (ncol(df) > 7) 9 else 11)
-  # rotate very wide tables (no scale_down)
   if (ncol(df) > 7) tab <- landscape(tab)
   tab
 }
 
-# (Optional) Ensure these LaTeX packages exist; quiet & harmless if already present
 if (requireNamespace("tinytex", quietly = TRUE)) {
   try(tinytex::tlmgr_install(c("booktabs","multirow","wrapfig","colortbl","pdflscape","caption","float")), silent = TRUE)
 }
@@ -81,12 +78,10 @@ dataA <- read_csv("C:/Belgium Campus/PRG282_Project/BIN381-Project/merged datase
                   show_col_types = FALSE)
 print_tbl(head(dataA, 10), "First 10 rows of Dataset A (Health)")
 
-
-
 ```
 
 
-```{r echo = FALSE}
+```{r echo = TRUE}
 health_i <- dataA %>%
   filter(
     Dataset == "Access_To_Healthcare_01",
@@ -121,7 +116,57 @@ print_tbl(as.data.frame(table(model_df$HighValue)),
 
 
 
-```{r}
+```{r echo = TRUE}
+# Build plotting data in the same spirit as Group C
+plot_df <- health_i %>%
+  mutate(
+    # Standardized value (z-score)
+    Value_zscore = as.numeric(scale(Value)),
+    # Use lumped IndicatorId to avoid too many categories on plots
+    IndicatorGroup = forcats::fct_lump_n(IndicatorId, n = 8, other_level = "Other"),
+    # Use SurveyYear as the "population-like" grouping (since Group A lacks PopulationGroup)
+    YearGroup = SurveyYear
+  ) %>%
+  drop_na(Value_zscore, DenominatorWeighted)
+
+
+```
+
+```{r echo = TRUE}
+ggplot(plot_df, aes(x = IndicatorGroup, y = Value_zscore)) +
+  geom_boxplot(fill = "skyblue", outlier.color = "red") +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Distribution of Standardized Values by Indicator (Top 8 + Other)",
+       x = "Indicator group", y = "Z-score of Value")
+
+
+ggplot(plot_df, aes(x = YearGroup, y = Value_zscore, fill = YearGroup)) +
+  geom_boxplot(show.legend = FALSE) +
+  theme_minimal(base_size = 13) +
+  labs(title = "Distribution of Standardized Values by Survey Year",
+       x = "Survey Year", y = "Z-score of Value")
+
+ggplot(plot_df, aes(x = Value_zscore)) +
+  geom_histogram(binwidth = 0.5, fill = "steelblue", color = "black") +
+  facet_wrap(~ IndicatorGroup, scales = "free") +
+  theme_minimal(base_size = 13) +
+  labs(title = "Histogram of Z-scores by Indicator Group",
+       x = "Z-score of Value", y = "Frequency")
+
+ggplot(plot_df, aes(x = DenominatorWeighted, y = Value_zscore, color = IndicatorGroup)) +
+  geom_point(alpha = 0.7, size = 2.6) +
+  geom_smooth(method = "loess", se = FALSE, color = "black") +
+  facet_wrap(~ IndicatorGroup, scales = "free") +
+  theme_minimal(base_size = 14) +
+  labs(title = "Z-score(Value) vs DenominatorWeighted by Indicator Group",
+       x = "Weighted Denominator", y = "Z-score of Value",
+       color = "Indicator") +
+  theme(legend.position = "bottom")
+
+```
+
+```{r echo = TRUE}
 set.seed(42)
 idx <- caret::createDataPartition(model_df$HighValue, p = 0.7, list = FALSE)
 train_df <- model_df[idx, ]  %>% mutate(
@@ -137,10 +182,8 @@ print_tbl(tibble(Split = c("Train","Test"),
                  Rows = c(nrow(train_df), nrow(test_df))),
           "Train/Test split sizes")
 
-
 ```
-
-```{r echo = FALSE}
+```{r echo = TRUE}
 factor_preds   <- c("SurveyYear","IndicatorId")
 valid_factors  <- factor_preds[sapply(train_df[factor_preds], function(x) nlevels(x) >= 2)]
 num_preds      <- c("DW_log")   # avoid collinearity with DU_log
@@ -226,8 +269,8 @@ readr::write_csv(
 readr::write_csv(varimp, "../outputs/summary_tables/tree_variable_importance.csv")
 
 ```
+```{r echo = TRUE}
 
-```{r echo = FALSE}
 perf_tbl <- tibble(
   Model = c("Logistic Regression", "Decision Tree"),
   Accuracy = c(cm_logit$overall["Accuracy"], cm_tree$overall["Accuracy"]) %>% as.numeric(),
@@ -239,18 +282,14 @@ perf_tbl <- tibble(
 print_tbl(perf_tbl, "Model Performance Comparison (Test Set)", digits = 3)
 readr::write_csv(perf_tbl, "../outputs/summary_tables/model_performance_comparison.csv")
 
-
-
-
-
-
 ```
 
+```{r echo = TRUE}
+# pick the best row using dplyr-qualified calls to avoid masking
+best <- perf_tbl %>%
+  dplyr::arrange(dplyr::desc(AUC), dplyr::desc(Accuracy)) %>%
+  dplyr::slice_head(n = 1)
 
-```{r echo = FALSE}
-
-
-best <- perf_tbl %>% arrange(desc(AUC), desc(Accuracy)) %>% slice(1)
 cat("**Summary.** We trained two models on Dataset A’s health indicators (binary target: HighValue ",
     "\\(\\geq\\) median(Value)). The table above shows test-set metrics. ",
     "Based on AUC (primary) and Accuracy (secondary), the better model in this run is ",
@@ -258,4 +297,6 @@ cat("**Summary.** We trained two models on Dataset A’s health indicators (bina
             best$Model, best$AUC, best$Accuracy),
     "We also saved ROC curves, a tree plot, and CSV metrics in `../outputs/`.",
     sep = "")
+
+
 ```
