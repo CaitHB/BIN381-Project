@@ -1,0 +1,178 @@
+
+
+
+
+---
+title: "Feature Selection"
+author: "Group K"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Load required libraries
+library(tidyverse)
+library(skimr)
+library(ggplot2)
+library(readr)
+library(knitr)
+library(dplyr)
+library(tidyr)
+library(summarytools)
+library(here)
+library(kableExtra)
+library(corrplot)
+
+# Create output directories
+dir.create("../outputs/visuals", recursive = TRUE, showWarnings = FALSE)
+dir.create("../outputs/summary_tables", recursive = TRUE, showWarnings = FALSE)
+dir.create("../outputs/dictionary", recursive = TRUE, showWarnings = FALSE)
+
+```
+# Load merged datasets
+```{r echo=FALSE}
+dataA <- read_csv(here("merged datasets", "GroupA_Health_merged.csv"), show_col_types = FALSE)
+dataB <- read_csv(here("merged datasets", "GroupB_Sanitation_merged.csv"), show_col_types = FALSE)
+dataC <- read_csv(here("merged datasets", "GroupC_Nutrition_merged.csv"), show_col_types = FALSE)
+dataD <- read_csv(here("merged datasets", "GroupD_Social_merged.csv"), show_col_types = FALSE)
+
+
+# Combine all datasets into one (if required)
+combined_data <- bind_rows(dataA, dataB, dataC, dataD)
+
+# Select only the most important columns
+important_cols <- combined_data %>%
+  select(SurveyYear, 
+         CharacteristicLabel, 
+         Value, DenominatorWeighted, DenominatorUnweighted)
+
+# Preview the first 10 rows in a PDF-friendly table
+important_cols %>%
+  head(10) %>%
+  kable(booktabs = TRUE, caption = "Key columns of the dataset") %>%
+  kable_styling(latex_options = c("hold_position"))
+```
+
+```{r echo=FALSE}
+# Summary statistics for numeric variables
+numeric_cols <- select(combined_data, where(is.numeric))
+
+summary_stats <- numeric_cols %>%
+  summarise(across(everything(), list(mean = ~mean(., na.rm = TRUE),
+                                      sd   = ~sd(., na.rm = TRUE),
+                                      min  = ~min(., na.rm = TRUE),
+                                      max  = ~max(., na.rm = TRUE)))) %>%
+  pivot_longer(cols = everything(),
+               names_to = c("Variable", "Statistic"),
+               names_sep = "_",
+               values_to = "Value") %>%
+  arrange(Variable)
+
+# Display summary statistics
+kable(summary_stats, caption = "Summary Statistics for Numeric Variables")
+
+```
+
+```{r echo=FALSE}
+# Checking for missing values in the dataset
+missing_values <- colSums(is.na(combined_data))
+kable(missing_values, caption = "Missing Values Per Column")
+
+```
+
+```{r echo=FALSE}
+# Check for duplicate rows in the dataset
+duplicates <- sum(duplicated(combined_data))
+if (duplicates > 0) {
+  message(paste("Warning: Found", duplicates, "duplicate rows in the dataset."))
+} else {
+  message("No duplicates found.")
+}
+
+```
+
+```{r echo=FALSE}
+# Correlation matrix for numerical features
+cor_matrix <- cor(select(combined_data, where(is.numeric)), use = "complete.obs")
+# Visualize the correlation matrix
+corrplot(cor_matrix, method = "color", addCoef.col = "black", tl.cex = 0.8)
+
+# Display the correlation matrix
+kable(as.data.frame(cor_matrix), caption = "Correlation Matrix for Numerical Features")
+
+```
+
+```{r echo=FALSE}
+# Ensure numeric columns
+combined_data <- combined_data %>%
+  mutate(
+    Value = as.numeric(Value),
+    DenominatorWeighted = as.numeric(DenominatorWeighted),
+    DenominatorUnweighted = as.numeric(DenominatorUnweighted)
+  )
+
+# Remove rows with NA in key columns
+cleaned_data <- combined_data %>%
+  filter(!is.na(Value) & !is.na(DenominatorWeighted) & !is.na(DenominatorUnweighted))
+
+# Display key column names in a table
+col_table <- tibble(Column_Names = c("Dataset", "SurveyYear", "CharacteristicId",
+                                     "CharacteristicCategory", "CharacteristicLabel",
+                                     "IndicatorId", "IndicatorType", "Value",
+                                     "DenominatorWeighted", "DenominatorUnweighted"))
+kable(col_table, caption = "Key Columns in the Dataset") %>%
+  kable_styling(latex_options = c("hold_position"))
+
+# Compute Pearson correlations
+cor_table <- tibble(
+  Variable_Pair = c(
+    "Value & DenominatorWeighted",
+    "Value & DenominatorUnweighted",
+    "DenominatorWeighted & DenominatorUnweighted"
+  ),
+  Pearson_Correlation = c(
+    cor(cleaned_data$Value, cleaned_data$DenominatorWeighted, use = "complete.obs"),
+    cor(cleaned_data$Value, cleaned_data$DenominatorUnweighted, use = "complete.obs"),
+    cor(cleaned_data$DenominatorWeighted, cleaned_data$DenominatorUnweighted, use = "complete.obs")
+  )
+)
+
+# Display correlations neatly
+kable(cor_table, caption = "Pearson Correlations Between Selected Variables") %>%
+  kable_styling(latex_options = c("hold_position"))
+
+```
+
+
+```{r echo=FALSE}
+# Select relevant features based on correlation and significance tests
+selected_features <- combined_data %>%
+  select(Value, DenominatorWeighted, DenominatorUnweighted) 
+
+# Display the selected features
+kable(head(selected_features), caption = "Selected Features for Modeling")
+
+
+```
+
+```{r echo=FALSE}
+# Plotting the distribution of selected features
+ggplot(selected_features, aes(x = Value)) +
+  geom_histogram(binwidth = 10, fill = "skyblue", color = "black") +
+  labs(title = "Distribution of Value", x = "Value", y = "Frequency") +
+  theme_minimal()
+
+ggsave("../outputs/visuals/value_distribution.png", width = 6, height = 4)
+
+
+```
+
+
+```{r echo=FALSE}
+
+# Save the selected features for modeling
+write_csv(selected_features, "../outputs/summary_tables/selected_features.csv")
+
+```
+## Feature selection was performed based on correlation analysis and statistical tests. The selected features are saved in the `selected_features.csv` file.

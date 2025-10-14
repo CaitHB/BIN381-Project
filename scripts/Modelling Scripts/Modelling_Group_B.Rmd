@@ -1,0 +1,424 @@
+---
+title: "ModelB.32"
+author: "Group K"
+date: "`r Sys.Date()`"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.width = 7, fig.height = 5)
+```
+
+## Load Libraries
+
+```{r libraries}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(reshape2)
+library(corrplot)
+library(here)
+library(caret)
+library(randomForest)
+library(gridExtra)
+library(cluster)
+library(factoextra)
+library(xgboost)
+```
+
+## Data Loading and Initial Exploration
+
+```{r data-loading}
+getwd()
+list.files(recursive = TRUE) 
+
+# Load data
+san_df <- read.csv(here("merged datasets", "GroupB_Sanitation_merged.csv"))
+
+# Initial data structure
+str(san_df)
+```
+
+
+```{r data-overview}
+# Missing value analysis
+missing_summary <- data.frame(
+  Column = names(san_df),
+  Missing_Count = sapply(san_df, function(x) sum(is.na(x))),
+  Missing_Percent = round(sapply(san_df, function(x) sum(is.na(x))/length(x)*100), 2)
+)
+
+print(missing_summary)
+
+# Unique value analysis
+unique_summary <- sapply(san_df, function(x) {
+  vals <- unique(x)
+  paste0(length(vals), " -> ", paste(head(vals, 3), collapse = ", "))
+})
+print(unique_summary)
+
+```
+
+## Data Cleaning and Preparation
+
+```{r data-cleaning}
+# Filter out NA values from target variable and create clean dataset
+plot_data <- san_df %>% filter(!is.na(Value))
+
+# Handle missing values in denominator columns
+plot_data <- plot_data %>%
+  mutate(
+    DenominatorWeighted = ifelse(is.na(DenominatorWeighted),
+                                median(DenominatorWeighted, na.rm = TRUE),
+                                DenominatorWeighted),
+    DenominatorUnweighted = ifelse(is.na(DenominatorUnweighted),
+                                  median(DenominatorUnweighted, na.rm = TRUE),
+                                  DenominatorUnweighted)
+  )
+
+cat("Final dataset dimensions:", dim(plot_data))
+```
+
+## Exploratory Data Analysis
+
+### Distribution of Target Variable by Category
+
+```{r distribution-plot}
+# Determine which categorical variable to use for grouping
+label_col <- ifelse(length(unique(plot_data$IndicatorType)) <= 12,
+                   'IndicatorType', 'CharacteristicCategory')
+plot_data[[label_col]] <- as.factor(plot_data[[label_col]])
+
+ggplot(plot_data, aes_string(x = label_col, y = 'Value')) +
+  geom_boxplot(outlier.colour = "red", fill = "lightblue") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = paste('Distribution of Value by', label_col),
+       x = label_col, y = 'Value')
+```
+
+### Relationship with Denominator Variables
+
+```{r scatter-plots}
+# Value vs DenominatorWeighted
+p1 <- plot_data %>% 
+  ggplot(aes(x = DenominatorWeighted, y = Value)) + 
+  geom_point(alpha = 0.7, color = "steelblue") + 
+  geom_smooth(method = 'loess', se = FALSE, color = "red") + 
+  theme_minimal() +
+  labs(title = 'Value vs DenominatorWeighted', 
+       x = 'DenominatorWeighted', y = 'Value')
+
+# Value vs DenominatorUnweighted
+p2 <- plot_data %>% 
+  ggplot(aes(x = DenominatorUnweighted, y = Value)) + 
+  geom_point(alpha = 0.7, color = "darkgreen") + 
+  geom_smooth(method = 'loess', se = FALSE, color = "red") + 
+  theme_minimal() +
+  labs(title = 'Value vs DenominatorUnweighted', 
+       x = 'DenominatorUnweighted', y = 'Value')
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+### Correlation Analysis
+
+```{r correlation}
+# Correlation matrix for numeric variables
+num_cols <- c('Value', 'DenominatorWeighted', 'DenominatorUnweighted', 'SurveyYear')
+cor_mat <- cor(plot_data[, num_cols], use = 'pairwise.complete.obs')
+
+corrplot(cor_mat, method = 'color', tl.cex = 0.8, 
+         title = "Correlation Matrix of Numeric Variables",
+         mar = c(0, 0, 1, 0))
+```
+
+## Feature Engineering and Preprocessing
+
+```{r feature-engineering}
+# Function to drop constant columns
+drop_constant <- function(df) {
+  keep <- sapply(df, function(x) length(unique(x[!is.na(x)])) > 1)
+  dropped <- names(df)[!keep]
+  if (length(dropped) > 0) {
+    message("Dropped constant columns: ", paste(dropped, collapse = ", "))
+  }
+  return(df[, keep, drop = FALSE])
+}
+
+# Prepare modeling dataset
+mod_df <- plot_data %>%
+  mutate(
+    IndicatorType = as.factor(IndicatorType),
+    CharacteristicCategory = as.factor(CharacteristicCategory),
+    # Create new features
+    Weight_Ratio = DenominatorWeighted / DenominatorUnweighted,
+    Log_Value = log(Value + 1)  # For potential transformation
+  )
+
+# Drop constant columns
+mod_df <- drop_constant(mod_df)
+
+cat("Modeling dataset dimensions:", dim(mod_df))
+```
+
+```{r data-split}
+# One-hot encode categorical variables
+dummies <- dummyVars(Value ~ ., data = mod_df)
+X <- predict(dummies, newdata = mod_df)
+y <- mod_df$Value
+
+# Train/test split
+set.seed(42)
+train_idx <- createDataPartition(y, p = 0.8, list = FALSE)
+X_train <- X[train_idx, ]; X_test <- X[-train_idx, ]
+y_train <- y[train_idx]; y_test <- y[-train_idx]
+
+cat("Training set size:", length(y_train))
+cat("Test set size:", length(y_test))
+```
+
+## Model 1: Random Forest
+
+```{r random-forest}
+# Train Random Forest model
+set.seed(42)
+rf_model <- randomForest(x = X_train, y = y_train, 
+                        ntree = 500, 
+                        importance = TRUE,
+                        do.trace = 100)
+
+# Predictions
+rf_pred <- predict(rf_model, X_test)
+
+# Performance metrics
+rf_rmse <- sqrt(mean((y_test - rf_pred)^2))
+rf_mae <- mean(abs(y_test - rf_pred))
+rf_r2 <- cor(y_test, rf_pred)^2
+
+cat("Random Forest Performance:\n")
+cat("RMSE:", round(rf_rmse, 2), "\n")
+cat("MAE:", round(rf_mae, 2), "\n")
+cat("R^2:", round(rf_r2, 3), "\n")
+```
+
+### Random Forest Variable Importance
+
+```{r rf-importance}
+# Extract and plot variable importance
+importance_df <- as.data.frame(importance(rf_model))
+importance_df$Variable <- rownames(importance_df)
+
+# Clean variable names for better readability
+importance_df$Variable <- gsub("_", " ", importance_df$Variable)
+importance_df$Variable <- gsub("IndicatorType", "Type: ", importance_df$Variable)
+importance_df$Variable <- gsub("CharacteristicCategory", "Category: ", importance_df$Variable)
+
+# Plot top 15 most important variables
+importance_df <- importance_df[order(-importance_df$`%IncMSE`), ]
+top_vars <- head(importance_df, 15)
+
+ggplot(top_vars, aes(x = reorder(Variable, `%IncMSE`), y = `%IncMSE`)) +
+  geom_col(fill = "steelblue", alpha = 0.8) +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Random Forest - Top 15 Variable Importance",
+       x = "Variables",
+       y = "% Increase in MSE") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"),
+        axis.text.y = element_text(size = 10))
+```
+
+### Random Forest Diagnostics
+
+```{r rf-diagnostics}
+# Predicted vs Actual plot
+rf_plot_df <- data.frame(Actual = y_test, Predicted = rf_pred)
+
+p1 <- ggplot(rf_plot_df, aes(x = Actual, y = Predicted)) +
+  geom_point(alpha = 0.7, color = "steelblue") +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  theme_minimal() +
+  labs(title = "Random Forest: Predicted vs Actual",
+       subtitle = paste("R^2 =", round(rf_r2, 3)),
+       x = "Actual", y = "Predicted")
+
+# Residuals plot
+p2 <- ggplot(rf_plot_df, aes(x = Predicted, y = Actual - Predicted)) +
+  geom_point(alpha = 0.7, color = "darkgreen") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_smooth(se = FALSE, color = "orange") +
+  theme_minimal() +
+  labs(title = "Random Forest: Residuals vs Predicted",
+       x = "Predicted", y = "Residuals")
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+## Model 2: XGBoost
+
+```{r xgboost-prep}
+# Prepare data for XGBoost
+dtrain <- xgb.DMatrix(data = X_train, label = y_train)
+dtest <- xgb.DMatrix(data = X_test, label = y_test)
+```
+
+```{r xgboost-train}
+# XGBoost parameters with regularization
+params <- list(
+  objective = 'reg:squarederror',
+  eta = 0.1,
+  max_depth = 6,
+  subsample = 0.8,
+  colsample_bytree = 0.8,
+  lambda = 1,  # L2 regularization
+  alpha = 0.5   # L1 regularization
+)
+
+# Train XGBoost model
+set.seed(42)
+xgb_mod <- xgboost::xgb.train(
+  params = params,
+  data = dtrain,
+  nrounds = 200,
+  watchlist = list(train = dtrain, test = dtest),
+  verbose = 0,
+  print_every_n = 50
+)
+
+# Predictions
+xgb_pred <- predict(xgb_mod, dtest)
+
+# Performance metrics
+xgb_rmse <- sqrt(mean((y_test - xgb_pred)^2))
+xgb_mae <- mean(abs(y_test - xgb_pred))
+xgb_r2 <- cor(y_test, xgb_pred)^2
+
+cat("XGBoost Performance:\n")
+cat("RMSE:", round(xgb_rmse, 2), "\n")
+cat("MAE:", round(xgb_mae, 2), "\n")
+cat("R^2:", round(xgb_r2, 3), "\n")
+```
+
+### XGBoost Diagnostics
+
+```{r xgboost-diagnostics}
+# Predicted vs Actual plot
+xgb_plot_df <- data.frame(Actual = y_test, Predicted = xgb_pred)
+
+p1 <- ggplot(xgb_plot_df, aes(x = Actual, y = Predicted)) +
+  geom_point(alpha = 0.7, color = "orange") +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  theme_minimal() +
+  labs(title = "XGBoost: Predicted vs Actual",
+       subtitle = paste("R^2 =", round(xgb_r2, 3)),
+       x = "Actual", y = "Predicted")
+
+# Residuals plot
+p2 <- ggplot(xgb_plot_df, aes(x = Predicted, y = Actual - Predicted)) +
+  geom_point(alpha = 0.7, color = "purple") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_smooth(se = FALSE, color = "blue") +
+  theme_minimal() +
+  labs(title = "XGBoost: Residuals vs Predicted",
+       x = "Predicted", y = "Residuals")
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+## Model Comparison
+
+```{r model-comparison}
+# Create comparison table
+model_comparison <- data.frame(
+  Model = c("Random Forest", "XGBoost"),
+  RMSE = c(rf_rmse, xgb_rmse),
+  MAE = c(rf_mae, xgb_mae),
+  R2 = c(rf_r2, xgb_r2)
+)
+
+print(model_comparison)
+
+# Visual comparison
+comparison_plot <- model_comparison %>%
+  pivot_longer(cols = c(RMSE, MAE, R2), names_to = "Metric", values_to = "Value") %>%
+  ggplot(aes(x = Model, y = Value, fill = Model)) +
+  geom_col(alpha = 0.8) +
+  facet_wrap(~Metric, scales = "free_y") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Model Performance Comparison",
+       y = "Value") +
+  scale_fill_manual(values = c("Random Forest" = "steelblue", "XGBoost" = "orange"))
+
+print(comparison_plot)
+```
+
+## Final Model Selection and Analysis
+
+```{r final-model}
+# Select best model based on R²
+if (rf_r2 >= xgb_r2) {
+  best_model <- "Random Forest"
+  best_pred <- rf_pred
+  best_rmse <- rf_rmse
+  best_mae <- rf_mae
+  best_r2 <- rf_r2
+} else {
+  best_model <- "XGBoost"
+  best_pred <- xgb_pred
+  best_rmse <- xgb_rmse
+  best_mae <- xgb_mae
+  best_r2 <- xgb_r2
+}
+
+cat("Selected Best Model:", best_model, "\n")
+cat("Final Performance Metrics:\n")
+cat("RMSE:", round(best_rmse, 2), "\n")
+cat("MAE:", round(best_mae, 2), "\n")
+cat("R^2:", round(best_r2, 3), "\n")
+```
+
+### Final Model Diagnostics
+
+```{r final-diagnostics}
+final_plot_df <- data.frame(Actual = y_test, Predicted = best_pred)
+
+p1 <- ggplot(final_plot_df, aes(x = Actual, y = Predicted)) +
+  geom_point(alpha = 0.7, color = ifelse(best_model == "Random Forest", "steelblue", "orange")) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  theme_minimal() +
+  labs(title = paste("Final Model (", best_model, "): Predicted vs Actual", sep = ""),
+       subtitle = paste("RMSE:", round(best_rmse, 2), "| R^2:", round(best_r2, 3)),
+       x = "Actual", y = "Predicted")
+
+p2 <- ggplot(final_plot_df, aes(x = Predicted, y = Actual - Predicted)) +
+  geom_point(alpha = 0.7, color = ifelse(best_model == "Random Forest", "darkgreen", "purple")) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_smooth(se = FALSE, color = "blue") +
+  theme_minimal() +
+  labs(title = paste("Final Model (", best_model, "): Residuals", sep = ""),
+       x = "Predicted", y = "Residuals")
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+## Conclusion
+
+```{r conclusion}
+# Summary statistics
+cat("Dataset Summary:\n")
+cat("Original observations:", nrow(san_df), "\n")
+cat("After cleaning:", nrow(plot_data), "\n")
+cat("Training samples:", length(y_train), "\n")
+cat("Test samples:", length(y_test), "\n")
+cat("Number of features:", ncol(X), "\n")
+
+cat("\nKey Findings:\n")
+cat("- Best performing model:", best_model, "\n")
+cat("- Final R^2 on test set:", round(best_r2, 3), "\n")
+cat("- Model error (RMSE):", round(best_rmse, 2), "\n")
+```

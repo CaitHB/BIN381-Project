@@ -1,0 +1,909 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={ModelB.32},
+  pdfauthor={Group K},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{ModelB.32}
+\author{Group K}
+\date{2025-10-03}
+
+\begin{document}
+\maketitle
+
+\subsection{Load Libraries}\label{load-libraries}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(tidyr)}
+\FunctionTok{library}\NormalTok{(reshape2)}
+\FunctionTok{library}\NormalTok{(corrplot)}
+\FunctionTok{library}\NormalTok{(here)}
+\FunctionTok{library}\NormalTok{(caret)}
+\FunctionTok{library}\NormalTok{(randomForest)}
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\FunctionTok{library}\NormalTok{(cluster)}
+\FunctionTok{library}\NormalTok{(factoextra)}
+\FunctionTok{library}\NormalTok{(xgboost)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Data Loading and Initial
+Exploration}\label{data-loading-and-initial-exploration}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "C:/Users/Tshiamo/OneDrive/Documents/Belgium Campus iTversity/BComp 2025/BIN381/Project/BIN381-Project/scripts/Modelling Scripts"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{list.files}\NormalTok{(}\AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "~$delling_Group_B.docx"                                    
+##  [2] "Feature-Selection---Member-3.Rmd"                          
+##  [3] "Feature Selection - Member 3.Rmd"                          
+##  [4] "Modelling-Dataset-A-Dean.Rmd"                              
+##  [5] "Modelling group C.Rmd"                                     
+##  [6] "Modelling_Group_B.docx"                                    
+##  [7] "Modelling_Group_B.Rmd"                                     
+##  [8] "Modelling_Group_B.tex"                                     
+##  [9] "Modelling_Group_B_files/figure-html/unnamed-chunk-10-1.png"
+## [10] "Modelling_Group_B_files/figure-html/unnamed-chunk-10-2.png"
+## [11] "Modelling_Group_B_files/figure-html/unnamed-chunk-13-1.png"
+## [12] "Modelling_Group_B_files/figure-html/unnamed-chunk-13-2.png"
+## [13] "Modelling_Group_B_files/figure-html/unnamed-chunk-4-1.png" 
+## [14] "Modelling_Group_B_files/figure-html/unnamed-chunk-4-2.png" 
+## [15] "Modelling_Group_B_files/figure-html/unnamed-chunk-4-3.png" 
+## [16] "Modelling_Group_B_files/figure-html/unnamed-chunk-9-1.png" 
+## [17] "Modelling_Group_B_files/Modelling_Group_B.pdf"             
+## [18] "outputsB/visuals/dist_by_indicator.png"                    
+## [19] "outputsB/visuals/value_vs_denweighted.png"                 
+## [20] "rf_variable_importance.png"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load data}
+\NormalTok{san\_df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\FunctionTok{here}\NormalTok{(}\StringTok{"merged datasets"}\NormalTok{, }\StringTok{"GroupB\_Sanitation\_merged.csv"}\NormalTok{))}
+
+\CommentTok{\# Initial data structure}
+\FunctionTok{str}\NormalTok{(san\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    142 obs. of  10 variables:
+##  $ Dataset               : chr  "Toilet_05" "Toilet_05" "Toilet_05" "Toilet_05" ...
+##  $ SurveyYear            : int  1998 1998 1998 1998 1998 1998 1998 1998 1998 1998 ...
+##  $ CharacteristicId      : int  1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 ...
+##  $ CharacteristicCategory: chr  "Total" "Total" "Total" "Total" ...
+##  $ CharacteristicLabel   : chr  "Total" "Total" "Total" "Total" ...
+##  $ IndicatorId           : chr  "WS_TLET_H_IMP" "WS_TLET_H_NIM" "WS_TLET_H_NPT" "WS_TLET_H_NBK" ...
+##  $ IndicatorType         : chr  "I" "I" "I" "I" ...
+##  $ Value                 : num  50.1 38.3 31.2 6 11.6 ...
+##  $ DenominatorWeighted   : int  12247 12247 12247 12247 12247 12247 12247 NA 12247 52007 ...
+##  $ DenominatorUnweighted : int  12247 12247 12247 12247 12247 12247 12247 12247 NA 52465 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Missing value analysis}
+\NormalTok{missing\_summary }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Column =} \FunctionTok{names}\NormalTok{(san\_df),}
+  \AttributeTok{Missing\_Count =} \FunctionTok{sapply}\NormalTok{(san\_df, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(x))),}
+  \AttributeTok{Missing\_Percent =} \FunctionTok{round}\NormalTok{(}\FunctionTok{sapply}\NormalTok{(san\_df, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(x))}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(x)}\SpecialCharTok{*}\DecValTok{100}\NormalTok{), }\DecValTok{2}\NormalTok{)}
+\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(missing\_summary)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                        Column Missing_Count Missing_Percent
+## Dataset                               Dataset             0            0.00
+## SurveyYear                         SurveyYear             0            0.00
+## CharacteristicId             CharacteristicId             0            0.00
+## CharacteristicCategory CharacteristicCategory             0            0.00
+## CharacteristicLabel       CharacteristicLabel             0            0.00
+## IndicatorId                       IndicatorId             0            0.00
+## IndicatorType                   IndicatorType             0            0.00
+## Value                                   Value             0            0.00
+## DenominatorWeighted       DenominatorWeighted             4            2.82
+## DenominatorUnweighted   DenominatorUnweighted             4            2.82
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Unique value analysis}
+\NormalTok{unique\_summary }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(san\_df, }\ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  vals }\OtherTok{\textless{}{-}} \FunctionTok{unique}\NormalTok{(x)}
+  \FunctionTok{paste0}\NormalTok{(}\FunctionTok{length}\NormalTok{(vals), }\StringTok{" {-}\textgreater{} "}\NormalTok{, }\FunctionTok{paste}\NormalTok{(}\FunctionTok{head}\NormalTok{(vals, }\DecValTok{3}\NormalTok{), }\AttributeTok{collapse =} \StringTok{", "}\NormalTok{))}
+\NormalTok{\})}
+\FunctionTok{print}\NormalTok{(unique\_summary)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                             Dataset 
+##                          "2 -> Toilet_05, Water_06" 
+##                                          SurveyYear 
+##                                   "2 -> 1998, 2016" 
+##                                    CharacteristicId 
+##                                         "1 -> 1000" 
+##                              CharacteristicCategory 
+##                                        "1 -> Total" 
+##                                 CharacteristicLabel 
+##                                        "1 -> Total" 
+##                                         IndicatorId 
+## "94 -> WS_TLET_H_IMP, WS_TLET_H_NIM, WS_TLET_H_NPT" 
+##                                       IndicatorType 
+##                                      "5 -> I, S, T" 
+##                                               Value 
+##                            "88 -> 50.1, 38.3, 31.2" 
+##                                 DenominatorWeighted 
+##                             "5 -> 12247, NA, 52007" 
+##                               DenominatorUnweighted 
+##                             "5 -> 12247, NA, 52465"
+\end{verbatim}
+
+\subsection{Data Cleaning and
+Preparation}\label{data-cleaning-and-preparation}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Filter out NA values from target variable and create clean dataset}
+\NormalTok{plot\_data }\OtherTok{\textless{}{-}}\NormalTok{ san\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(Value))}
+
+\CommentTok{\# Handle missing values in denominator columns}
+\NormalTok{plot\_data }\OtherTok{\textless{}{-}}\NormalTok{ plot\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{DenominatorWeighted =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(DenominatorWeighted),}
+                                \FunctionTok{median}\NormalTok{(DenominatorWeighted, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+\NormalTok{                                DenominatorWeighted),}
+    \AttributeTok{DenominatorUnweighted =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(DenominatorUnweighted),}
+                                  \FunctionTok{median}\NormalTok{(DenominatorUnweighted, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+\NormalTok{                                  DenominatorUnweighted)}
+\NormalTok{  )}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Final dataset dimensions:"}\NormalTok{, }\FunctionTok{dim}\NormalTok{(plot\_data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Final dataset dimensions: 142 10
+\end{verbatim}
+
+\subsection{Exploratory Data Analysis}\label{exploratory-data-analysis}
+
+\subsubsection{Distribution of Target Variable by
+Category}\label{distribution-of-target-variable-by-category}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Determine which categorical variable to use for grouping}
+\NormalTok{label\_col }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(plot\_data}\SpecialCharTok{$}\NormalTok{IndicatorType)) }\SpecialCharTok{\textless{}=} \DecValTok{12}\NormalTok{,}
+                   \StringTok{\textquotesingle{}IndicatorType\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}CharacteristicCategory\textquotesingle{}}\NormalTok{)}
+\NormalTok{plot\_data[[label\_col]] }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(plot\_data[[label\_col]])}
+
+\FunctionTok{ggplot}\NormalTok{(plot\_data, }\FunctionTok{aes\_string}\NormalTok{(}\AttributeTok{x =}\NormalTok{ label\_col, }\AttributeTok{y =} \StringTok{\textquotesingle{}Value\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{outlier.colour =} \StringTok{"red"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"lightblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \FunctionTok{paste}\NormalTok{(}\StringTok{\textquotesingle{}Distribution of Value by\textquotesingle{}}\NormalTok{, label\_col),}
+       \AttributeTok{x =}\NormalTok{ label\_col, }\AttributeTok{y =} \StringTok{\textquotesingle{}Value\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Modelling_Group_B_files/figure-latex/distribution-plot-1.pdf}}
+
+\subsubsection{Relationship with Denominator
+Variables}\label{relationship-with-denominator-variables}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Value vs DenominatorWeighted}
+\NormalTok{p1 }\OtherTok{\textless{}{-}}\NormalTok{ plot\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ DenominatorWeighted, }\AttributeTok{y =}\NormalTok{ Value)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \StringTok{"steelblue"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{\textquotesingle{}loess\textquotesingle{}}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{\textquotesingle{}Value vs DenominatorWeighted\textquotesingle{}}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{\textquotesingle{}DenominatorWeighted\textquotesingle{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textquotesingle{}Value\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Value vs DenominatorUnweighted}
+\NormalTok{p2 }\OtherTok{\textless{}{-}}\NormalTok{ plot\_data }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ DenominatorUnweighted, }\AttributeTok{y =}\NormalTok{ Value)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \StringTok{"darkgreen"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{\textquotesingle{}loess\textquotesingle{}}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{\textquotesingle{}Value vs DenominatorUnweighted\textquotesingle{}}\NormalTok{, }
+       \AttributeTok{x =} \StringTok{\textquotesingle{}DenominatorUnweighted\textquotesingle{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textquotesingle{}Value\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{grid.arrange}\NormalTok{(p1, p2, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Modelling_Group_B_files/figure-latex/scatter-plots-1.pdf}}
+
+\subsubsection{Correlation Analysis}\label{correlation-analysis}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Correlation matrix for numeric variables}
+\NormalTok{num\_cols }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Value\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}DenominatorWeighted\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}DenominatorUnweighted\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}SurveyYear\textquotesingle{}}\NormalTok{)}
+\NormalTok{cor\_mat }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(plot\_data[, num\_cols], }\AttributeTok{use =} \StringTok{\textquotesingle{}pairwise.complete.obs\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{corrplot}\NormalTok{(cor\_mat, }\AttributeTok{method =} \StringTok{\textquotesingle{}color\textquotesingle{}}\NormalTok{, }\AttributeTok{tl.cex =} \FloatTok{0.8}\NormalTok{, }
+         \AttributeTok{title =} \StringTok{"Correlation Matrix of Numeric Variables"}\NormalTok{,}
+         \AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Modelling_Group_B_files/figure-latex/correlation-1.pdf}}
+
+\subsection{Feature Engineering and
+Preprocessing}\label{feature-engineering-and-preprocessing}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Function to drop constant columns}
+\NormalTok{drop\_constant }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(df) \{}
+\NormalTok{  keep }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(df, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(x[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(x)])) }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{)}
+\NormalTok{  dropped }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(df)[}\SpecialCharTok{!}\NormalTok{keep]}
+  \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{length}\NormalTok{(dropped) }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) \{}
+    \FunctionTok{message}\NormalTok{(}\StringTok{"Dropped constant columns: "}\NormalTok{, }\FunctionTok{paste}\NormalTok{(dropped, }\AttributeTok{collapse =} \StringTok{", "}\NormalTok{))}
+\NormalTok{  \}}
+  \FunctionTok{return}\NormalTok{(df[, keep, }\AttributeTok{drop =} \ConstantTok{FALSE}\NormalTok{])}
+\NormalTok{\}}
+
+\CommentTok{\# Prepare modeling dataset}
+\NormalTok{mod\_df }\OtherTok{\textless{}{-}}\NormalTok{ plot\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{IndicatorType =} \FunctionTok{as.factor}\NormalTok{(IndicatorType),}
+    \AttributeTok{CharacteristicCategory =} \FunctionTok{as.factor}\NormalTok{(CharacteristicCategory),}
+    \CommentTok{\# Create new features}
+    \AttributeTok{Weight\_Ratio =}\NormalTok{ DenominatorWeighted }\SpecialCharTok{/}\NormalTok{ DenominatorUnweighted,}
+    \AttributeTok{Log\_Value =} \FunctionTok{log}\NormalTok{(Value }\SpecialCharTok{+} \DecValTok{1}\NormalTok{)  }\CommentTok{\# For potential transformation}
+\NormalTok{  )}
+
+\CommentTok{\# Drop constant columns}
+\NormalTok{mod\_df }\OtherTok{\textless{}{-}} \FunctionTok{drop\_constant}\NormalTok{(mod\_df)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Modeling dataset dimensions:"}\NormalTok{, }\FunctionTok{dim}\NormalTok{(mod\_df))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Modeling dataset dimensions: 142 9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# One{-}hot encode categorical variables}
+\NormalTok{dummies }\OtherTok{\textless{}{-}} \FunctionTok{dummyVars}\NormalTok{(Value }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\AttributeTok{data =}\NormalTok{ mod\_df)}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(dummies, }\AttributeTok{newdata =}\NormalTok{ mod\_df)}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ mod\_df}\SpecialCharTok{$}\NormalTok{Value}
+
+\CommentTok{\# Train/test split}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+\NormalTok{train\_idx }\OtherTok{\textless{}{-}} \FunctionTok{createDataPartition}\NormalTok{(y, }\AttributeTok{p =} \FloatTok{0.8}\NormalTok{, }\AttributeTok{list =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{X\_train }\OtherTok{\textless{}{-}}\NormalTok{ X[train\_idx, ]; X\_test }\OtherTok{\textless{}{-}}\NormalTok{ X[}\SpecialCharTok{{-}}\NormalTok{train\_idx, ]}
+\NormalTok{y\_train }\OtherTok{\textless{}{-}}\NormalTok{ y[train\_idx]; y\_test }\OtherTok{\textless{}{-}}\NormalTok{ y[}\SpecialCharTok{{-}}\NormalTok{train\_idx]}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Training set size:"}\NormalTok{, }\FunctionTok{length}\NormalTok{(y\_train))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Training set size: 114
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Test set size:"}\NormalTok{, }\FunctionTok{length}\NormalTok{(y\_test))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Test set size: 28
+\end{verbatim}
+
+\subsection{Model 1: Random Forest}\label{model-1-random-forest}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Train Random Forest model}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+\NormalTok{rf\_model }\OtherTok{\textless{}{-}} \FunctionTok{randomForest}\NormalTok{(}\AttributeTok{x =}\NormalTok{ X\_train, }\AttributeTok{y =}\NormalTok{ y\_train, }
+                        \AttributeTok{ntree =} \DecValTok{500}\NormalTok{, }
+                        \AttributeTok{importance =} \ConstantTok{TRUE}\NormalTok{,}
+                        \AttributeTok{do.trace =} \DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      |      Out-of-bag   |
+## Tree |      MSE  %Var(y) |
+##  100 | 8.109e+06     5.88 |
+##  200 | 7.657e+06     5.55 |
+##  300 | 8.124e+06     5.89 |
+##  400 | 7.84e+06     5.68 |
+##  500 | 7.704e+06     5.58 |
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Predictions}
+\NormalTok{rf\_pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(rf\_model, X\_test)}
+
+\CommentTok{\# Performance metrics}
+\NormalTok{rf\_rmse }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{((y\_test }\SpecialCharTok{{-}}\NormalTok{ rf\_pred)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{rf\_mae }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(}\FunctionTok{abs}\NormalTok{(y\_test }\SpecialCharTok{{-}}\NormalTok{ rf\_pred))}
+\NormalTok{rf\_r2 }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(y\_test, rf\_pred)}\SpecialCharTok{\^{}}\DecValTok{2}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Random Forest Performance:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Random Forest Performance:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"RMSE:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(rf\_rmse, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## RMSE: 243.58
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"MAE:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(rf\_mae, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## MAE: 86.78
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"R\^{}2:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(rf\_r2, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## R^2: 0.999
+\end{verbatim}
+
+\subsubsection{Random Forest Variable
+Importance}\label{random-forest-variable-importance}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Extract and plot variable importance}
+\NormalTok{importance\_df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{importance}\NormalTok{(rf\_model))}
+\NormalTok{importance\_df}\SpecialCharTok{$}\NormalTok{Variable }\OtherTok{\textless{}{-}} \FunctionTok{rownames}\NormalTok{(importance\_df)}
+
+\CommentTok{\# Clean variable names for better readability}
+\NormalTok{importance\_df}\SpecialCharTok{$}\NormalTok{Variable }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"\_"}\NormalTok{, }\StringTok{" "}\NormalTok{, importance\_df}\SpecialCharTok{$}\NormalTok{Variable)}
+\NormalTok{importance\_df}\SpecialCharTok{$}\NormalTok{Variable }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"IndicatorType"}\NormalTok{, }\StringTok{"Type: "}\NormalTok{, importance\_df}\SpecialCharTok{$}\NormalTok{Variable)}
+\NormalTok{importance\_df}\SpecialCharTok{$}\NormalTok{Variable }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"CharacteristicCategory"}\NormalTok{, }\StringTok{"Category: "}\NormalTok{, importance\_df}\SpecialCharTok{$}\NormalTok{Variable)}
+
+\CommentTok{\# Plot top 15 most important variables}
+\NormalTok{importance\_df }\OtherTok{\textless{}{-}}\NormalTok{ importance\_df[}\FunctionTok{order}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{importance\_df}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{\%IncMSE}\StringTok{\textasciigrave{}}\NormalTok{), ]}
+\NormalTok{top\_vars }\OtherTok{\textless{}{-}} \FunctionTok{head}\NormalTok{(importance\_df, }\DecValTok{15}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(top\_vars, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(Variable, }\StringTok{\textasciigrave{}}\AttributeTok{\%IncMSE}\StringTok{\textasciigrave{}}\NormalTok{), }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{\%IncMSE}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{fill =} \StringTok{"steelblue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Random Forest {-} Top 15 Variable Importance"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Variables"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"\% Increase in MSE"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+        \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Modelling_Group_B_files/figure-latex/rf-importance-1.pdf}}
+
+\subsubsection{Random Forest
+Diagnostics}\label{random-forest-diagnostics}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Predicted vs Actual plot}
+\NormalTok{rf\_plot\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Actual =}\NormalTok{ y\_test, }\AttributeTok{Predicted =}\NormalTok{ rf\_pred)}
+
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(rf\_plot\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Actual, }\AttributeTok{y =}\NormalTok{ Predicted)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \StringTok{"steelblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{intercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Random Forest: Predicted vs Actual"}\NormalTok{,}
+       \AttributeTok{subtitle =} \FunctionTok{paste}\NormalTok{(}\StringTok{"R\^{}2 ="}\NormalTok{, }\FunctionTok{round}\NormalTok{(rf\_r2, }\DecValTok{3}\NormalTok{)),}
+       \AttributeTok{x =} \StringTok{"Actual"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Predicted"}\NormalTok{)}
+
+\CommentTok{\# Residuals plot}
+\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(rf\_plot\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Predicted, }\AttributeTok{y =}\NormalTok{ Actual }\SpecialCharTok{{-}}\NormalTok{ Predicted)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \StringTok{"darkgreen"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"orange"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Random Forest: Residuals vs Predicted"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Predicted"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{)}
+
+\FunctionTok{grid.arrange}\NormalTok{(p1, p2, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Modelling_Group_B_files/figure-latex/rf-diagnostics-1.pdf}}
+
+\subsection{Model 2: XGBoost}\label{model-2-xgboost}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Prepare data for XGBoost}
+\NormalTok{dtrain }\OtherTok{\textless{}{-}} \FunctionTok{xgb.DMatrix}\NormalTok{(}\AttributeTok{data =}\NormalTok{ X\_train, }\AttributeTok{label =}\NormalTok{ y\_train)}
+\NormalTok{dtest }\OtherTok{\textless{}{-}} \FunctionTok{xgb.DMatrix}\NormalTok{(}\AttributeTok{data =}\NormalTok{ X\_test, }\AttributeTok{label =}\NormalTok{ y\_test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# XGBoost parameters with regularization}
+\NormalTok{params }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \AttributeTok{objective =} \StringTok{\textquotesingle{}reg:squarederror\textquotesingle{}}\NormalTok{,}
+  \AttributeTok{eta =} \FloatTok{0.1}\NormalTok{,}
+  \AttributeTok{max\_depth =} \DecValTok{6}\NormalTok{,}
+  \AttributeTok{subsample =} \FloatTok{0.8}\NormalTok{,}
+  \AttributeTok{colsample\_bytree =} \FloatTok{0.8}\NormalTok{,}
+  \AttributeTok{lambda =} \DecValTok{1}\NormalTok{,  }\CommentTok{\# L2 regularization}
+  \AttributeTok{alpha =} \FloatTok{0.5}   \CommentTok{\# L1 regularization}
+\NormalTok{)}
+
+\CommentTok{\# Train XGBoost model}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+\NormalTok{xgb\_mod }\OtherTok{\textless{}{-}}\NormalTok{ xgboost}\SpecialCharTok{::}\FunctionTok{xgb.train}\NormalTok{(}
+  \AttributeTok{params =}\NormalTok{ params,}
+  \AttributeTok{data =}\NormalTok{ dtrain,}
+  \AttributeTok{nrounds =} \DecValTok{200}\NormalTok{,}
+  \AttributeTok{watchlist =} \FunctionTok{list}\NormalTok{(}\AttributeTok{train =}\NormalTok{ dtrain, }\AttributeTok{test =}\NormalTok{ dtest),}
+  \AttributeTok{verbose =} \DecValTok{0}\NormalTok{,}
+  \AttributeTok{print\_every\_n =} \DecValTok{50}
+\NormalTok{)}
+
+\CommentTok{\# Predictions}
+\NormalTok{xgb\_pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(xgb\_mod, dtest)}
+
+\CommentTok{\# Performance metrics}
+\NormalTok{xgb\_rmse }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{mean}\NormalTok{((y\_test }\SpecialCharTok{{-}}\NormalTok{ xgb\_pred)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{xgb\_mae }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(}\FunctionTok{abs}\NormalTok{(y\_test }\SpecialCharTok{{-}}\NormalTok{ xgb\_pred))}
+\NormalTok{xgb\_r2 }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(y\_test, xgb\_pred)}\SpecialCharTok{\^{}}\DecValTok{2}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"XGBoost Performance:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## XGBoost Performance:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"RMSE:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(xgb\_rmse, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## RMSE: 202.28
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"MAE:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(xgb\_mae, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## MAE: 55.87
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"R\^{}2:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(xgb\_r2, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## R^2: 0.999
+\end{verbatim}
+
+\subsubsection{XGBoost Diagnostics}\label{xgboost-diagnostics}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Predicted vs Actual plot}
+\NormalTok{xgb\_plot\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Actual =}\NormalTok{ y\_test, }\AttributeTok{Predicted =}\NormalTok{ xgb\_pred)}
+
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(xgb\_plot\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Actual, }\AttributeTok{y =}\NormalTok{ Predicted)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \StringTok{"orange"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{intercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"XGBoost: Predicted vs Actual"}\NormalTok{,}
+       \AttributeTok{subtitle =} \FunctionTok{paste}\NormalTok{(}\StringTok{"R\^{}2 ="}\NormalTok{, }\FunctionTok{round}\NormalTok{(xgb\_r2, }\DecValTok{3}\NormalTok{)),}
+       \AttributeTok{x =} \StringTok{"Actual"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Predicted"}\NormalTok{)}
+
+\CommentTok{\# Residuals plot}
+\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(xgb\_plot\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Predicted, }\AttributeTok{y =}\NormalTok{ Actual }\SpecialCharTok{{-}}\NormalTok{ Predicted)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \StringTok{"purple"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"XGBoost: Residuals vs Predicted"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Predicted"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{)}
+
+\FunctionTok{grid.arrange}\NormalTok{(p1, p2, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Modelling_Group_B_files/figure-latex/xgboost-diagnostics-1.pdf}}
+
+\subsection{Model Comparison}\label{model-comparison}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create comparison table}
+\NormalTok{model\_comparison }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Model =} \FunctionTok{c}\NormalTok{(}\StringTok{"Random Forest"}\NormalTok{, }\StringTok{"XGBoost"}\NormalTok{),}
+  \AttributeTok{RMSE =} \FunctionTok{c}\NormalTok{(rf\_rmse, xgb\_rmse),}
+  \AttributeTok{MAE =} \FunctionTok{c}\NormalTok{(rf\_mae, xgb\_mae),}
+  \AttributeTok{R2 =} \FunctionTok{c}\NormalTok{(rf\_r2, xgb\_r2)}
+\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(model\_comparison)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           Model     RMSE      MAE        R2
+## 1 Random Forest 243.5839 86.78314 0.9986748
+## 2       XGBoost 202.2786 55.86616 0.9992020
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Visual comparison}
+\NormalTok{comparison\_plot }\OtherTok{\textless{}{-}}\NormalTok{ model\_comparison }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{c}\NormalTok{(RMSE, MAE, R2), }\AttributeTok{names\_to =} \StringTok{"Metric"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"Value"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Model, }\AttributeTok{y =}\NormalTok{ Value, }\AttributeTok{fill =}\NormalTok{ Model)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Metric, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Model Performance Comparison"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Value"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Random Forest"} \OtherTok{=} \StringTok{"steelblue"}\NormalTok{, }\StringTok{"XGBoost"} \OtherTok{=} \StringTok{"orange"}\NormalTok{))}
+
+\FunctionTok{print}\NormalTok{(comparison\_plot)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Modelling_Group_B_files/figure-latex/model-comparison-1.pdf}}
+
+\subsection{Final Model Selection and
+Analysis}\label{final-model-selection-and-analysis}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Select best model based on R²}
+\ControlFlowTok{if}\NormalTok{ (rf\_r2 }\SpecialCharTok{\textgreater{}=}\NormalTok{ xgb\_r2) \{}
+\NormalTok{  best\_model }\OtherTok{\textless{}{-}} \StringTok{"Random Forest"}
+\NormalTok{  best\_pred }\OtherTok{\textless{}{-}}\NormalTok{ rf\_pred}
+\NormalTok{  best\_rmse }\OtherTok{\textless{}{-}}\NormalTok{ rf\_rmse}
+\NormalTok{  best\_mae }\OtherTok{\textless{}{-}}\NormalTok{ rf\_mae}
+\NormalTok{  best\_r2 }\OtherTok{\textless{}{-}}\NormalTok{ rf\_r2}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{  best\_model }\OtherTok{\textless{}{-}} \StringTok{"XGBoost"}
+\NormalTok{  best\_pred }\OtherTok{\textless{}{-}}\NormalTok{ xgb\_pred}
+\NormalTok{  best\_rmse }\OtherTok{\textless{}{-}}\NormalTok{ xgb\_rmse}
+\NormalTok{  best\_mae }\OtherTok{\textless{}{-}}\NormalTok{ xgb\_mae}
+\NormalTok{  best\_r2 }\OtherTok{\textless{}{-}}\NormalTok{ xgb\_r2}
+\NormalTok{\}}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Selected Best Model:"}\NormalTok{, best\_model, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Selected Best Model: XGBoost
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Final Performance Metrics:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Final Performance Metrics:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"RMSE:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(best\_rmse, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## RMSE: 202.28
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"MAE:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(best\_mae, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## MAE: 55.87
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"R\^{}2:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(best\_r2, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## R^2: 0.999
+\end{verbatim}
+
+\subsubsection{Final Model Diagnostics}\label{final-model-diagnostics}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{final\_plot\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Actual =}\NormalTok{ y\_test, }\AttributeTok{Predicted =}\NormalTok{ best\_pred)}
+
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(final\_plot\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Actual, }\AttributeTok{y =}\NormalTok{ Predicted)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \FunctionTok{ifelse}\NormalTok{(best\_model }\SpecialCharTok{==} \StringTok{"Random Forest"}\NormalTok{, }\StringTok{"steelblue"}\NormalTok{, }\StringTok{"orange"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{intercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \FunctionTok{paste}\NormalTok{(}\StringTok{"Final Model ("}\NormalTok{, best\_model, }\StringTok{"): Predicted vs Actual"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{),}
+       \AttributeTok{subtitle =} \FunctionTok{paste}\NormalTok{(}\StringTok{"RMSE:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(best\_rmse, }\DecValTok{2}\NormalTok{), }\StringTok{"| R\^{}2:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(best\_r2, }\DecValTok{3}\NormalTok{)),}
+       \AttributeTok{x =} \StringTok{"Actual"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Predicted"}\NormalTok{)}
+
+\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(final\_plot\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Predicted, }\AttributeTok{y =}\NormalTok{ Actual }\SpecialCharTok{{-}}\NormalTok{ Predicted)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \FunctionTok{ifelse}\NormalTok{(best\_model }\SpecialCharTok{==} \StringTok{"Random Forest"}\NormalTok{, }\StringTok{"darkgreen"}\NormalTok{, }\StringTok{"purple"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \FunctionTok{paste}\NormalTok{(}\StringTok{"Final Model ("}\NormalTok{, best\_model, }\StringTok{"): Residuals"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{),}
+       \AttributeTok{x =} \StringTok{"Predicted"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Residuals"}\NormalTok{)}
+
+\FunctionTok{grid.arrange}\NormalTok{(p1, p2, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Modelling_Group_B_files/figure-latex/final-diagnostics-1.pdf}}
+
+\subsection{Conclusion}\label{conclusion}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Summary statistics}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Dataset Summary:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Dataset Summary:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Original observations:"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(san\_df), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Original observations: 142
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"After cleaning:"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(plot\_data), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## After cleaning: 142
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Training samples:"}\NormalTok{, }\FunctionTok{length}\NormalTok{(y\_train), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Training samples: 114
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Test samples:"}\NormalTok{, }\FunctionTok{length}\NormalTok{(y\_test), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Test samples: 28
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Number of features:"}\NormalTok{, }\FunctionTok{ncol}\NormalTok{(X), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Number of features: 106
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Key Findings:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Key Findings:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-} Best performing model:"}\NormalTok{, best\_model, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## - Best performing model: XGBoost
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-} Final R\^{}2 on test set:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(best\_r2, }\DecValTok{3}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## - Final R^2 on test set: 0.999
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-} Model error (RMSE):"}\NormalTok{, }\FunctionTok{round}\NormalTok{(best\_rmse, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## - Model error (RMSE): 202.28
+\end{verbatim}
+
+\end{document}
