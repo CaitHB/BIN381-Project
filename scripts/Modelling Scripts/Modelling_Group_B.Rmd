@@ -179,6 +179,8 @@ y_train <- y[train_idx]; y_test <- y[-train_idx]
 
 cat("Training set size:", length(y_train))
 cat("Test set size:", length(y_test))
+
+unique(san_df$CharacteristicCategory)
 ```
 
 ## Model 1: Random Forest
