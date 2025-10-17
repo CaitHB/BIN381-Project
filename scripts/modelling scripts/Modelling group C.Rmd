@@ -344,3 +344,5 @@ par(mfrow = c(1,1))
 This could affect the validity of confidence intervals and hypothesis tests.In the qqplot we see deviations from the line, especially at the tails, that suggest non-normality.
 
 ### Evaluation of each model performance is in the word document.
+
+
