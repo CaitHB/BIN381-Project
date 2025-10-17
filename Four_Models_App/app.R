@@ -13,7 +13,9 @@ library(dplyr)
 library(ggplot2)
 library(caret)
 library(randomForest)
-library(xgboost) 
+library(xgboost)
+library(plotly)  
+
 
 #Load models +  metadata
 
@@ -23,10 +25,10 @@ rf_nutrition      <- saved_nutrition$model
 feature_names_nut <- saved_nutrition$feature_names
 levels_nut        <- saved_nutrition$levels  
 
-    #nutrition dumies setup  
+    #nutrition dummies setup  
 
-    # The model expects k-1 dummies (reference level dropped) with names like "IndicatorTypeI"
-    # Set sep="" so we get "IndicatorTypeI" instead of "IndicatorType.I".
+    # The model expects k-1 dummies with names like IndicatorTypeI
+    # Set sep="" 
 
     nut_template <- data.frame(
       IndicatorType          = factor(levels_nut$IndicatorType[1],          levels = levels_nut$IndicatorType),
@@ -61,6 +63,38 @@ logit_health <- readRDS("finalModels/logit_healthA_model.rds")
 rf_social <- readRDS("finalModels/rf_model_GroupD_Social.rds")
 
 
+#helper for visuals
+
+varimp_safe <- function(model) {
+  vi <- try(caret::varImp(model), silent = TRUE)
+  if (!inherits(vi, "try-error")) {
+    if (is.list(vi) && !is.null(vi$importance)) {
+      df <- vi$importance
+      df$var <- rownames(df); rownames(df) <- NULL
+      names(df)[1] <- "Overall"
+      df <- df[, c("var", "Overall")]
+    } else {
+      df <- as.data.frame(vi)
+      df$var <- rownames(df); rownames(df) <- NULL
+      names(df)[1] <- "Overall"
+      df <- df[, c("var", "Overall")]
+    }
+    return(df)
+  }
+  if (!is.null(model) && !is.null(model$importance)) {
+    imp <- model$importance
+    if (is.matrix(imp)) {
+      df <- data.frame(var = rownames(imp), Overall = imp[, 1], row.names = NULL)
+    } else {
+      df <- data.frame(var = names(imp), Overall = as.numeric(imp), row.names = NULL)
+    }
+    return(df)
+  }
+  NULL
+}
+
+
+
 
 
 # UI mainpage
@@ -89,32 +123,30 @@ ui <- fluidPage(
 # Server
 server <- function(input, output, session) {
   
-  # helper
-  get_levels <- function(model, var) {
-    if (!is.null(model$xlevels) && !is.null(model$xlevels[[var]])) return(model$xlevels[[var]])
-    return(NULL)
-  }
+  `%||%` <- function(a, b) if (!is.null(a)) a else b
+  
   
   
   #A  nutrition model
+  nut_pred <- reactiveVal(NULL)
+  
   observeEvent(input$show_nutrition, {
-    # fallback choices if any levels are missing
-    indcat_choices <- if (!is.null(levels_nut$IndicatorCategoryHigh)) levels_nut$IndicatorCategoryHigh else character(0)
-    indtype_choices <- if (!is.null(levels_nut$IndicatorType)) levels_nut$IndicatorType else character(0)
-    chcat_choices   <- if (!is.null(levels_nut$CharacteristicCategory)) levels_nut$CharacteristicCategory else character(0)
-    popgrp_choices  <- if (!is.null(levels_nut$PopulationGroup)) levels_nut$PopulationGroup else character(0)
+    indcat_choices <- levels_nut$IndicatorCategoryHigh %||% character(0)
+    indtype_choices <- levels_nut$IndicatorType %||% character(0)
+    chcat_choices   <- levels_nut$CharacteristicCategory %||% character(0)
+    popgrp_choices  <- levels_nut$PopulationGroup %||% character(0)
     
     output$nutrition_ui <- renderUI({
       tagList(
         h3("Nutrition Model Inputs"),
-        helpText("Fill in the following features to predict Nutrition Value:"),
+        helpText("Provide inputs, then click Predict to see results & charts."),
         numericInput("nut_den_weight", "Denominator Weighted (DW):", value = 1000, min = 0),
         numericInput("nut_den_unweight", "Denominator Unweighted (DU):", value = 1000, min = 0),
         
         if (length(indcat_choices) > 0) {
           selectInput("nut_indcat", "Indicator Category High:", choices = indcat_choices)
         } else {
-          helpText("⚠ IndicatorCategoryHigh levels not found in saved model metadata.")
+          helpText("IndicatorCategoryHigh levels not found in saved model metadata.")
         },
         
         if (length(indtype_choices) > 0) selectInput("nut_indicator_type", "Indicator Type:", choices = indtype_choices),
@@ -122,32 +154,29 @@ server <- function(input, output, session) {
         if (length(popgrp_choices)  > 0) selectInput("nut_population_group", "Population Group:", choices = popgrp_choices),
         
         numericInput("nut_survey_year", "Survey Year:", value = 2020, min = 2000, max = 2030),
-        actionButton("predict_nutrition", "Predict Nutrition")
+        actionButton("predict_nutrition", "Predict Nutrition"),
+        
+        # ---- Appears AFTER prediction ----
+        uiOutput("nut_after_ui")
       )
     })
     
-    # hide other panels when Nutrition is shown
+    # hide others
     output$sanitation_ui <- renderUI(NULL)
     output$health_ui     <- renderUI(NULL)
     output$social_ui     <- renderUI(NULL)
     
     showNotification("Nutrition model loaded.", type = "message")
-  }) 
+  })
   
   observeEvent(input$predict_nutrition, {
     req(input$nut_den_weight, input$nut_den_unweight, input$nut_indicator_type,
         input$nut_characteristic_category, input$nut_population_group,
         input$nut_survey_year, input$nut_indcat)
     
-    # in-flight notice (store id so we can remove it)
     nid <- showNotification("Running nutrition prediction…", type = "message", duration = NULL, closeButton = FALSE)
+    on.exit(try(removeNotification(nid), silent = TRUE), add = TRUE)
     
-    on.exit({
-     
-      try(removeNotification(nid), silent = TRUE)
-    }, add = TRUE)
-    
-    # build base_df 
     base_df <- data.frame(
       IndicatorType          = factor(input$nut_indicator_type,          levels = levels_nut$IndicatorType),
       CharacteristicCategory = factor(input$nut_characteristic_category, levels = levels_nut$CharacteristicCategory),
@@ -159,33 +188,70 @@ server <- function(input, output, session) {
       stringsAsFactors       = FALSE
     )
     
-    # the RF expects dummies 
-    if (!exists("req_nut_cols", inherits = TRUE)) req_nut_cols <- rf_nutrition$xNames
-    
     if ("Weight_Ratio" %in% req_nut_cols) {
       base_df$Weight_Ratio <- base_df$DenominatorWeighted / pmax(base_df$DenominatorUnweighted, 1e-9)
     }
     
-    # build dummies with the encoder 
     X_cat <- predict(dummies_nutrition, newdata = base_df) |> as.data.frame(check.names = FALSE)
     X_num <- base_df[, setdiff(names(base_df), c("IndicatorType","CharacteristicCategory","PopulationGroup","IndicatorCategoryHigh")), drop = FALSE]
     X_new <- cbind(X_num, X_cat)
-    
     miss <- setdiff(req_nut_cols, names(X_new)); if (length(miss)) for (m in miss) X_new[[m]] <- 0
     extra <- setdiff(names(X_new), req_nut_cols); if (length(extra)) X_new <- X_new[, setdiff(names(X_new), extra), drop = FALSE]
     X_new <- X_new[, req_nut_cols, drop = FALSE]
     
     tryCatch({
       pred <- predict(rf_nutrition, newdata = X_new)
+      nut_pred(as.numeric(pred))
       
-      # success
       showModal(modalDialog(
         title = "Nutrition Prediction",
-        paste("Predicted Nutrition Value:", round(as.numeric(pred), 2)),
+        paste("Predicted Nutrition Value:", round(nut_pred(), 2)),
         easyClose = TRUE
       ))
+      # Build AFTER UI (interactive charts)
+      output$nut_after_ui <- renderUI({
+        req(nut_pred())
+        tagList(
+          hr(),
+          h4("Interactive Charts"),
+          fluidRow(
+            column(6, plotlyOutput("nut_col_pred", height = "320px")),
+            column(6, plotlyOutput("nut_pie_dwdu", height = "320px"))
+          ),
+          br(),
+          plotlyOutput("nut_varimp_int", height = "380px")
+        )
+      })
+      
+      # Column chart with predicted value
+      output$nut_col_pred <- renderPlotly({
+        df <- data.frame(Metric = "Predicted Nutrition", Value = nut_pred())
+        plot_ly(df, x = ~Metric, y = ~Value, type = "bar", text = ~round(Value,2), textposition = "auto") |>
+          layout(yaxis = list(title = "Value"), xaxis = list(title = ""))
+      })
+      
+      # Pie: DW vs DU (inputs you provided)
+      output$nut_pie_dwdu <- renderPlotly({
+        slices <- data.frame(
+          Part = c("DW", "DU"),
+          Amount = c(as.numeric(input$nut_den_weight), as.numeric(input$nut_den_unweight))
+        )
+        plot_ly(slices, labels = ~Part, values = ~Amount, type = "pie", textinfo = "label+percent") |>
+          layout(title = "DW vs DU Composition")
+      })
+      
+      # VarImp (interactive column)
+      output$nut_varimp_int <- renderPlotly({
+        df <- varimp_safe(rf_nutrition)
+        req(!is.null(df), nrow(df) > 0)
+        df <- df[order(df$Overall, decreasing = TRUE), ]
+        top <- head(df, 20)
+        plot_ly(top, x = ~reorder(var, Overall), y = ~Overall, type = "bar") |>
+          layout(title = "Top Variable Importance", xaxis = list(title = ""), yaxis = list(title = "Importance")) |>
+          layout(xaxis = list(tickangle = -45))
+      })
+      
     }, error = function(e) {
-   
       need <- paste(req_nut_cols, collapse = ", ")
       have <- paste(colnames(X_new), collapse = ", ")
       showNotification(paste0("Nutrition prediction failed: ", e$message,
@@ -198,13 +264,15 @@ server <- function(input, output, session) {
   
   # create a dummyVars encoder
   # Minimal template includes all possible factor levels 
-  IndicatorType_levels <- c("I", "S", "T", "D", "U")      
-  CharacteristicCategory_levels <- c("Total")             
+  san_pred <- reactiveVal(NULL)
+  
+  # simple encoder skeleton to satisfy dummyVars (not used post-predict visuals)
+  IndicatorType_levels <- c("I", "S", "T", "D", "U")
+  CharacteristicCategory_levels <- c("Total")
   template_df <- data.frame(
     IndicatorType = factor(IndicatorType_levels, levels = IndicatorType_levels),
     CharacteristicCategory = factor(CharacteristicCategory_levels, levels = CharacteristicCategory_levels)
   )
-  
   template_df$DenominatorWeighted <- 0
   template_df$DenominatorUnweighted <- 0
   template_df$Weight_Ratio <- 0
@@ -214,21 +282,18 @@ server <- function(input, output, session) {
     output$sanitation_ui <- renderUI({
       tagList(
         h3("Sanitation Model Inputs"),
-        
-        if (has_survey_year)
-          numericInput("san_year", "Survey Year:", value = 2020, min = 1990, max = 2100),
-        
+        if (has_survey_year) numericInput("san_year", "Survey Year:", value = 2020, min = 1990, max = 2100),
         if (has_weight_ratio) tagList(
           numericInput("san_dw", "Denominator Weighted:", value = 1000, min = 0),
           numericInput("san_du", "Denominator Unweighted:", value = 1000, min = 1)
         ),
-        
-       
         if (length(indicator_feats))
           selectizeInput("san_ind", "IndicatorId* (select all that apply):",
                          choices = indicator_feats, multiple = TRUE),
+        actionButton("predict_sanitation", "Predict Sanitation"),
         
-        actionButton("predict_sanitation", "Predict Sanitation")
+        # ---- Appears AFTER prediction ----
+        uiOutput("san_after_ui")
       )
     })
     output$nutrition_ui <- renderUI(NULL)
@@ -237,19 +302,13 @@ server <- function(input, output, session) {
     showNotification("Sanitation model loaded.", type = "message", duration = 2)
   })
   
-  #  Predict (auto-zeros Dataset* flags, aligns, predicts)
-  `%||%` <- function(a, b) if (!is.null(a)) a else b
-  
   observeEvent(input$predict_sanitation, {
-   
     nid <- showNotification("Running sanitation prediction…", type = "message",
                             duration = NULL, closeButton = FALSE)
     on.exit(try(removeNotification(nid), silent = TRUE), add = TRUE)
     
-    # Start with zero for ALL expected features (length = 105)
     X <- setNames(as.list(rep(0, length(feature_names_san))), feature_names_san)
     
-    # SurveyYear / Weight_Ratio if present 
     if (has_survey_year) {
       req(input$san_year)
       X[["SurveyYear"]] <- as.numeric(input$san_year)
@@ -261,28 +320,75 @@ server <- function(input, output, session) {
       X[["Weight_Ratio"]] <- as.numeric(input$san_dw) / as.numeric(input$san_du)
     }
     
-    # Flip selected IndicatorId* flags to 1
     sel <- input$san_ind %||% character(0)
     sel <- intersect(sel, feature_names_san)
     for (nm in sel) X[[nm]] <- 1
     
-    #  zero out any Dataset* flags 
     if (length(dataset_feats)) {
       for (nm in dataset_feats) if (nm %in% names(X)) X[[nm]] <- 0
     }
     
-    #  matrix in the order the booster expects
     X_new <- as.matrix(as.data.frame(X, check.names = FALSE))[ , feature_names_san, drop = FALSE]
     
-    # Predict
     tryCatch({
       dmat <- xgboost::xgb.DMatrix(data = X_new)
       pred <- predict(xgb_sanitation, dmat)
+      san_pred(as.numeric(pred))
+      
       showModal(modalDialog(
         title = "Sanitation Prediction",
-        paste("Predicted Value:", round(as.numeric(pred), 2)),
+        paste("Predicted Value:", round(san_pred(), 2)),
         easyClose = TRUE
       ))
+      
+      # AFTER UI: interactive charts
+      output$san_after_ui <- renderUI({
+        req(san_pred())
+        tagList(
+          hr(),
+          h4("Interactive Charts"),
+          fluidRow(
+            column(6, plotlyOutput("san_col_pred", height = "320px")),
+            column(6, plotlyOutput("san_pie_inds", height = "320px"))
+          ),
+          br(),
+          plotlyOutput("san_importance_int", height = "380px")
+        )
+      })
+      
+      # Column (predicted)
+      output$san_col_pred <- renderPlotly({
+        df <- data.frame(Metric = "Predicted Sanitation", Value = san_pred())
+        plot_ly(df, x = ~Metric, y = ~Value, type = "bar", text = ~round(Value,2), textposition = "auto") |>
+          layout(yaxis = list(title = "Value"), xaxis = list(title = ""))
+      })
+      
+      # Pie: Selected vs Unselected indicators
+      output$san_pie_inds <- renderPlotly({
+        total_inds <- length(indicator_feats)
+        sel_count  <- length(input$san_ind %||% character(0))
+        un_count   <- max(total_inds - sel_count, 0)
+        slices <- data.frame(
+          Part = c("Selected Indicators", "Unselected"),
+          Amount = c(sel_count, un_count)
+        )
+        plot_ly(slices, labels = ~Part, values = ~Amount, type = "pie", textinfo = "label+percent") |>
+          layout(title = "IndicatorId Selection")
+      })
+      
+      # XGB importance (global) shown AFTER prediction
+      output$san_importance_int <- renderPlotly({
+        imp <- tryCatch({
+          xgboost::xgb.importance(model = xgb_sanitation)
+        }, error = function(e) NULL)
+        req(!is.null(imp), nrow(imp) > 0)
+        imp <- imp[1:min(20, nrow(imp)), ]
+        plot_ly(imp, x = ~reorder(Feature, Gain), y = ~Gain, type = "bar") |>
+          layout(title = "Top XGBoost Feature Importance (Gain)",
+                 xaxis = list(title = "", tickangle = -45),
+                 yaxis = list(title = "Gain"))
+      })
+      
     }, error = function(e) {
       showNotification(paste0("Sanitation prediction failed: ", e$message,
                               "\nNeeded: [", paste(feature_names_san, collapse = ", "),
@@ -292,8 +398,10 @@ server <- function(input, output, session) {
   })
   
   # C. Health model (logit)
+  health_prob <- reactiveVal(NULL)
+  health_class <- reactiveVal(NULL)
+  
   observeEvent(input$show_health, {
-    # pull levels from the model
     year_levels <- if (!is.null(logit_health$xlevels$SurveyYear)) logit_health$xlevels$SurveyYear else c("1998","2016")
     ind_levels  <- if (!is.null(logit_health$xlevels$IndicatorId)) logit_health$xlevels$IndicatorId else character(0)
     
@@ -303,8 +411,11 @@ server <- function(input, output, session) {
         selectInput("health_year", "Survey Year:", choices = year_levels, selected = year_levels[1]),
         selectInput("health_ind",  "IndicatorId:", choices = ind_levels,  selected = ind_levels[1]),
         numericInput("health_dw",  "Denominator Weighted (DW):", value = 1000, min = 1),
-        helpText("DW_log will be computed as log(DW)."),
-        actionButton("predict_health", "Predict Health")
+        helpText("DW_log is computed as log(DW)."),
+        actionButton("predict_health", "Predict Health"),
+        
+        # ---- Appears AFTER prediction ----
+        uiOutput("health_after_ui")
       )
     })
     output$nutrition_ui <- renderUI(NULL)
@@ -317,37 +428,92 @@ server <- function(input, output, session) {
     req(input$health_year, input$health_ind, input$health_dw)
     validate(need(is.finite(input$health_dw) && input$health_dw > 0, "DW must be > 0"))
     
-    # DW_log as used in training (R's log() is natural log)
-    DW_log_val <- log(as.numeric(input$health_dw))
-    
     newdata <- data.frame(
       SurveyYear = factor(input$health_year, levels = logit_health$xlevels$SurveyYear),
       IndicatorId = factor(input$health_ind, levels = logit_health$xlevels$IndicatorId),
-      DW_log = DW_log_val
+      DW_log = log(as.numeric(input$health_dw))
     )
     
-    # in-flight banner
     nid <- showNotification("Running health prediction…", type = "message", duration = NULL, closeButton = FALSE)
     on.exit(try(removeNotification(nid), silent = TRUE), add = TRUE)
     
     tryCatch({
-      p <- predict(logit_health, newdata = newdata, type = "response")
+      p <- as.numeric(predict(logit_health, newdata = newdata, type = "response"))
       cls <- ifelse(p >= 0.5, "High", "Low")
+      health_prob(p)
+      health_class(cls)
+      
       showModal(modalDialog(
         title = "Health Prediction",
-        paste0("Predicted Class: ", cls, " (Probability: ", sprintf("%.3f", as.numeric(p)), ")"),
+        paste0("Predicted Class: ", cls, " (Probability: ", sprintf("%.3f", p), ")"),
         easyClose = TRUE
       ))
+      
+      output$health_after_ui <- renderUI({
+        req(health_prob(), health_class())
+        tagList(
+          hr(),
+          h4("Interactive Charts"),
+          fluidRow(
+            column(6, plotlyOutput("health_pie_prob", height = "320px")),
+            column(6, plotlyOutput("health_col_prob", height = "320px"))
+          ),
+          br(),
+          plotlyOutput("health_coef_int", height = "420px")
+        )
+      })
+      
+      # Pie: Prob High vs Low
+      output$health_pie_prob <- renderPlotly({
+        slices <- data.frame(
+          Class = c("High", "Low"),
+          Prob  = c(health_prob(), 1 - health_prob())
+        )
+        plot_ly(slices, labels = ~Class, values = ~Prob, type = "pie", textinfo = "label+percent") |>
+          layout(title = "Class Probabilities")
+      })
+      
+      # Column: Probability bar with 0.5 threshold line
+      output$health_col_prob <- renderPlotly({
+        df <- data.frame(Measure = health_class(), Probability = health_prob())
+        plt <- plot_ly(df, x = ~Measure, y = ~Probability, type = "bar",
+                       text = ~sprintf("%.3f", Probability), textposition = "auto") |>
+          layout(yaxis = list(title = "Probability", range = c(0,1)),
+                 xaxis = list(title = ""),
+                 shapes = list(list(type = "line", x0 = -0.5, x1 = 1.5, y0 = 0.5, y1 = 0.5,
+                                    line = list(dash = "dot"))))
+        plt
+      })
+      
+      # Coefficients forest (interactive)
+      output$health_coef_int <- renderPlotly({
+        sm <- coef(summary(logit_health))
+        df <- data.frame(
+          term = rownames(sm),
+          estimate = sm[, "Estimate"],
+          se = sm[, "Std. Error"],
+          stringsAsFactors = FALSE
+        )
+        df <- df[df$term != "(Intercept)", , drop = FALSE]
+        df$lo <- df$estimate - 1.96 * df$se
+        df$hi <- df$estimate + 1.96 * df$se
+        plot_ly(df, x = ~estimate, y = ~term, type = "scatter", mode = "markers",
+                error_x = list(array = 1.96 * df$se, thickness = 1)) |>
+          layout(title = "Logistic Regression Coefficients",
+                 xaxis = list(title = "β (95% CI)"), yaxis = list(title = ""))
+      })
+      
     }, error = function(e) {
       showNotification(paste("Health prediction error:", e$message), type = "error", duration = 8)
     })
   })
-    
+  
   
   #D  Social model
   
+  social_pred <- reactiveVal(NULL)
+  
   observeEvent(input$show_social, {
-    # pull training levels
     social_cat_levels  <- rf_social$xlevels$CharacteristicCategory
     social_lab_levels  <- rf_social$xlevels$CharacteristicLabel
     social_ind_levels  <- rf_social$xlevels$IndicatorId
@@ -362,11 +528,13 @@ server <- function(input, output, session) {
         selectInput("social_ind", "IndicatorId:",
                     choices = social_ind_levels, selected = social_ind_levels[1]),
         numericInput("social_year", "Survey Year:", value = 2016, min = 1900, max = 2100),
-        actionButton("predict_social", "Predict Social")
+        actionButton("predict_social", "Predict Social"),
+        
+        # ---- Appears AFTER prediction ----
+        uiOutput("social_after_ui")
       )
     })
     
-    # hide others
     output$nutrition_ui <- renderUI(NULL)
     output$sanitation_ui <- renderUI(NULL)
     output$health_ui    <- renderUI(NULL)
@@ -374,16 +542,13 @@ server <- function(input, output, session) {
     showNotification("Social model loaded.", type = "message", duration = 2)
   })
   
-  
   observeEvent(input$predict_social, {
     req(input$social_charcat, input$social_charlab, input$social_ind, input$social_year)
-    
     
     nid <- showNotification("Running social prediction…", type = "message",
                             duration = NULL, closeButton = FALSE)
     on.exit(try(removeNotification(nid), silent = TRUE), add = TRUE)
     
-    # build newdata with the model’s exact factor levels
     newdata <- data.frame(
       CharacteristicCategory = factor(input$social_charcat, levels = rf_social$xlevels$CharacteristicCategory),
       CharacteristicLabel    = factor(input$social_charlab, levels = rf_social$xlevels$CharacteristicLabel),
@@ -393,15 +558,62 @@ server <- function(input, output, session) {
     
     tryCatch({
       pred <- predict(rf_social, newdata = newdata)
+      social_pred(as.numeric(pred))
+      
       showModal(modalDialog(
         title = "Social Prediction",
-        paste("Predicted Value:", round(as.numeric(pred), 2)),
+        paste("Predicted Value:", round(social_pred(), 2)),
         easyClose = TRUE
       ))
+      
+      output$social_after_ui <- renderUI({
+        req(social_pred())
+        tagList(
+          hr(),
+          h4("Interactive Charts"),
+          fluidRow(
+            column(6, plotlyOutput("social_col_pred", height = "320px")),
+            column(6, plotlyOutput("social_pie_factors", height = "320px"))
+          ),
+          br(),
+          plotlyOutput("social_varimp_int", height = "380px")
+        )
+      })
+      
+      # Column: predicted
+      output$social_col_pred <- renderPlotly({
+        df <- data.frame(Metric = "Predicted Social", Value = social_pred())
+        plot_ly(df, x = ~Metric, y = ~Value, type = "bar", text = ~round(Value,2), textposition = "auto") |>
+          layout(yaxis = list(title = "Value"), xaxis = list(title = ""))
+      })
+      
+      # Pie: categorical selections snapshot
+      output$social_pie_factors <- renderPlotly({
+        # Show how inputs split across three categorical choices (just a visual snapshot)
+        slices <- data.frame(
+          Part = c("CharacteristicCategory", "CharacteristicLabel", "IndicatorId"),
+          Count = c(1,1,1)
+        )
+        plot_ly(slices, labels = ~Part, values = ~Count, type = "pie", textinfo = "label+percent") |>
+          layout(title = "Selected Factor Snapshot")
+      })
+      
+      # VarImp AFTER prediction
+      output$social_varimp_int <- renderPlotly({
+        df <- varimp_safe(rf_social)
+        req(!is.null(df), nrow(df) > 0)
+        df <- df[order(df$Overall, decreasing = TRUE), ]
+        top <- head(df, 20)
+        plot_ly(top, x = ~reorder(var, Overall), y = ~Overall, type = "bar") |>
+          layout(title = "Top Variable Importance",
+                 xaxis = list(title = "", tickangle = -45),
+                 yaxis = list(title = "Importance"))
+      })
+      
     }, error = function(e) {
       showNotification(paste("Social prediction error:", e$message), type = "error", duration = 8)
     })
   })
-  
 }
+
 shinyApp(ui, server)
