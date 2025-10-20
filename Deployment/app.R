@@ -292,7 +292,7 @@ server <- function(input, output, session) {
                          choices = indicator_feats, multiple = TRUE),
         actionButton("predict_sanitation", "Predict Sanitation"),
         
-        # ---- Appears AFTER prediction ----
+        
         uiOutput("san_after_ui")
       )
     })
@@ -301,8 +301,14 @@ server <- function(input, output, session) {
     output$social_ui    <- renderUI(NULL)
     showNotification("Sanitation model loaded.", type = "message", duration = 2)
   })
-  
+ 
   observeEvent(input$predict_sanitation, {
+    
+    if (is.null(input$san_ind) || length(input$san_ind) == 0) {
+      showNotification("Please select at least one IndicatorId* before predicting.", type = "error", duration = 5)
+      return(invisible(NULL))
+    }
+    
     nid <- showNotification("Running sanitation prediction…", type = "message",
                             duration = NULL, closeButton = FALSE)
     on.exit(try(removeNotification(nid), silent = TRUE), add = TRUE)
@@ -376,7 +382,7 @@ server <- function(input, output, session) {
           layout(title = "IndicatorId Selection")
       })
       
-      # XGB importance (global) shown AFTER prediction
+      # XGB importance 
       output$san_importance_int <- renderPlotly({
         imp <- tryCatch({
           xgboost::xgb.importance(model = xgb_sanitation)
@@ -414,7 +420,6 @@ server <- function(input, output, session) {
         helpText("DW_log is computed as log(DW)."),
         actionButton("predict_health", "Predict Health"),
         
-        # ---- Appears AFTER prediction ----
         uiOutput("health_after_ui")
       )
     })
@@ -530,7 +535,7 @@ server <- function(input, output, session) {
         numericInput("social_year", "Survey Year:", value = 2016, min = 1900, max = 2100),
         actionButton("predict_social", "Predict Social"),
         
-        # ---- Appears AFTER prediction ----
+      
         uiOutput("social_after_ui")
       )
     })
