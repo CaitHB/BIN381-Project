@@ -100,7 +100,7 @@ varimp_safe <- function(model) {
 # UI mainpage
 
 ui <- fluidPage(
-  titlePanel("Four Models Prediction App"),
+  titlePanel("SocioHealth Analytics SA"),
   fluidRow(
     column(3, actionButton("show_nutrition", "Nutrition Model", width = "100%"),
            style = "background-color: #E6F2FF; padding: 20px; text-align:center;"),
